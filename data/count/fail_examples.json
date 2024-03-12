@@ -1,0 +1,610 @@
+[
+    {
+        "p_str": "SELECT T3.Name, COUNT(*) FROM concert AS T1 JOIN singer_in_concert AS T2 ON T1.concert_ID = T2.concert_ID JOIN stadium AS T3 ON T1.Stadium_ID = T3.Stadium_ID GROUP BY T1.Stadium_ID",
+        "g_str": [
+            "SELECT T2.name ,  count(*) FROM concert AS T1 JOIN stadium AS T2 ON T1.stadium_id  =  T2.stadium_id GROUP BY T1.stadium_id",
+            "concert_singer"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT T1.Stadium_ID, T2.Name, COUNT(*) FROM concert AS T1 JOIN stadium AS T2 ON T1.Stadium_ID = T2.Stadium_ID GROUP BY T1.Stadium_ID, T2.Name",
+        "g_str": [
+            "SELECT T2.name ,  count(*) FROM concert AS T1 JOIN stadium AS T2 ON T1.stadium_id  =  T2.stadium_id GROUP BY T1.stadium_id",
+            "concert_singer"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT T3.Name, T3.Capacity FROM concert AS T1 JOIN singer_in_concert AS T2 ON T1.concert_ID = T2.concert_ID JOIN stadium AS T3 ON T1.Stadium_ID = T3.Stadium_ID WHERE T1.Year >= 2014 GROUP BY T1.Stadium_ID ORDER BY COUNT(*) DESC LIMIT 1",
+        "g_str": [
+            "SELECT T2.name ,  T2.capacity FROM concert AS T1 JOIN stadium AS T2 ON T1.stadium_id  =  T2.stadium_id WHERE T1.year  >=  2014 GROUP BY T2.stadium_id ORDER BY count(*) DESC LIMIT 1",
+            "concert_singer"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT T2.Continent, COUNT(*) FROM car_makers AS T1 JOIN countries AS T2 ON T1.Country = T2.CountryId JOIN continents AS T3 ON T2.Continent = T3.ContId GROUP BY T2.Continent",
+        "g_str": [
+            "SELECT T1.Continent ,  count(*) FROM CONTINENTS AS T1 JOIN COUNTRIES AS T2 ON T1.ContId  =  T2.continent JOIN car_makers AS T3 ON T2.CountryId  =  T3.Country GROUP BY T1.Continent;",
+            "car_1"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT T2.Id, T2.Maker FROM model_list AS T1 JOIN car_makers AS T2 ON T1.Maker = T2.Id GROUP BY T1.Maker HAVING count(*) > 3",
+        "g_str": [
+            "SELECT T1.FullName ,  T1.Id FROM CAR_MAKERS AS T1 JOIN MODEL_LIST AS T2 ON T1.Id  =  T2.Maker GROUP BY T1.Id HAVING count(*)  >  3;",
+            "car_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT T2.Id, T2.Maker FROM model_list AS T1 JOIN car_makers AS T2 ON T1.Maker = T2.Id GROUP BY T2.Id HAVING COUNT(*) >= 2",
+        "g_str": [
+            "select t1.id ,  t1.maker from car_makers as t1 join model_list as t2 on t1.id  =  t2.maker group by t1.id having count(*)  >=  2 intersect select t1.id ,  t1.maker from car_makers as t1 join model_list as t2 on t1.id  =  t2.maker join car_names as t3 on t2.model  =  t3.model group by t1.id having count(*)  >  3;",
+            "car_1"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT T2.Id, T2.Maker FROM model_list AS T1 JOIN car_makers AS T2 ON T1.Maker = T2.Id GROUP BY T2.Id, T2.Maker HAVING COUNT(*) >= 2 AND COUNT(*) > 3",
+        "g_str": [
+            "SELECT T1.Id ,  T1.Maker FROM CAR_MAKERS AS T1 JOIN MODEL_LIST AS T2 ON T1.Id  =  T2.Maker GROUP BY T1.Id HAVING count(*)  >=  2 INTERSECT SELECT T1.Id ,  T1.Maker FROM CAR_MAKERS AS T1 JOIN MODEL_LIST AS T2 ON T1.Id  =  T2.Maker JOIN CAR_NAMES AS T3 ON T2.model  =  T3.model GROUP BY T1.Id HAVING count(*)  >  3;",
+            "car_1"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT SourceAirport FROM flights GROUP BY SourceAirport ORDER BY COUNT(*) DESC LIMIT 1",
+        "g_str": [
+            "SELECT T1.City FROM AIRPORTS AS T1 JOIN FLIGHTS AS T2 ON T1.AirportCode  =  T2.SourceAirport GROUP BY T1.City ORDER BY count(*) DESC LIMIT 1",
+            "flight_2"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT SourceAirport FROM flights GROUP BY SourceAirport ORDER BY COUNT(*) DESC LIMIT 1",
+        "g_str": [
+            "SELECT T1.City FROM AIRPORTS AS T1 JOIN FLIGHTS AS T2 ON T1.AirportCode  =  T2.SourceAirport GROUP BY T1.City ORDER BY count(*) DESC LIMIT 1",
+            "flight_2"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT SourceAirport AS AirportCode, COUNT(*) AS FlightCount FROM flights GROUP BY SourceAirport UNION SELECT DestAirport AS AirportCode, COUNT(*) AS FlightCount FROM flights GROUP BY DestAirport ORDER BY FlightCount DESC LIMIT 1",
+        "g_str": [
+            "SELECT T1.AirportCode FROM AIRPORTS AS T1 JOIN FLIGHTS AS T2 ON T1.AirportCode  =  T2.DestAirport OR T1.AirportCode  =  T2.SourceAirport GROUP BY T1.AirportCode ORDER BY count(*) DESC LIMIT 1",
+            "flight_2"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT DestAirport FROM flights GROUP BY DestAirport ORDER BY COUNT(*) DESC LIMIT 1",
+        "g_str": [
+            "SELECT T1.AirportCode FROM AIRPORTS AS T1 JOIN FLIGHTS AS T2 ON T1.AirportCode  =  T2.DestAirport OR T1.AirportCode  =  T2.SourceAirport GROUP BY T1.AirportCode ORDER BY count(*) DESC LIMIT 1",
+            "flight_2"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT DestAirport AS AirportCode FROM flights GROUP BY DestAirport ORDER BY COUNT(*) ASC LIMIT 1UNIONSELECT SourceAirport AS AirportCode FROM flights GROUP BY SourceAirport ORDER BY COUNT(*) ASC LIMIT 1",
+        "g_str": [
+            "SELECT T1.AirportCode FROM AIRPORTS AS T1 JOIN FLIGHTS AS T2 ON T1.AirportCode  =  T2.DestAirport OR T1.AirportCode  =  T2.SourceAirport GROUP BY T1.AirportCode ORDER BY count(*) LIMIT 1",
+            "flight_2"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT SourceAirport AS AirportCode, COUNT(*) AS FlightCount FROM flights GROUP BY SourceAirportUNIONSELECT DestAirport AS AirportCode, COUNT(*) AS FlightCount FROM flights GROUP BY DestAirportORDER BY FlightCount ASC LIMIT 1",
+        "g_str": [
+            "SELECT T1.AirportCode FROM AIRPORTS AS T1 JOIN FLIGHTS AS T2 ON T1.AirportCode  =  T2.DestAirport OR T1.AirportCode  =  T2.SourceAirport GROUP BY T1.AirportCode ORDER BY count(*) LIMIT 1",
+            "flight_2"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT Airline FROM airlines AS A JOIN flights AS F ON A.uid = F.Airline GROUP BY Airline ORDER BY COUNT(*) DESC LIMIT 1",
+        "g_str": [
+            "SELECT T1.Airline FROM AIRLINES AS T1 JOIN FLIGHTS AS T2 ON T1.uid  =  T2.Airline GROUP BY T1.Airline ORDER BY count(*) DESC LIMIT 1",
+            "flight_2"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT airlines.Airline FROM airlines JOIN flights ON airlines.uid = flights.Airline GROUP BY flights.Airline ORDER BY COUNT(*) DESC LIMIT 1",
+        "g_str": [
+            "SELECT T1.Airline FROM AIRLINES AS T1 JOIN FLIGHTS AS T2 ON T1.uid  =  T2.Airline GROUP BY T1.Airline ORDER BY count(*) DESC LIMIT 1",
+            "flight_2"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT A.Abbreviation, A.Country FROM airlines A JOIN flights F ON A.Airline = F.Airline GROUP BY F.Airline ORDER BY COUNT(*) ASC LIMIT 1",
+        "g_str": [
+            "SELECT T1.Abbreviation ,  T1.Country FROM AIRLINES AS T1 JOIN FLIGHTS AS T2 ON T1.uid  =  T2.Airline GROUP BY T1.Airline ORDER BY count(*) LIMIT 1",
+            "flight_2"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT ABBREVIATION, COUNTRY FROM airlines AS A JOIN flights AS F ON A.Airline = F.Airline GROUP BY A.Airline ORDER BY COUNT(*) ASC LIMIT 1",
+        "g_str": [
+            "SELECT T1.Abbreviation ,  T1.Country FROM AIRLINES AS T1 JOIN FLIGHTS AS T2 ON T1.uid  =  T2.Airline GROUP BY T1.Airline ORDER BY count(*) LIMIT 1",
+            "flight_2"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT Airline FROM flights GROUP BY Airline HAVING count(*) >= 10",
+        "g_str": [
+            "SELECT T1.Airline FROM AIRLINES AS T1 JOIN FLIGHTS AS T2 ON T1.uid  =  T2.Airline GROUP BY T1.Airline HAVING count(*)  >  10",
+            "flight_2"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT Airline FROM flights GROUP BY Airline HAVING count(*) >= 10",
+        "g_str": [
+            "SELECT T1.Airline FROM AIRLINES AS T1 JOIN FLIGHTS AS T2 ON T1.uid  =  T2.Airline GROUP BY T1.Airline HAVING count(*)  >  10",
+            "flight_2"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT Airline FROM flights GROUP BY Airline HAVING count(*) < 200",
+        "g_str": [
+            "SELECT T1.Airline FROM AIRLINES AS T1 JOIN FLIGHTS AS T2 ON T1.uid  =  T2.Airline GROUP BY T1.Airline HAVING count(*)  <  200",
+            "flight_2"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT Airline FROM flights GROUP BY Airline HAVING count(*) < 200",
+        "g_str": [
+            "SELECT T1.Airline FROM AIRLINES AS T1 JOIN FLIGHTS AS T2 ON T1.uid  =  T2.Airline GROUP BY T1.Airline HAVING count(*)  <  200",
+            "flight_2"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT City FROM employee GROUP BY City HAVING COUNT(*) > 1 AND Age < 30",
+        "g_str": [
+            "SELECT city FROM employee WHERE age  <  30 GROUP BY city HAVING count(*)  >  1",
+            "employee_hire_evaluation"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT T2.Name FROM shop AS T1 JOIN hiring AS T2 ON T1.Shop_ID = T2.Shop_ID GROUP BY T2.Shop_ID ORDER BY COUNT(*) DESC LIMIT 1",
+        "g_str": [
+            "SELECT t2.name FROM hiring AS t1 JOIN shop AS t2 ON t1.shop_id  =  t2.shop_id GROUP BY t1.shop_id ORDER BY count(*) DESC LIMIT 1",
+            "employee_hire_evaluation"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT T2.Name FROM shop AS T1 JOIN hiring AS T2 ON T1.Shop_ID = T2.Shop_ID GROUP BY T2.Shop_ID ORDER BY COUNT(*) DESC LIMIT 1",
+        "g_str": [
+            "SELECT t2.name FROM hiring AS t1 JOIN shop AS t2 ON t1.shop_id  =  t2.shop_id GROUP BY t1.shop_id ORDER BY count(*) DESC LIMIT 1",
+            "employee_hire_evaluation"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT Template_Type_Code, COUNT(*) FROM Documents JOIN Templates ON Documents.Template_ID = Templates.Template_ID JOIN Ref_Template_Types ON Templates.Template_Type_Code = Ref_Template_Types.Template_Type_Code GROUP BY Template_Type_Code",
+        "g_str": [
+            "SELECT T1.template_type_code ,  count(*) FROM Templates AS T1 JOIN Documents AS T2 ON T1.template_id  =  T2.template_id GROUP BY T1.template_type_code",
+            "cre_Doc_Template_Mgt"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT T2.ID, T2.Name, T2.Level_of_membership FROM visit AS T1 JOIN visitor AS T2 ON T1.visitor_ID = T2.ID GROUP BY T1.visitor_ID ORDER BY SUM(T1.Total_spent) DESC LIMIT 1",
+        "g_str": [
+            "SELECT t2.visitor_id ,  t1.name ,  t1.Level_of_membership FROM visitor AS t1 JOIN visit AS t2 ON t1.id  =  t2.visitor_id GROUP BY t2.visitor_id ORDER BY sum(t2.Total_spent) DESC LIMIT 1",
+            "museum_visit"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT tourney_name FROM matches GROUP BY tourney_id HAVING count(*) > 10",
+        "g_str": [
+            "SELECT tourney_name FROM matches GROUP BY tourney_name HAVING count(*)  >  10",
+            "wta_1"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT tourney_name FROM matches GROUP BY tourney_id HAVING count(*) > 10",
+        "g_str": [
+            "SELECT tourney_name FROM matches GROUP BY tourney_name HAVING count(*)  >  10",
+            "wta_1"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT year, COUNT(*) FROM matches GROUP BY year ORDER BY COUNT(*) DESC LIMIT 1",
+        "g_str": [
+            "SELECT YEAR FROM matches GROUP BY YEAR ORDER BY count(*) DESC LIMIT 1",
+            "wta_1"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT year, COUNT(*) FROM matches GROUP BY year ORDER BY COUNT(*) DESC LIMIT 1",
+        "g_str": [
+            "SELECT YEAR FROM matches GROUP BY YEAR ORDER BY count(*) DESC LIMIT 1",
+            "wta_1"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT p.first_name, p.last_name, r.ranking_points FROM matches AS m JOIN players AS p ON m.winner_id = p.player_id JOIN rankings AS r ON p.player_id = r.player_id GROUP BY m.winner_id ORDER BY COUNT(*) DESC LIMIT 1",
+        "g_str": [
+            "SELECT winner_name ,  winner_rank_points FROM matches GROUP BY winner_name ORDER BY count(*) DESC LIMIT 1",
+            "wta_1"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT p.first_name, p.last_name, r.ranking_points FROM players AS p JOIN matches AS m ON p.player_id = m.winner_id JOIN rankings AS r ON p.player_id = r.player_id GROUP BY m.winner_id ORDER BY COUNT(*) DESC LIMIT 1",
+        "g_str": [
+            "SELECT winner_name ,  winner_rank_points FROM matches GROUP BY winner_name ORDER BY count(*) DESC LIMIT 1",
+            "wta_1"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT players.first_name, AVG(rankings.ranking) FROM players JOIN rankings ON players.player_id = rankings.player_id GROUP BY players.player_id",
+        "g_str": [
+            "SELECT avg(ranking) ,  T1.first_name FROM players AS T1 JOIN rankings AS T2 ON T1.player_id  =  T2.player_id GROUP BY T1.first_name",
+            "wta_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT first_name, AVG(ranking) FROM players JOIN rankings ON players.player_id = rankings.player_id GROUP BY players.player_id",
+        "g_str": [
+            "SELECT avg(ranking) ,  T1.first_name FROM players AS T1 JOIN rankings AS T2 ON T1.player_id  =  T2.player_id GROUP BY T1.first_name",
+            "wta_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT players.first_name, SUM(rankings.ranking_points) FROM players JOIN rankings ON players.player_id = rankings.player_id GROUP BY players.player_id",
+        "g_str": [
+            "SELECT sum(ranking_points) ,  T1.first_name FROM players AS T1 JOIN rankings AS T2 ON T1.player_id  =  T2.player_id GROUP BY T1.first_name",
+            "wta_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT players.first_name, SUM(rankings.ranking_points) FROM players JOIN rankings ON players.player_id = rankings.player_id GROUP BY players.player_id",
+        "g_str": [
+            "SELECT sum(ranking_points) ,  T1.first_name FROM players AS T1 JOIN rankings AS T2 ON T1.player_id  =  T2.player_id GROUP BY T1.first_name",
+            "wta_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT ranking_date, COUNT(*) FROM rankings GROUP BY ranking_date",
+        "g_str": [
+            "SELECT sum(tours) ,  ranking_date FROM rankings GROUP BY ranking_date",
+            "wta_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT ranking_date, COUNT(*) FROM rankings GROUP BY ranking_date",
+        "g_str": [
+            "SELECT sum(tours) ,  ranking_date FROM rankings GROUP BY ranking_date",
+            "wta_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT T1.id, T1.name FROM battle AS T1 JOIN death AS T2 ON T2.caused_by_ship_id = T1.id GROUP BY T1.id HAVING SUM(T2.killed) > 10",
+        "g_str": [
+            "SELECT T1.id ,  T1.name FROM battle AS T1 JOIN ship AS T2 ON T1.id  =  T2.lost_in_battle JOIN death AS T3 ON T2.id  =  T3.caused_by_ship_id GROUP BY T1.id HAVING sum(T3.killed)  >  10",
+            "battle_death"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT T2.id, T2.name FROM death AS T1 JOIN ship AS T2 ON T1.caused_by_ship_id = T2.id GROUP BY T1.caused_by_ship_id ORDER BY SUM(T1.injured) DESC LIMIT 1",
+        "g_str": [
+            "SELECT T2.id ,  T2.name FROM death AS T1 JOIN ship AS t2 ON T1.caused_by_ship_id  =  T2.id GROUP BY T2.id ORDER BY count(*) DESC LIMIT 1",
+            "battle_death"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT department_id, count(*) FROM degree_programs GROUP BY department_id ORDER BY count(*) DESC LIMIT 1",
+        "g_str": [
+            "select t2.department_name ,  t1.department_id from degree_programs as t1 join departments as t2 on t1.department_id  =  t2.department_id group by t1.department_id order by count(*) desc limit 1",
+            "student_transcripts_tracking"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT T2.degree_summary_name FROM degree_programs AS T1 JOIN student_enrolment AS T2 ON T1.degree_program_id = T2.degree_program_id GROUP BY T2.degree_program_id ORDER BY COUNT(*) DESC LIMIT 1",
+        "g_str": [
+            "SELECT T1.degree_summary_name FROM Degree_Programs AS T1 JOIN Student_Enrolment AS T2 ON T1.degree_program_id  =  T2.degree_program_id GROUP BY T1.degree_summary_name ORDER BY count(*) DESC LIMIT 1",
+            "student_transcripts_tracking"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT T1.degree_program_id, T2.degree_summary_name FROM degree_programs AS T1 JOIN student_enrolment AS T2 ON T1.degree_program_id = T2.degree_program_id GROUP BY T1.degree_program_id ORDER BY COUNT(*) DESC LIMIT 1",
+        "g_str": [
+            "SELECT T1.degree_program_id ,  T1.degree_summary_name FROM Degree_Programs AS T1 JOIN Student_Enrolment AS T2 ON T1.degree_program_id  =  T2.degree_program_id GROUP BY T1.degree_program_id ORDER BY count(*) DESC LIMIT 1",
+            "student_transcripts_tracking"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT degree_program_id, degree_summary_description FROM degree_programs WHERE degree_program_id = (    SELECT degree_program_id     FROM student_enrolment     GROUP BY degree_program_id     ORDER BY count(*) DESC     LIMIT 1)",
+        "g_str": [
+            "SELECT T1.degree_program_id ,  T1.degree_summary_name FROM Degree_Programs AS T1 JOIN Student_Enrolment AS T2 ON T1.degree_program_id  =  T2.degree_program_id GROUP BY T1.degree_program_id ORDER BY count(*) DESC LIMIT 1",
+            "student_transcripts_tracking"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT T1.student_id, T2.first_name, T2.middle_name, T2.last_name, COUNT(*) AS num_enrollments FROM Student_Enrolment AS T1 JOIN Students AS T2 ON T1.student_id = T2.student_id GROUP BY T1.student_id ORDER BY COUNT(*) DESC LIMIT 1",
+        "g_str": [
+            "SELECT T1.student_id ,  T1.first_name ,  T1.middle_name ,  T1.last_name ,  count(*) ,  T1.student_id FROM Students AS T1 JOIN Student_Enrolment AS T2 ON T1.student_id  =  T2.student_id GROUP BY T1.student_id ORDER BY count(*) DESC LIMIT 1",
+            "student_transcripts_tracking"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT T2.first_name, T2.middle_name, T2.last_name, T1.student_id, COUNT(*) FROM Student_Enrolment AS T1 JOIN Students AS T2 ON T1.student_id = T2.student_id GROUP BY T1.student_id ORDER BY COUNT(*) DESC LIMIT 1",
+        "g_str": [
+            "SELECT T1.student_id ,  T1.first_name ,  T1.middle_name ,  T1.last_name ,  T1.student_id ,  count(*) FROM Students AS T1 JOIN Student_Enrolment AS T2 ON T1.student_id  =  T2.student_id GROUP BY T1.student_id ORDER BY count(*) DESC LIMIT 1",
+            "student_transcripts_tracking"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT T2.course_name FROM student_enrolment_courses AS T1 JOIN courses AS T2 ON T1.course_id = T2.course_id GROUP BY T1.course_id ORDER BY COUNT(*) DESC LIMIT 1",
+        "g_str": [
+            "SELECT  T1.course_name FROM Courses AS T1 JOIN Student_Enrolment_Courses AS T2 ON T1.course_id  =  T2.course_id GROUP BY T1.course_name ORDER BY count(*) DESC LIMIT 1",
+            "student_transcripts_tracking"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT T2.course_name FROM student_enrolment_courses AS T1 JOIN courses AS T2 ON T1.course_id = T2.course_id GROUP BY T1.course_id ORDER BY COUNT(*) DESC LIMIT 1",
+        "g_str": [
+            "SELECT  T1.course_name FROM Courses AS T1 JOIN Student_Enrolment_Courses AS T2 ON T1.course_id  =  T2.course_id GROUP BY T1.course_name ORDER BY count(*) DESC LIMIT 1",
+            "student_transcripts_tracking"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT current_address_id, line_1, line_2, line_3 FROM students AS T1 JOIN addresses AS T2 ON T1.current_address_id = T2.address_id GROUP BY current_address_id ORDER BY COUNT(*) DESC LIMIT 1",
+        "g_str": [
+            "SELECT T1.address_id ,  T1.line_1 ,  T1.line_2 FROM Addresses AS T1 JOIN Students AS T2 ON T1.address_id  =  T2.current_address_id GROUP BY T1.address_id ORDER BY count(*) DESC LIMIT 1",
+            "student_transcripts_tracking"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT T3.address_id, T3.line_1, T3.line_2 FROM student_enrolment AS T1 JOIN students AS T2 ON T1.student_id = T2.student_id JOIN addresses AS T3 ON T2.current_address_id = T3.address_id GROUP BY T2.current_address_id ORDER BY COUNT(*) DESC LIMIT 1",
+        "g_str": [
+            "SELECT T1.address_id ,  T1.line_1 ,  T1.line_2 FROM Addresses AS T1 JOIN Students AS T2 ON T1.address_id  =  T2.current_address_id GROUP BY T1.address_id ORDER BY count(*) DESC LIMIT 1",
+            "student_transcripts_tracking"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT id FROM TV_Channel HAVING COUNT(*) > 2",
+        "g_str": [
+            "SELECT id FROM tv_channel GROUP BY country HAVING count(*)  >  2",
+            "tvshow"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT state FROM AREA_CODE_STATE AS T1 JOIN VOTES AS T2 ON T1.state = T2.state GROUP BY T2.state ORDER BY COUNT(*) DESC LIMIT 1",
+        "g_str": [
+            "SELECT T1.area_code FROM area_code_state AS T1 JOIN votes AS T2 ON T1.state  =  T2.state GROUP BY T1.area_code ORDER BY count(*) DESC LIMIT 1",
+            "voter_1"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT Continent FROM country GROUP BY Continent ORDER BY COUNT(DISTINCT Language) DESC LIMIT 1",
+        "g_str": [
+            "SELECT T1.Continent FROM country AS T1 JOIN countrylanguage AS T2 ON T1.Code  =  T2.CountryCode GROUP BY T1.Continent ORDER BY COUNT(*) DESC LIMIT 1",
+            "world_1"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT Language FROM countrylanguage WHERE Language IN (SELECT Language FROM countrylanguage GROUP BY Language HAVING COUNT(*) = 1) AND CountryCode IN (SELECT Code FROM country WHERE GovernmentForm = 'Republic')",
+        "g_str": [
+            "SELECT T2.Language FROM country AS T1 JOIN countrylanguage AS T2 ON T1.Code  =  T2.CountryCode WHERE T1.GovernmentForm  =  \"Republic\" GROUP BY T2.Language HAVING COUNT(*)  =  1",
+            "world_1"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT Language FROM countrylanguage WHERE Language IN (    SELECT Language     FROM countrylanguage     GROUP BY Language     HAVING COUNT(*) = 1) AND CountryCode IN (    SELECT Code     FROM country     WHERE GovernmentForm = 'Republic')",
+        "g_str": [
+            "SELECT T2.Language FROM country AS T1 JOIN countrylanguage AS T2 ON T1.Code  =  T2.CountryCode WHERE T1.GovernmentForm  =  \"Republic\" GROUP BY T2.Language HAVING COUNT(*)  =  1",
+            "world_1"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT T2.Name, T1.Language FROM countrylanguage AS T1 JOIN country AS T2 ON T1.CountryCode = T2.Code WHERE T1.Percentage = (SELECT MAX(Percentage) FROM countrylanguage WHERE CountryCode = T1.CountryCode) GROUP BY T1.CountryCode",
+        "g_str": [
+            "SELECT LANGUAGE ,  CountryCode ,  max(Percentage) FROM countrylanguage GROUP BY CountryCode",
+            "world_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT country.Code, countrylanguage.Language FROM country JOIN countrylanguage ON country.Code = countrylanguage.CountryCode GROUP BY country.Code HAVING countrylanguage.Percentage = (SELECT MAX(Percentage)                                      FROM countrylanguage                                      WHERE countrylanguage.CountryCode = country.Code)",
+        "g_str": [
+            "SELECT LANGUAGE ,  CountryCode ,  max(Percentage) FROM countrylanguage GROUP BY CountryCode",
+            "world_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM country AS T1 JOIN countrylanguage AS T2 ON T1.Code = T2.CountryCode WHERE T2.Language = 'Spanish' AND T2.Percentage = (SELECT MAX(Percentage) FROM countrylanguage WHERE Language = 'Spanish')",
+        "g_str": [
+            "SELECT count(*) ,   max(Percentage) FROM countrylanguage WHERE LANGUAGE  =  \"Spanish\" GROUP BY CountryCode",
+            "world_1"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM countrylanguage WHERE Language = 'Spanish' AND IsOfficial = true",
+        "g_str": [
+            "SELECT count(*) ,   max(Percentage) FROM countrylanguage WHERE LANGUAGE  =  \"Spanish\" GROUP BY CountryCode",
+            "world_1"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT T1.Code FROM country AS T1 JOIN countrylanguage AS T2 ON T1.Code  =  T2.CountryCode WHERE T2.Language  =  'Spanish' GROUP BY T2.CountryCode HAVING T2.Percentage  =  (SELECT MAX(Percentage) FROM countrylanguage WHERE Language  =  'Spanish')",
+        "g_str": [
+            "SELECT CountryCode ,  max(Percentage) FROM countrylanguage WHERE LANGUAGE  =  \"Spanish\" GROUP BY CountryCode",
+            "world_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT CountryCode FROM countrylanguage WHERE Language = 'Spanish' AND IsOfficial = true",
+        "g_str": [
+            "SELECT CountryCode ,  max(Percentage) FROM countrylanguage WHERE LANGUAGE  =  \"Spanish\" GROUP BY CountryCode",
+            "world_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT T2.Name FROM conductor AS T1 JOIN orchestra AS T2 ON T1.Conductor_ID = T2.Conductor_ID GROUP BY T2.Conductor_ID HAVING count(*) > 1",
+        "g_str": [
+            "SELECT T1.Name FROM conductor AS T1 JOIN orchestra AS T2 ON T1.Conductor_ID  =  T2.Conductor_ID GROUP BY T2.Conductor_ID HAVING COUNT(*)  >  1",
+            "orchestra"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT T2.Name FROM conductor AS T1 JOIN orchestra AS T2 ON T1.Conductor_ID = T2.Conductor_ID GROUP BY T2.Conductor_ID HAVING count(*) > 1",
+        "g_str": [
+            "SELECT T1.Name FROM conductor AS T1 JOIN orchestra AS T2 ON T1.Conductor_ID  =  T2.Conductor_ID GROUP BY T2.Conductor_ID HAVING COUNT(*)  >  1",
+            "orchestra"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT T2.Name FROM conductor AS T1 JOIN orchestra AS T2 ON T1.Conductor_ID = T2.Conductor_ID GROUP BY T2.Conductor_ID ORDER BY COUNT(*) DESC LIMIT 1",
+        "g_str": [
+            "SELECT T1.Name FROM conductor AS T1 JOIN orchestra AS T2 ON T1.Conductor_ID  =  T2.Conductor_ID GROUP BY T2.Conductor_ID ORDER BY COUNT(*) DESC LIMIT 1",
+            "orchestra"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT T2.Name FROM conductor AS T1 JOIN orchestra AS T2 ON T1.Conductor_ID = T2.Conductor_ID GROUP BY T2.Conductor_ID ORDER BY COUNT(*) DESC LIMIT 1",
+        "g_str": [
+            "SELECT T1.Name FROM conductor AS T1 JOIN orchestra AS T2 ON T1.Conductor_ID  =  T2.Conductor_ID GROUP BY T2.Conductor_ID ORDER BY COUNT(*) DESC LIMIT 1",
+            "orchestra"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT Major_Record_Format, COUNT(*) FROM orchestra GROUP BY Major_Record_Format ORDER BY COUNT(*) ASC",
+        "g_str": [
+            "SELECT Major_Record_Format FROM orchestra GROUP BY Major_Record_Format ORDER BY COUNT(*) ASC",
+            "orchestra"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT Major_Record_Format, COUNT(*) FROM orchestra GROUP BY Major_Record_Format ORDER BY COUNT(*) DESC",
+        "g_str": [
+            "SELECT Major_Record_Format FROM orchestra GROUP BY Major_Record_Format ORDER BY COUNT(*) ASC",
+            "orchestra"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT T1.professional_id, T1.last_name, T1.cell_number FROM professionals AS T1 JOIN treatments AS T2 ON T1.professional_id = T2.professional_id WHERE T1.state = 'Indiana' OR (SELECT COUNT(*) FROM treatments WHERE professional_id = T1.professional_id) > 2",
+        "g_str": [
+            "SELECT professional_id ,  last_name ,  cell_number FROM Professionals WHERE state  =  'Indiana' UNION SELECT T1.professional_id ,  T1.last_name ,  T1.cell_number FROM Professionals AS T1 JOIN Treatments AS T2 ON T1.professional_id  =  T2.professional_id GROUP BY T1.professional_id HAVING count(*)  >  2",
+            "dog_kennels"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT T1.professional_id, T1.last_name, T1.cell_number FROM professionals AS T1 JOIN treatments AS T2 ON T1.professional_id = T2.professional_id GROUP BY T1.professional_id HAVING COUNT(*) > 2 OR T1.state = 'Indiana'",
+        "g_str": [
+            "SELECT professional_id ,  last_name ,  cell_number FROM Professionals WHERE state  =  'Indiana' UNION SELECT T1.professional_id ,  T1.last_name ,  T1.cell_number FROM Professionals AS T1 JOIN Treatments AS T2 ON T1.professional_id  =  T2.professional_id GROUP BY T1.professional_id HAVING count(*)  >  2",
+            "dog_kennels"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT D.name FROM Dogs AS D JOIN Treatments AS T ON D.dog_id = T.dog_id GROUP BY D.dog_id HAVING SUM(T.cost_of_treatment) <= 1000",
+        "g_str": [
+            "select name from dogs where dog_id not in ( select dog_id from treatments group by dog_id having sum(cost_of_treatment)  >  1000 )",
+            "dog_kennels"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT D.name FROM dogs AS D JOIN treatments AS T ON T.dog_id = D.dog_id GROUP BY D.dog_id HAVING SUM(T.cost_of_treatment) <= 1000",
+        "g_str": [
+            "select name from dogs where dog_id not in ( select dog_id from treatments group by dog_id having sum(cost_of_treatment)  >  1000 )",
+            "dog_kennels"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT T1.owner_id, T2.last_name FROM treatments AS T1 JOIN owners AS T2 ON T1.owner_id = T2.owner_id GROUP BY T1.owner_id ORDER BY COUNT(*) DESC LIMIT 1",
+        "g_str": [
+            "SELECT T1.owner_id ,  T1.last_name FROM Owners AS T1 JOIN Dogs AS T2 ON T1.owner_id  =  T2.owner_id JOIN Treatments AS T3 ON T2.dog_id  =  T3.dog_id GROUP BY T1.owner_id ORDER BY count(*) DESC LIMIT 1",
+            "dog_kennels"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT T2.owner_id, T2.last_name FROM treatments AS T1 JOIN dogs AS T2 ON T1.dog_id = T2.dog_id JOIN owners AS T3 ON T2.owner_id = T3.owner_id GROUP BY T2.owner_id ORDER BY SUM(T1.cost_of_treatment) DESC LIMIT 1",
+        "g_str": [
+            "SELECT T1.owner_id ,  T1.last_name FROM Owners AS T1 JOIN Dogs AS T2 ON T1.owner_id  =  T2.owner_id JOIN Treatments AS T3 ON T2.dog_id  =  T3.dog_id GROUP BY T1.owner_id ORDER BY count(*) DESC LIMIT 1",
+            "dog_kennels"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT T1.owner_id, T2.zip_code FROM treatments AS T1 JOIN owners AS T2 ON T1.owner_id = T2.owner_id GROUP BY T1.owner_id ORDER BY SUM(T1.cost_of_treatment) DESC LIMIT 1",
+        "g_str": [
+            "SELECT T1.owner_id ,  T1.zip_code FROM Owners AS T1 JOIN Dogs AS T2 ON T1.owner_id  =  T2.owner_id JOIN Treatments AS T3 ON T2.dog_id  =  T3.dog_id GROUP BY T1.owner_id ORDER BY sum(T3.cost_of_treatment) DESC LIMIT 1",
+            "dog_kennels"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT D.name, T.date_of_treatment FROM Dogs AS D JOIN Breeds AS B ON D.breed_code = B.breed_code JOIN Treatments AS T ON T.dog_id = D.dog_id GROUP BY D.breed_code HAVING count(*) = (SELECT min(count) FROM (SELECT count(*) AS count FROM Dogs GROUP BY breed_code) AS counts)",
+        "g_str": [
+            "SELECT T1.name ,  T2.date_of_treatment FROM Dogs AS T1 JOIN Treatments AS T2 ON T1.dog_id  =  T2.dog_id WHERE T1.breed_code  =  ( SELECT breed_code FROM Dogs GROUP BY breed_code ORDER BY count(*) ASC LIMIT 1 )",
+            "dog_kennels"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT property_type_description FROM Properties JOIN Ref_Property_Types ON Properties.property_type_code = Ref_Property_Types.property_type_code WHERE Properties.property_type_code = [specific code]",
+        "g_str": [
+            "SELECT T2.property_type_description FROM Properties AS T1 JOIN Ref_Property_Types AS T2 ON T1.property_type_code  =  T2.property_type_code GROUP BY T1.property_type_code",
+            "real_estate_properties"
+        ],
+        "hardness": "medium"
+    }
+]

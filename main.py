@@ -54,7 +54,8 @@ def GPT_generation(prompt):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--test-data", default='./data/count/count.json', type=str)
+    parser.add_argument("--test-data", default='./data/count/count_with_reasoning.json', type=str)
+    parser.add_argument("--output-file", default='./data/count/predict.json', type=str)
     parser.add_argument("--generate-reasoning", action='store_true')
     parser.add_argument("--generate-sql", action='store_true')
     args = parser.parse_args()
@@ -72,7 +73,6 @@ if __name__ == "__main__":
                     response = GPT_generation(query)
                 except:
                     time.sleep(2)
-            import pdb; pdb.set_trace()
             x.update({'reasoning' : response})
             new_data.append(x)
         json.dump(new_data, open("./data/count/count_with_reasoning.json", 'w'))
@@ -89,8 +89,8 @@ if __name__ == "__main__":
                 try:
                     response = GPT_generation(query)
                 except:
-                    time.sleep(1)
+                    time.sleep(2)
             x.update({'predict' : response})
             new_data.append(x)
-        json.dump(new_data, open('./data/predict.json', 'w'))
+        json.dump(new_data, open(args.output_file, 'w'))
             
