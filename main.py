@@ -54,13 +54,17 @@ def GPT_generation(prompt):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--test-data", default='./data/count/count_with_reasoning.json', type=str)
-    parser.add_argument("--output-file", default='./data/count/predict.json', type=str)
+    parser.add_argument("--test-data", default='./data/count_2/gpt-3.5-turbo/count_with_reasoning.json', type=str)
+    parser.add_argument("--output-file", default='count_with_reasoning.json', type=str)
     parser.add_argument("--generate-reasoning", action='store_true')
     parser.add_argument("--generate-sql", action='store_true')
     args = parser.parse_args()
 
     if args.generate_reasoning:
+        output_dir = os.path.join(os.path.dirname(args.test_data), OPENAI_MODEL)
+        if not os.path.exists(output_dir):
+            os.makedirs(output_dir)
+        args.output_file = os.path.join(output_dir, args.output_file)
         data = json.load(open(args.test_data, 'r'))
         new_data = []
         for x in tqdm(data):
@@ -75,9 +79,10 @@ if __name__ == "__main__":
                     time.sleep(2)
             x.update({'reasoning' : response})
             new_data.append(x)
-        json.dump(new_data, open("./data/count/count_with_reasoning.json", 'w'))
+        json.dump(new_data, open(os.path.join(output_dir, 'count_with_reasoning.json'), 'w'))
 
     if args.generate_sql:
+        output_dir = os.path.dirname(args.test_data)
         data = json.load(open(args.test_data, 'r'))
         new_data = []
         for x in tqdm(data):
@@ -92,5 +97,5 @@ if __name__ == "__main__":
                     time.sleep(2)
             x.update({'predict' : response})
             new_data.append(x)
-        json.dump(new_data, open(args.output_file, 'w'))
+        json.dump(new_data, open(os.path.join(output_dir, 'predict.json'), 'w'))
             

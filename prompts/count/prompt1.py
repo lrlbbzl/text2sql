@@ -5,6 +5,32 @@ Example 1:
 The following is a description of a SQL database, including the tables it contains and the foreign key correspondences in each table. A user query is given afterward.
 
 "tables":
+Table item, columns = [*,i_id,title]
+Table review, columns = [*,a_id,u_id,i_id,rating,rank]
+Table trust, columns = [*,source_u_id,target_u_id,trust]
+Table useracct, columns = [*,u_id,name]
+
+"foreign_keys":
+[review.i_id = item.i_id,review.u_id = useracct.u_id,trust.target_u_id = useracct.u_id,trust.source_u_id = useracct.u_id]
+
+user query:
+Find the name of the user who gives the most reviews.
+
+Decompose and find the tables to be used:
+
+Let's think step by step.
+
+Firstly, the query requires the user who gives the most reviews, so we should apply the 'count' operation to table 'review', and sort it in descending order.
+
+Secondly, we need to retrieve the name of user, so we should join table 'useracct'. The query does not require the count of most reviews, so it is only used for filtering and not selected.
+
+Finally, based on the above analysis and requirements in user query, we need to use tables ['review', 'useracct'].
+
+
+Example 2:
+The following is a description of a SQL database, including the tables it contains and the foreign key correspondences in each table. A user query is given afterward.
+
+"tables":
 Table gymnast, columns = [*,Gymnast_ID,Floor_Exercise_Points,Pommel_Horse_Points,Rings_Points,Vault_Points,Parallel_Bars_Points,Horizontal_Bar_Points,Total_Points]
 Table people, columns = [*,People_ID,Name,Age,Height,Hometown]
 
@@ -18,36 +44,11 @@ Decompose and find the tables to be used:
 
 Let's think step by step.
 
-Firstly, the query requires the number of gymnasts from each hometown, so we should apply the 'count' operation to table 'gymnast', and it does not need sort. Since the unit to which the gymnasts being counted in the query belong is hometown and only table 'people' has column 'Hometown', so we should apply the 'group by' operation to column 'Hometown' in table 'people'. 
+Firstly, the query requires the number of gymnasts from each hometown, so we should apply the 'count' operation to table 'gymnast', and it does not need sort. The unit to which the gymnasts being counted in the query belong is hometown, so we should apply the 'group by' operation to column 'Hometown' in table 'people'
 
 Secondly, we need to retrieve the hometown, so we should join table 'people'. The query requires the count of gymnasts, so it needs to be selected.
 
 Finally, based on the above analysis and requirements in user query, we need to use tables ['gymnast', 'people'].
-
-
-Example 2:
-The following is a description of a SQL database, including the tables it contains and the foreign key correspondences in each table. A user query is given afterward.
-
-"tables":
-Table county, columns = [*,County_Id,County_name,Population,Zip_code]
-Table election, columns = [*,Election_ID,Counties_Represented,District,Delegate,Party,First_Elected,Committee]
-Table party, columns = [*,Party_ID,Year,Party,Governor,Lieutenant_Governor,Comptroller,Attorney_General,US_Senate]
-
-"foreign_keys":
-[election.District = county.County_Id,election.Party = party.Party_ID]
-
-user query:
-Show the name of each party and the corresponding number of delegates from that party.
-
-Decompose and find the tables to be used:
-
-Let's think step by step.
-
-Firstly, the query requires the number of delegates of each party, so we should apply the 'count' operation to table 'election'. Since the unit to which the delegates being counted in the query belong is party, table 'party' and 'election' both have column 'Party'. But the main focus of this query is on party, so we should apply the 'group by' operation to column 'Party' in table 'party'. 
-
-Secondly, we need to retrieve the name of party. The query requires the count of delegates, so it needs to be selected. Please pay attention to the selecting order.
-
-Finally, based on the above analysis and requirements in user query, we need to use tables ['party', 'election'].
 
 
 Example 3:
@@ -69,9 +70,9 @@ Decompose and find the tables to be used:
 
 Let's think step by step.
 
-Firstly, the query requires the city that has hosted greatest number of competitions, so we should apply the 'count' operation to column 'Competition_ID' in table 'farm_competition', and sort it in descending order. Since the unit to which the competitions being counted in the query belong is city and only table 'farm_competition' has column 'Host_city_ID', so we should apply the 'group by' operation to column 'Host_city_ID' in table 'farm_competition'.
+Firstly, the query requires the city that has hosted greatest number of competitions, so we should apply the 'count' operation to column 'Competition_ID' in table 'farm_competition', and sort it in descending order. The unit to which the competitions being counted in the query belong is city, so we should apply the 'group by' operation to column 'Host_city_ID' in table 'farm_competition'.
 
-Secondly, we need to retrieve the status of cities selected in the first step, so we should join table 'city '. The query does not require the count of most competitions, so it is only used for filtering and not selected. 
+Secondly, we need to retrieve the status of cities selected in the first step, so we should join table 'city '. The query does not require the count of most competitions, so it is only used for filtering and not selected.
 
 Finally, based on the above analysis and requirements in user query, we need to use tables ['farm_competion', 'city'].
 
@@ -102,7 +103,7 @@ Decompose and find the tables to be used:
 
 Let's think step by step.
 
-Firstly, the query requires the countries ordered by average invoice size, so we should apply the 'avg' operation to column 'total' in table 'invoices', and sort it in descending order. Since the unit to which the invoices being counted in the query belong is country and only table 'invoices' has column 'billing_country', so we should apply the 'group by' operation to column 'billing_country' in table 'invoices'.
+Firstly, the query requires the countries ordered by average invoice size, so we should apply the 'avg' operation to column 'total' in table 'invoices', and sort it in descending order. The unit to which the invoices being counted in the query belong is country, so we should apply the 'group by' operation to column 'billing_country' in table 'invoices'.
 
 Secondly, we need to retrieve the country name and average invoice size. Please pay attention to the selecting order.
 
@@ -127,7 +128,7 @@ Decompose and find the tables to be used:
 
 Let's think step by step.
 
-Firstly, the query requires the games which caused at least two injury accidents, so we should apply the 'count' operation to table 'injury_accident', and set the condition 'count >= 2'. Since the unit to which the injury accidents being counted in the query belong is game and only table 'injury_accident' has column 'game_id', so we should apply the 'group by' operation to column 'game_id' in table 'injury_accident'.
+Firstly, the query requires the games which caused at least two injury accidents, so we should apply the 'count' operation to table 'injury_accident', and set the condition 'count >= 2'. The unit to which the injury accidents being counted in the query belong is game, so we should apply the 'group by' operation to column 'game_id' in table 'injury_accident'.
 
 Secondly, we need to retrieve the ids, scores and dates of the games selected in the first step, so we should join table game. Please pay attention to the selecting order.
 
@@ -156,7 +157,7 @@ Decompose and find the tables to be used:
 
 Let's think step by step.
 
-Firstly, the query requires the most popular payment method, and the popularity is related to the number of people using it. So we should apply the 'count' operation to table 'Customers'. Since the unit to which the people being counted in the query belong is payment_method and only table 'Customers' has column 'payment_method', so we should apply the 'group by' operation to column 'payment_method' in table 'Customers'.
+Firstly, the query requires the most popular payment method, and the popularity is related to the number of people using it. So we should apply the 'count' operation to table 'Customers'. The unit to which the being counted in the query belong is payment method, so we should apply the 'group by' operation to column 'payment_method' in table 'Customers'.
 
 Secondly, we need to retrieve the names of customers, filtered by payment method selected in the first step. The query does not require the count of most popular payemnt method, so it is only used for filtering and not selected.
 
@@ -173,6 +174,34 @@ Example 1:
 The following is a description of a SQL database, including the tables it contains and the foreign key correspondences in each table. A user query is given afterward.
 
 "tables":
+Table item, columns = [*,i_id,title]
+Table review, columns = [*,a_id,u_id,i_id,rating,rank]
+Table trust, columns = [*,source_u_id,target_u_id,trust]
+Table useracct, columns = [*,u_id,name]
+
+"foreign_keys":
+[review.i_id = item.i_id,review.u_id = useracct.u_id,trust.target_u_id = useracct.u_id,trust.source_u_id = useracct.u_id]
+
+user query:
+Find the name of the user who gives the most reviews.
+
+Decompose and find the tables to be used:
+
+Let's think step by step.
+
+Firstly, the query requires the user who gives the most reviews, so we should apply the 'count' operation to table 'review', and sort it in descending order.
+
+Secondly, we need to retrieve the name of user, so we should join table 'useracct'. The query does not require the count of most reviews, so it is only used for filtering and not selected.
+
+Finally, based on the above analysis and requirements in user query, we need to use tables ['review', 'useracct'].
+
+SQL query: SELECT count(*) FROM exhibition_record AS T1 JOIN exhibition AS T2 ON T1.exhibition_id  =  T2.exhibition_id WHERE T1.attendance  >  100 OR T2.ticket_price  <  10
+
+
+Example 2:
+The following is a description of a SQL database, including the tables it contains and the foreign key correspondences in each table. A user query is given afterward.
+
+"tables":
 Table gymnast, columns = [*,Gymnast_ID,Floor_Exercise_Points,Pommel_Horse_Points,Rings_Points,Vault_Points,Parallel_Bars_Points,Horizontal_Bar_Points,Total_Points]
 Table people, columns = [*,People_ID,Name,Age,Height,Hometown]
 
@@ -186,40 +215,13 @@ Decompose and find the tables to be used:
 
 Let's think step by step.
 
-Firstly, the query requires the number of gymnasts from each hometown, so we should apply the 'count' operation to table 'gymnast', and it does not need sort. Since the unit to which the gymnasts being counted in the query belong is hometown and only table 'people' has column 'Hometown', so we should apply the 'group by' operation to column 'Hometown' in table 'people'. 
+Firstly, the query requires the number of gymnasts from each hometown, so we should apply the 'count' operation to table 'gymnast', and it does not need sort. The unit to which the gymnasts being counted in the query belong is hometown, so we should apply the 'group by' operation to column 'Hometown' in table 'people'
 
 Secondly, we need to retrieve the hometown, so we should join table 'people'. The query requires the count of gymnasts, so it needs to be selected.
 
 Finally, based on the above analysis and requirements in user query, we need to use tables ['gymnast', 'people'].
 
 SQL query: SELECT T2.Hometown ,  COUNT(*) FROM gymnast AS T1 JOIN people AS T2 ON T1.Gymnast_ID  =  T2.People_ID GROUP BY T2.Hometown
-
-
-Example 2:
-The following is a description of a SQL database, including the tables it contains and the foreign key correspondences in each table. A user query is given afterward.
-
-"tables":
-Table county, columns = [*,County_Id,County_name,Population,Zip_code]
-Table election, columns = [*,Election_ID,Counties_Represented,District,Delegate,Party,First_Elected,Committee]
-Table party, columns = [*,Party_ID,Year,Party,Governor,Lieutenant_Governor,Comptroller,Attorney_General,US_Senate]
-
-"foreign_keys":
-[election.District = county.County_Id,election.Party = party.Party_ID]
-
-user query:
-Show the name of each party and the corresponding number of delegates from that party.
-
-Decompose and find the tables to be used:
-
-Let's think step by step.
-
-Firstly, the query requires the number of delegates of each party, so we should apply the 'count' operation to table 'election'. Since the unit to which the delegates being counted in the query belong is party, table 'party' and 'election' both have column 'Party'. But the main focus of this query is on party, so we should apply the 'group by' operation to column 'Party' in table 'party'. 
-
-Secondly, we need to retrieve the name of party. The query requires the count of delegates, so it needs to be selected. Please pay attention to the selecting order.
-
-Finally, based on the above analysis and requirements in user query, we need to use tables ['party', 'election'].
-
-SQL query: SELECT T1.Party , COUNT(*) FROM party AS T1 JOIN election AS T2 ON T1.Party_ID = T2.Party GROUP BY T1.Party
 
 
 Example 3:
@@ -241,9 +243,9 @@ Decompose and find the tables to be used:
 
 Let's think step by step.
 
-Firstly, the query requires the city that has hosted greatest number of competitions, so we should apply the 'count' operation to column 'Competition_ID' in table 'farm_competition', and sort it in descending order. Since the unit to which the competitions being counted in the query belong is city and only table 'farm_competition' has column 'Host_city_ID', so we should apply the 'group by' operation to column 'Host_city_ID' in table 'farm_competition'.
+Firstly, the query requires the city that has hosted greatest number of competitions, so we should apply the 'count' operation to column 'Competition_ID' in table 'farm_competition', and sort it in descending order. The unit to which the competitions being counted in the query belong is city, so we should apply the 'group by' operation to column 'Host_city_ID' in table 'farm_competition'.
 
-Secondly, we need to retrieve the status of cities selected in the first step, so we should join table 'city '. The query does not require the count of most competitions, so it is only used for filtering and not selected. 
+Secondly, we need to retrieve the status of cities selected in the first step, so we should join table 'city '. The query does not require the count of most competitions, so it is only used for filtering and not selected.
 
 Finally, based on the above analysis and requirements in user query, we need to use tables ['farm_competion', 'city'].
 
@@ -276,7 +278,7 @@ Decompose and find the tables to be used:
 
 Let's think step by step.
 
-Firstly, the query requires the countries ordered by average invoice size, so we should apply the 'avg' operation to column 'total' in table 'invoices', and sort it in descending order. Since the unit to which the invoices being counted in the query belong is country and only table 'invoices' has column 'billing_country', so we should apply the 'group by' operation to column 'billing_country' in table 'invoices'.
+Firstly, the query requires the countries ordered by average invoice size, so we should apply the 'avg' operation to column 'total' in table 'invoices', and sort it in descending order. The unit to which the invoices being counted in the query belong is country, so we should apply the 'group by' operation to column 'billing_country' in table 'invoices'.
 
 Secondly, we need to retrieve the country name and average invoice size. Please pay attention to the selecting order.
 
@@ -303,7 +305,7 @@ Decompose and find the tables to be used:
 
 Let's think step by step.
 
-Firstly, the query requires the games which caused at least two injury accidents, so we should apply the 'count' operation to table 'injury_accident', and set the condition 'count >= 2'. Since the unit to which the injury accidents being counted in the query belong is game and only table 'injury_accident' has column 'game_id', so we should apply the 'group by' operation to column 'game_id' in table 'injury_accident'.
+Firstly, the query requires the games which caused at least two injury accidents, so we should apply the 'count' operation to table 'injury_accident', and set the condition 'count >= 2'. The unit to which the injury accidents being counted in the query belong is game, so we should apply the 'group by' operation to column 'game_id' in table 'injury_accident'.
 
 Secondly, we need to retrieve the ids, scores and dates of the games selected in the first step, so we should join table game. Please pay attention to the selecting order.
 
@@ -334,7 +336,7 @@ Decompose and find the tables to be used:
 
 Let's think step by step.
 
-Firstly, the query requires the most popular payment method, and the popularity is related to the number of people using it. So we should apply the 'count' operation to table 'Customers'. Since the unit to which the people being counted in the query belong is payment_method and only table 'Customers' has column 'payment_method', so we should apply the 'group by' operation to column 'payment_method' in table 'Customers'.
+Firstly, the query requires the most popular payment method, and the popularity is related to the number of people using it. So we should apply the 'count' operation to table 'Customers'. The unit to which the being counted in the query belong is payment method, so we should apply the 'group by' operation to column 'payment_method' in table 'Customers'.
 
 Secondly, we need to retrieve the names of customers, filtered by payment method selected in the first step. The query does not require the count of most popular payemnt method, so it is only used for filtering and not selected.
 
