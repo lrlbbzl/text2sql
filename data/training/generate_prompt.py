@@ -1,4 +1,22 @@
-complex_prompt = """You are a powerful text-to-SQL reasoner. Currently, I am seeking to transform intricate text queries into analytical statements that simplify the creation of SQL statements, leading to the generation of the final SQL query. Our current focus lies in the category of set operations. Please learn from the provided examples, design a detailed plan for the text query, and present the resulting SQL query.
+import json
+import argparse
+import os
+import openai
+import time
+from tqdm import tqdm
+
+x = json.load(open('train_data.json', 'r'))
+
+# ls = []
+
+# for xx in x:
+#     if 'INTERSECT' in xx['gold'] or 'EXCEPT' in xx['gold'] or 'UNION' in xx['gold']:
+#         ls.append(xx)
+# json.dump(ls, open('./complex/complex_train.json', 'w'))
+
+# print(len(ls))
+
+prompt = """You are a powerful text-to-SQL reasoner. Currently, I am seeking to transform intricate text queries into analytical statements that simplify the creation of SQL statements, leading to the generation of the final SQL query. Our current focus lies in the category of set operations. Please learn from the provided examples, design a detailed plan for the text query, and present the resulting SQL query.
 
 
 Example 1:
@@ -130,13 +148,68 @@ SELECT T1.forename ,  T1.surname ,  T1.driverid FROM drivers AS T1 JOIN pitstops
 
 ## Tables:
 {}
-
 ## Foreign_keys:
 {}
-
 ## Query:
 {}
 
 Let's think step by step.
 
 """
+
+API_KEY = 'sk-SWjitJIKQYbpwPyUEDMcyFxRI0Q1fSwnc6mkiOW5AK7tEwxh'
+os.environ["OPENAI_API_KEY"] = API_KEY
+openai.api_key = os.getenv("OPENAI_API_KEY")
+openai.api_base = "https://api.chatanywhere.com.cn/v1"
+OPENAI_MODEL = 'gpt-3.5-turbo'
+
+
+
+def GPT_generation(prompt):
+  response = openai.ChatCompletion.create(
+    model=OPENAI_MODEL,
+    messages=[{"role": "user", "content": prompt}],
+    n = 1,
+    stream = False,
+    temperature=0.0,
+    max_tokens=500,
+    top_p = 1.0,
+    frequency_penalty=0.0,
+    presence_penalty=0.0,
+    stop = ["Q:"]
+  )
+  return response['choices'][0]['message']['content']
+
+def run(args):
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--data", default='./complex/complex_train.json', type=str)
+    args = parser.parse_args() 
+
+    save_dir = os.path.dirname(args.data)
+    save_file = os.path.join(save_dir, 'complex_samples.json')
+
+    ls = []
+    p = json.load(open(args.data, 'r'))
+
+    for x in tqdm(p):
+        query = prompt.format(x['fields'], x['foreign_keys'], x['question'])
+        response = None
+        while response is None:
+            try:
+                response = GPT_generation(query)
+            except:
+                time.sleep(3)
+                json.dump(ls, open(save_file, 'w'))
+        sql = response.rfind('SQL query: \n')
+        ans = response[sql + len('SQL query: \n') :]
+        x.update({'reasoning' : response, 'predict' : ans})
+        ls.append(x)
+
+    json.dump(ls, open(save_file, 'w'))
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--data", default='./complex/complex_train.json', type=str)
+    args = parser.parse_args() 
+    run(args)

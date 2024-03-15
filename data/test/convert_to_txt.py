@@ -1,8 +1,8 @@
 import json
 import os
-from utils import remove_count_as
+from text2sql.data.test.utils import remove_count_as
 
-predict_path = './count_2/gpt-3.5-turbo/predict.json'
+predict_path = './complex/predict.json'
 x = json.load(open(predict_path, 'r'))
 fp1, fp2 = open(os.path.join(os.path.dirname(predict_path), 'dev_gold.txt'), 'w'), open(os.path.join(os.path.dirname(predict_path), 'predicted_sql.txt'), 'w')
 
