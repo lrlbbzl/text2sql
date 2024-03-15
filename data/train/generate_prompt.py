@@ -187,13 +187,14 @@ def run(args):
 
     save_dir = os.path.dirname(args.data)
     save_file = os.path.join(save_dir, 'complex_samples.json')
-
-    ls = []
-    p = json.load(open(args.data, 'r'))
+    ls = json.load(open(save_file, 'r'))
+    num = len(ls)
+    p = json.load(open(args.data, 'r'))[num :]
 
     for x in tqdm(p):
         query = prompt.format(x['fields'], x['foreign_keys'], x['question'])
         response = None
+        import pdb; pdb.set_trace()
         while response is None:
             try:
                 response = GPT_generation(query)
