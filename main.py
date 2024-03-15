@@ -8,6 +8,7 @@ import argparse
 from tqdm import tqdm
 
 from complex import complex_prompt
+from count import count_prompt
 
 
 API_KEY = 'sk-SWjitJIKQYbpwPyUEDMcyFxRI0Q1fSwnc6mkiOW5AK7tEwxh'
@@ -16,7 +17,7 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 openai.api_base = "https://api.chatanywhere.com.cn/v1"
 OPENAI_MODEL = 'gpt-3.5-turbo'
 
-reasoning_generate_prompt = complex_prompt
+generate_prompt = count_prompt
 
 
 def GPT_generation(prompt):
@@ -36,8 +37,7 @@ def GPT_generation(prompt):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--test-data", default='./data/complex/complex.json', type=str)
-    parser.add_argument("--output-file", default='complex_with_reasoning.json', type=str)
+    parser.add_argument("--test-data", default='./data/test/count/count.json', type=str)
     parser.add_argument("--generate-sql", action='store_true')
     args = parser.parse_args()
 
@@ -49,13 +49,14 @@ if __name__ == "__main__":
         for x in tqdm(data):
             foreign_keys = x['foreign_keys']
             foreign_keys = foreign_keys[foreign_keys.find('Foreign_keys = ') + len('Foreign_keys = ') : ]
-            query = complex_prompt.format(x['tables'], foreign_keys, x['question'])
+            query = generate_prompt.format(x['tables'], foreign_keys, x['question'])
             response = None
             while response is None:
                 try:
                     response = GPT_generation(query)
                 except:
                     time.sleep(2)
+            time.sleep(2)
             sql = response.rfind('SQL query: \n')
             ans = response[sql + len('SQL query: \n') :]
             reason = response[:sql]

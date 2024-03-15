@@ -1,0 +1,594 @@
+[
+    {
+        "p_str": "SELECT T1.born_state FROM department AS T1 JOIN management AS T2 ON T1.Department_ID  =  T2.department_ID JOIN head AS T3 ON T3.head_ID  =  T2.head_ID WHERE T1.name  =  \"Treasury\" INTERSECT SELECT T1.born_state FROM department AS T1 JOIN management AS T2 ON T1.Department_ID  =  T2.department_ID JOIN head AS T3 ON T3.head_ID  =  T2.head_ID WHERE T1.name  =  \"Homeland Security\"",
+        "g_str": [
+            "SELECT T3.born_state FROM department AS T1 JOIN management AS T2 ON T1.department_id  =  T2.department_id JOIN head AS T3 ON T2.head_id  =  T3.head_id WHERE T1.name  =  'Treasury' INTERSECT SELECT T3.born_state FROM department AS T1 JOIN management AS T2 ON T1.department_id  =  T2.department_id JOIN head AS T3 ON T2.head_id  =  T3.head_id WHERE T1.name  =  'Homeland Security'",
+            "department_management"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT student_id FROM students JOIN student_course_registrations ON students.student_id = student_course_registrations.student_id UNION SELECT student_id FROM students JOIN student_course_attendance ON students.student_id = student_course_attendance.student_id",
+        "g_str": [
+            "SELECT student_id FROM student_course_registrations UNION SELECT student_id FROM student_course_attendance",
+            "student_assessment"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT student_id FROM students JOIN student_course_registrations ON students.student_id = student_course_registrations.student_id UNION SELECT student_id FROM students JOIN student_course_attendance ON students.student_id = student_course_attendance.student_id",
+        "g_str": [
+            "SELECT student_id FROM student_course_registrations UNION SELECT student_id FROM student_course_attendance",
+            "student_assessment"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT T1.id FROM station AS T1 JOIN status AS T2 ON T1.id  =  T2.station_id WHERE T1.city  =  \"San Francisco\" INTERSECT SELECT T1.station_id FROM status AS T1 WHERE T1.bikes_available  >  10",
+        "g_str": [
+            "SELECT id FROM station WHERE city  =  \"San Francisco\" INTERSECT SELECT station_id FROM status GROUP BY station_id HAVING avg(bikes_available)  >  10",
+            "bike_1"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT T1.name, T1.id FROM station AS T1 JOIN status AS T2 ON T1.id = T2.station_id GROUP BY T2.station_id HAVING AVG(T2.bikes_available) > 14 UNION SELECT name, id FROM station WHERE EXTRACT(MONTH FROM installation_date) = 12",
+        "g_str": [
+            "SELECT T1.name ,  T1.id FROM station AS T1 JOIN status AS T2 ON T1.id  =  T2.station_id GROUP BY T2.station_id HAVING avg(T2.bikes_available)  >  14 UNION SELECT name ,  id FROM station WHERE installation_date LIKE \"12/%\"",
+            "bike_1"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT T1.name ,  T1.id FROM station AS T1 JOIN status AS T2 ON T1.id  =  T2.station_id GROUP BY T2.station_id HAVING avg(bikes_available)  >  14 UNION SELECT name ,  id FROM station WHERE MONTH(installation_date)  =  12",
+        "g_str": [
+            "SELECT T1.name ,  T1.id FROM station AS T1 JOIN status AS T2 ON T1.id  =  T2.station_id GROUP BY T2.station_id HAVING avg(T2.bikes_available)  >  14 UNION SELECT name ,  id FROM station WHERE installation_date LIKE \"12/%\"",
+            "bike_1"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT T1.id FROM station AS T1 WHERE T1.lat  >  37.4 INTERSECT SELECT T1.station_id FROM status AS T1 WHERE T1.bikes_available  >=  7",
+        "g_str": [
+            "SELECT id FROM station WHERE lat  >  37.4 EXCEPT SELECT station_id FROM status GROUP BY station_id HAVING min(bikes_available)  <  7",
+            "bike_1"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT T1.name FROM station AS T1 JOIN status AS T2 ON T1.id  =  T2.station_id WHERE T2.bikes_available  >  10 INTERSECT SELECT name FROM station WHERE city  !=  \"San Jose\"",
+        "g_str": [
+            "SELECT T1.name FROM station AS T1 JOIN status AS T2 ON T1.id  =  T2.station_id GROUP BY T2.station_id HAVING avg(bikes_available)  >  10 EXCEPT SELECT name FROM station WHERE city  =  \"San Jose\"",
+            "bike_1"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT DISTINCT zip_code FROM weather WHERE max_dew_point_f  =  70 EXCEPT SELECT DISTINCT zip_code FROM weather WHERE max_dew_point_f  <  70",
+        "g_str": [
+            "SELECT DISTINCT zip_code FROM weather EXCEPT SELECT DISTINCT zip_code FROM weather WHERE max_dew_point_f  >=  70",
+            "bike_1"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT DISTINCT zip_code FROM weather WHERE max_dew_point_f < 70",
+        "g_str": [
+            "SELECT DISTINCT zip_code FROM weather EXCEPT SELECT DISTINCT zip_code FROM weather WHERE max_dew_point_f  >=  70",
+            "bike_1"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT zip_code FROM weather GROUP BY zip_code HAVING avg(mean_humidity)  <  70 INTERSECT SELECT start_station_id FROM trip GROUP BY start_station_id HAVING count(*)  >=  100",
+        "g_str": [
+            "SELECT zip_code FROM weather GROUP BY zip_code HAVING avg(mean_humidity)  <  70 INTERSECT SELECT zip_code FROM trip GROUP BY zip_code HAVING count(*)  >=  100",
+            "bike_1"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT zip_code FROM weather GROUP BY zip_code HAVING avg(mean_humidity)  <  70 INTERSECT SELECT start_station_id FROM trip GROUP BY start_station_id HAVING count(*)  >=  100",
+        "g_str": [
+            "SELECT zip_code FROM weather GROUP BY zip_code HAVING avg(mean_humidity)  <  70 INTERSECT SELECT zip_code FROM trip GROUP BY zip_code HAVING count(*)  >=  100",
+            "bike_1"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT name FROM station WHERE city  =  \"Palo Alto\" EXCEPT SELECT end_station_name FROM trip",
+        "g_str": [
+            "SELECT name FROM station WHERE city  =  \"Palo Alto\" EXCEPT SELECT end_station_name FROM trip GROUP BY end_station_name HAVING count(*)  >  100",
+            "bike_1"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT T1.Nominee FROM actor AS T1 JOIN musical AS T2 ON T1.Musical_ID  =  T2.Musical_ID WHERE T2.Award  =  \"Tony Award\" INTERSECT SELECT T1.Nominee FROM actor AS T1 JOIN musical AS T2 ON T1.Musical_ID  =  T2.Musical_ID WHERE T2.Award  =  \"Drama Desk Award\"",
+        "g_str": [
+            "SELECT Nominee FROM musical WHERE Award  =  \"Tony Award\" INTERSECT SELECT Nominee FROM musical WHERE Award  =  \"Drama Desk Award\"",
+            "musical"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT T1.Name FROM actor AS T1 JOIN musical AS T2 ON T1.Musical_ID  =  T2.Musical_ID WHERE T2.Award  =  \"Tony Award\" INTERSECT SELECT T1.Name FROM actor AS T1 JOIN musical AS T2 ON T1.Musical_ID  =  T2.Musical_ID WHERE T2.Award  =  \"Drama Desk Award\"",
+        "g_str": [
+            "SELECT Nominee FROM musical WHERE Award  =  \"Tony Award\" INTERSECT SELECT Nominee FROM musical WHERE Award  =  \"Drama Desk Award\"",
+            "musical"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT T2.uid FROM user_profiles AS T1 JOIN follows AS T2 ON T1.uid  =  T2.f1 WHERE T1.name  =  \"Mary\" INTERSECT SELECT T2.uid FROM user_profiles AS T1 JOIN follows AS T2 ON T1.uid  =  T2.f1 WHERE T1.name  =  \"Susan\"",
+        "g_str": [
+            "SELECT T2.f1 FROM user_profiles AS T1 JOIN follows AS T2 ON T1.uid  =  T2.f2 WHERE T1.name  =  \"Mary\" INTERSECT SELECT T2.f1 FROM user_profiles AS T1 JOIN follows AS T2 ON T1.uid  =  T2.f2 WHERE T1.name  =  \"Susan\"",
+            "twitter_1"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT StuID FROM Student EXCEPT SELECT StuID FROM Has_AllergyOverall, the SQL queries for the given examples are as follows:Example 1:SELECT T1.name FROM Employee AS T1 JOIN Certificate AS T2 ON T1.eid  =  T2.eid JOIN Aircraft AS T3 ON T3.aid  =  T2.aid WHERE T3.name  =  \"Boeing 737-800\" INTERSECT SELECT T1.name FROM Employee AS T1 JOIN Certificate AS T2 ON T1.eid  =  T2.eid JOIN Aircraft AS T3 ON T3.aid  =  T2.aid WHERE T3.name  =  \"Airbus A340-300\"Example 2:SELECT T1.name FROM station AS T1 JOIN status AS T2 ON T1.id  =  T2.station_id GROUP BY T2.station_id HAVING avg(bikes_available)  >  10 EXCEPT SELECT name FROM station WHERE city  =  \"San Jose\"Example 3:SELECT customer_name FROM customers EXCEPT SELECT t1.customer_name FROM customers AS t1 JOIN customer_addresses AS t2 ON t1.customer_id  =  t2.customer_id JOIN addresses AS t3 ON t2.address_id  =  t3.address_id WHERE t3.state_province_county  =  'California'Example 4:SELECT T1.forename ,  T1.surname ,  T1.driverid FROM drivers AS T",
+        "g_str": [
+            "SELECT StuID FROM Student EXCEPT SELECT StuID FROM Has_allergy",
+            "allergy_1"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT T1.LName, T1.Age FROM Student AS T1 JOIN Has_Allergy AS T2 ON T1.StuID = T2.StuID JOIN Allergy_Type AS T3 ON T2.Allergy = T3.Allergy WHERE T3.AllergyType = 'milk' INTERSECT SELECT T1.LName, T1.Age FROM Student AS T1 JOIN Has_Allergy AS T2 ON T1.StuID = T2.StuID JOIN Allergy_Type AS T3 ON T2.Allergy = T3.Allergy WHERE T3.AllergyType = 'cat'",
+        "g_str": [
+            "SELECT lname ,  age FROM Student WHERE StuID IN (SELECT StuID FROM Has_allergy WHERE Allergy  =  \"Milk\" INTERSECT SELECT StuID FROM Has_allergy WHERE Allergy  =  \"Cat\")",
+            "allergy_1"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT T1.LName ,  T1.Age FROM Student AS T1 JOIN Has_Allergy AS T2 ON T1.StuID  =  T2.StuID JOIN Allergy_Type AS T3 ON T2.Allergy  =  T3.Allergy WHERE T3.AllergyType  =  \"milk\" INTERSECT SELECT T1.LName ,  T1.Age FROM Student AS T1 JOIN Has_Allergy AS T2 ON T1.StuID  =  T2.StuID JOIN Allergy_Type AS T3 ON T2.Allergy  =  T3.Allergy WHERE T3.AllergyType  =  \"cat\"",
+        "g_str": [
+            "SELECT lname ,  age FROM Student WHERE StuID IN (SELECT StuID FROM Has_allergy WHERE Allergy  =  \"Milk\" INTERSECT SELECT StuID FROM Has_allergy WHERE Allergy  =  \"Cat\")",
+            "allergy_1"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT T1.Fname ,  T1.Sex FROM Student AS T1 JOIN Has_Allergy AS T2 ON T1.StuID  =  T2.StuID JOIN Allergy_Type AS T3 ON T2.Allergy  =  T3.Allergy WHERE T3.AllergyType  =  \"milk\" INTERSECT SELECT T1.Fname ,  T1.Sex FROM Student AS T1 JOIN Has_Allergy AS T2 ON T1.StuID  =  T2.StuID JOIN Allergy_Type AS T3 ON T2.Allergy  =  T3.Allergy WHERE T3.AllergyType  =  \"cat\"",
+        "g_str": [
+            "SELECT fname ,  sex FROM Student WHERE StuID IN (SELECT StuID FROM Has_allergy WHERE Allergy  =  \"Milk\" EXCEPT SELECT StuID FROM Has_allergy WHERE Allergy  =  \"Cat\")",
+            "allergy_1"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT T1.Fname ,  T1.Sex FROM Student AS T1 JOIN Has_Allergy AS T2 ON T1.StuID  =  T2.StuID JOIN Allergy_Type AS T3 ON T2.Allergy  =  T3.Allergy WHERE T3.AllergyType  =  \"milk\" INTERSECT SELECT Fname ,  Sex FROM Student WHERE StuID NOT IN (SELECT T1.StuID FROM Student AS T1 JOIN Has_Allergy AS T2 ON T1.StuID  =  T2.StuID JOIN Allergy_Type AS T3 ON T2.Allergy  =  T3.Allergy WHERE T3.AllergyType  =  \"cats\")",
+        "g_str": [
+            "SELECT fname ,  sex FROM Student WHERE StuID IN (SELECT StuID FROM Has_allergy WHERE Allergy  =  \"Milk\" EXCEPT SELECT StuID FROM Has_allergy WHERE Allergy  =  \"Cat\")",
+            "allergy_1"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT AVG(T1.Age) FROM Student AS T1 JOIN Has_Allergy AS T2 ON T1.StuID  =  T2.StuID JOIN Allergy_Type AS T3 ON T2.Allergy  =  T3.Allergy WHERE T3.AllergyType  =  \"food\" INTERSECT SELECT AVG(T1.Age) FROM Student AS T1 JOIN Has_Allergy AS T2 ON T1.StuID  =  T2.StuID JOIN Allergy_Type AS T3 ON T2.Allergy  =  T3.Allergy WHERE T3.AllergyType  =  \"animal\"",
+        "g_str": [
+            "SELECT avg(age) FROM Student WHERE StuID IN ( SELECT T1.StuID FROM Has_allergy AS T1 JOIN Allergy_Type AS T2 ON T1.Allergy  =  T2.Allergy WHERE T2.allergytype  =  \"food\" INTERSECT SELECT T1.StuID FROM Has_allergy AS T1 JOIN Allergy_Type AS T2 ON T1.Allergy  =  T2.Allergy WHERE T2.allergytype  =  \"animal\")",
+            "allergy_1"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT avg(T1.Age) FROM Student AS T1 JOIN Has_Allergy AS T2 ON T1.StuID  =  T2.StuID JOIN Allergy_Type AS T3 ON T2.Allergy  =  T3.Allergy WHERE T3.AllergyType  =  \"food\" UNION SELECT avg(T1.Age) FROM Student AS T1 JOIN Has_Allergy AS T2 ON T1.StuID  =  T2.StuID JOIN Allergy_Type AS T3 ON T2.Allergy  =  T3.Allergy WHERE T3.AllergyType  =  \"animal\"",
+        "g_str": [
+            "SELECT avg(age) FROM Student WHERE StuID IN ( SELECT T1.StuID FROM Has_allergy AS T1 JOIN Allergy_Type AS T2 ON T1.Allergy  =  T2.Allergy WHERE T2.allergytype  =  \"food\" INTERSECT SELECT T1.StuID FROM Has_allergy AS T1 JOIN Allergy_Type AS T2 ON T1.Allergy  =  T2.Allergy WHERE T2.allergytype  =  \"animal\")",
+            "allergy_1"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT date, theme, sales FROM journal EXCEPT SELECT T1.date, T1.theme, T1.sales FROM journal AS T1 JOIN journal_committee AS T2 ON T1.Journal_ID = T2.Journal_ID WHERE T2.Editor_ID IN (editor_id_list)",
+        "g_str": [
+            "SELECT date ,  theme ,  sales FROM journal EXCEPT SELECT T1.date ,  T1.theme ,  T1.sales FROM journal AS T1 JOIN journal_committee AS T2 ON T1.journal_ID  =  T2.journal_ID",
+            "journal_committee"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT customer_id, customer_first_name FROM Customers EXCEPT SELECT t1.customer_id, t1.customer_first_name FROM Customers AS t1 JOIN Customers_Cards AS t2 ON t1.customer_id = t2.customer_id",
+        "g_str": [
+            "SELECT customer_id ,  customer_first_name FROM Customers EXCEPT SELECT T1.customer_id ,  T2.customer_first_name FROM Customers_cards AS T1 JOIN Customers AS T2 ON T1.customer_id  =  T2.customer_id WHERE card_type_code  =  \"Credit\"",
+            "customers_card_transactions"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT customer_id, customer_first_name FROM Customers EXCEPT SELECT t1.customer_id, t1.customer_first_name FROM Customers AS t1 JOIN Customers_Cards AS t2 ON t1.customer_id = t2.customer_id",
+        "g_str": [
+            "SELECT customer_id ,  customer_first_name FROM Customers EXCEPT SELECT T1.customer_id ,  T2.customer_first_name FROM Customers_cards AS T1 JOIN Customers AS T2 ON T1.customer_id  =  T2.customer_id WHERE card_type_code  =  \"Credit\"",
+            "customers_card_transactions"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT address FROM shop EXCEPT SELECT t1.address FROM shop AS t1 JOIN member AS t2 ON t1.shop_id  =  t2.shop_id WHERE t2.membership_card  =  'black'",
+        "g_str": [
+            "SELECT address FROM member EXCEPT SELECT address FROM member WHERE Membership_card  =  'Black'",
+            "coffee_shop"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT T1.name ,  T1.trade_name FROM medicine AS T1 JOIN medicine_enzyme_interaction AS T2 ON T1.id  =  T2.medicine_id JOIN enzyme AS T3 ON T3.id  =  T2.enzyme_id WHERE T2.interaction_type  =  \"inhibitor\" UNION SELECT T1.name ,  T1.trade_name FROM medicine AS T1 JOIN medicine_enzyme_interaction AS T2 ON T1.id  =  T2.medicine_id JOIN enzyme AS T3 ON T3.id  =  T2.enzyme_id WHERE T2.interaction_type  =  \"activator\"",
+        "g_str": [
+            "SELECT T1.name ,  T1.trade_name FROM medicine AS T1 JOIN medicine_enzyme_interaction AS T2 ON T2.medicine_id  =  T1.id WHERE interaction_type  =  'inhibitor' INTERSECT SELECT T1.name ,  T1.trade_name FROM medicine AS T1 JOIN medicine_enzyme_interaction AS T2 ON T2.medicine_id  =  T1.id WHERE interaction_type  =  'activitor'",
+            "medicine_enzyme_interaction"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT name, trade_name FROM medicine_enzyme_interaction AS T1 JOIN medicine AS T2 ON T1.medicine_id  =  T2.id JOIN enzyme AS T3 ON T1.enzyme_id  =  T3.id WHERE T3.product  =  'Heme' EXCEPT SELECT name, trade_name FROM medicine",
+        "g_str": [
+            "SELECT name ,  trade_name FROM medicine EXCEPT SELECT T1.name ,  T1.trade_name FROM medicine AS T1 JOIN medicine_enzyme_interaction AS T2 ON T2.medicine_id  =  T1.id JOIN enzyme AS T3 ON T3.id  =  T2.enzyme_id WHERE T3.product  =  'Protoporphyrinogen IX'",
+            "medicine_enzyme_interaction"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT T1.Country_name FROM country AS T1 JOIN match_season AS T2 ON T1.Country_id  =  T2.Country WHERE T2.Position  =  \"Forward\" UNION SELECT T1.Country_name FROM country AS T1 JOIN match_season AS T2 ON T1.Country_id  =  T2.Country WHERE T2.Position  =  \"Defender\"",
+        "g_str": [
+            "SELECT T1.Country_name FROM country AS T1 JOIN match_season AS T2 ON T1.Country_id  =  T2.Country WHERE T2.Position  =  \"Forward\" INTERSECT SELECT T1.Country_name FROM country AS T1 JOIN match_season AS T2 ON T1.Country_id  =  T2.Country WHERE T2.Position  =  \"Defender\"",
+            "match_season"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT T1.College FROM match_season AS T1 JOIN player AS T2 ON T1.Player  =  T2.Player WHERE T1.Position  =  \"midfielder\" INTERSECT SELECT T1.College FROM match_season AS T1 JOIN player AS T2 ON T1.Player  =  T2.Player WHERE T1.Position  =  \"defender\"",
+        "g_str": [
+            "SELECT College FROM match_season WHERE POSITION  =  \"Midfielder\" INTERSECT SELECT College FROM match_season WHERE POSITION  =  \"Defender\"",
+            "match_season"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT T1.College FROM match_season AS T1 WHERE T1.Position  =  \"Midfielder\" UNION SELECT T1.College FROM match_season AS T1 WHERE T1.Position  =  \"Defender\"",
+        "g_str": [
+            "SELECT College FROM match_season WHERE POSITION  =  \"Midfielder\" INTERSECT SELECT College FROM match_season WHERE POSITION  =  \"Defender\"",
+            "match_season"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT T1.id FROM Player AS T1 JOIN Player_Attributes AS T2 ON T1.player_api_id  =  T2.player_api_id WHERE T1.height  >=  180 AND T2.overall_rating  >  85",
+        "g_str": [
+            "SELECT player_api_id FROM Player WHERE height  >=  180 INTERSECT SELECT player_api_id FROM Player_Attributes WHERE overall_rating  >  85",
+            "soccer_1"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT id FROM Player_Attributes WHERE preferred_foot  =  'left' AND height BETWEEN 180 AND 190",
+        "g_str": [
+            "SELECT player_api_id FROM Player WHERE height  >=  180 AND height  <=  190 INTERSECT SELECT player_api_id FROM Player_Attributes WHERE preferred_foot  =  \"left\"",
+            "soccer_1"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT T1.title FROM course AS T1 JOIN section AS T2 ON T1.course_id  =  T2.course_id WHERE T2.semester  =  \"Fall\" AND T2.year  =  2009 UNION SELECT T1.title FROM course AS T1 JOIN section AS T2 ON T1.course_id  =  T2.course_id WHERE T2.semester  =  \"Spring\" AND T2.year  =  2010",
+        "g_str": [
+            "SELECT course_id FROM SECTION WHERE semester  =  'Fall' AND YEAR  =  2009 UNION SELECT course_id FROM SECTION WHERE semester  =  'Spring' AND YEAR  =  2010",
+            "college_2"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT T1.course_id ,  T1.title FROM course AS T1 JOIN section AS T2 ON T1.course_id  =  T2.course_id WHERE T2.semester  =  \"Fall\" AND T2.year  =  2009 EXCEPT SELECT T1.course_id ,  T1.title FROM course AS T1 JOIN section AS T2 ON T1.course_id  =  T2.course_id WHERE T2.semester  =  \"Spring\" AND T2.year  =  2010",
+        "g_str": [
+            "SELECT course_id FROM SECTION WHERE semester  =  'Fall' AND YEAR  =  2009 EXCEPT SELECT course_id FROM SECTION WHERE semester  =  'Spring' AND YEAR  =  2010",
+            "college_2"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT T1.Team FROM Elimination AS T1 JOIN wrestler AS T2 ON T1.Wrestler_ID  =  T2.Wrestler_ID WHERE T2.Name  =  \"Orton\" INTERSECT SELECT T1.Team FROM Elimination AS T1 JOIN wrestler AS T2 ON T1.Wrestler_ID  =  T2.Wrestler_ID WHERE T2.Name  =  \"Benjamin\"",
+        "g_str": [
+            "SELECT Team FROM Elimination WHERE Eliminated_By  =  \"Orton\" INTERSECT SELECT Team FROM Elimination WHERE Eliminated_By  =  \"Benjamin\"",
+            "wrestler"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT T1.Team FROM Elimination AS T1 JOIN wrestler AS T2 ON T1.Wrestler_ID  =  T2.Wrestler_ID WHERE T2.Name  =  \"Orton\" INTERSECT SELECT T1.Team FROM Elimination AS T1 JOIN wrestler AS T2 ON T1.Wrestler_ID  =  T2.Wrestler_ID WHERE T2.Name  =  \"Benjamin\"",
+        "g_str": [
+            "SELECT Team FROM Elimination WHERE Eliminated_By  =  \"Orton\" INTERSECT SELECT Team FROM Elimination WHERE Eliminated_By  =  \"Benjamin\"",
+            "wrestler"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT Location FROM cinema WHERE Capacity  >  800 EXCEPT SELECT Location FROM cinema",
+        "g_str": [
+            "SELECT LOCATION FROM cinema EXCEPT SELECT LOCATION FROM cinema WHERE capacity  >  800",
+            "cinema"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT Headquarters FROM company EXCEPT SELECT T1.Headquarters FROM company AS T1 JOIN station_company AS T2 ON T1.Company_ID  =  T2.Company_ID WHERE T1.Main_Industry  =  'banking'",
+        "g_str": [
+            "SELECT headquarters FROM company EXCEPT SELECT headquarters FROM company WHERE main_industry  =  'Banking'",
+            "gas_company"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT T1.document_id FROM Documents AS T1 JOIN Ref_Document_Status AS T2 ON T1.document_status_code  =  T2.document_status_code WHERE T2.document_status_description  =  \"done\" INTERSECT SELECT T1.document_id FROM Documents AS T1 JOIN Ref_Document_Types AS T2 ON T1.document_type_code  =  T2.document_type_code WHERE T2.document_type_description  =  \"Paper\"",
+        "g_str": [
+            "SELECT document_id FROM Documents WHERE document_status_code  =  \"done\" AND document_type_code = \"Paper\" EXCEPT SELECT document_id FROM Documents JOIN Ref_Shipping_Agents ON Documents.shipping_agent_code = Ref_Shipping_Agents.shipping_agent_code WHERE Ref_Shipping_Agents.shipping_agent_name = \"USPS\";",
+            "cre_Doc_Control_Systems"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT document_id FROM Documents WHERE document_status_code  =  \"done\" INTERSECT SELECT document_id FROM Documents WHERE document_type_code  =  \"Paper\" INTERSECT SELECT document_id FROM Documents WHERE shipping_agent_code  =  \"USPS\"",
+        "g_str": [
+            "SELECT document_id FROM Documents WHERE document_status_code  =  \"done\" AND document_type_code = \"Paper\" INTERSECT SELECT document_id FROM Documents JOIN Ref_Shipping_Agents ON Documents.shipping_agent_code = Ref_Shipping_Agents.shipping_agent_code WHERE Ref_Shipping_Agents.shipping_agent_name = \"USPS\";",
+            "cre_Doc_Control_Systems"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT T1.Event_ID FROM Events AS T1 JOIN Participants_in_Events AS T2 ON T1.Event_ID  =  T2.Event_ID JOIN Participants AS T3 ON T2.Participant_ID  =  T3.Participant_ID WHERE T3.Participant_Details  =  'Kenyatta Kuhn' EXCEPT SELECT Event_ID FROM Events",
+        "g_str": [
+            "SELECT event_id FROM EVENTS EXCEPT SELECT T1.event_id FROM Participants_in_Events AS T1 JOIN Participants AS T2 ON T1.Participant_ID  =  T2.Participant_ID WHERE Participant_Details  =  'Kenyatta Kuhn'",
+            "local_govt_in_alabama"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT starting_year FROM technician WHERE team  =  \"CLE\" UNION SELECT starting_year FROM technician WHERE team  =  \"CWS\"",
+        "g_str": [
+            "SELECT Starting_Year FROM technician WHERE Team  =  \"CLE\" INTERSECT SELECT Starting_Year FROM technician WHERE Team  =  \"CWS\"",
+            "machine_repair"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT Reviewer.name, Movie.title FROM Reviewer JOIN Rating ON Reviewer.rID = Rating.rID JOIN Movie ON Rating.mID = Movie.mID",
+        "g_str": [
+            "SELECT name FROM Reviewer UNION SELECT title FROM Movie",
+            "movie_1"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT mID FROM Movie EXCEPT SELECT T1.mID FROM Movie AS T1 JOIN Rating AS T2 ON T1.mID  =  T2.mID JOIN Reviewer AS T3 ON T2.rID  =  T3.rID WHERE T3.name  =  \"Brittany Harris\"",
+        "g_str": [
+            "SELECT mID FROM Rating EXCEPT SELECT T1.mID FROM Rating AS T1 JOIN Reviewer AS T2 ON T1.rID  =  T2.rID WHERE T2.name  =  \"Brittany Harris\"",
+            "movie_1"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT mID FROM Movie EXCEPT SELECT T1.mID FROM Movie AS T1 JOIN Rating AS T2 ON T1.mID  =  T2.mID JOIN Reviewer AS T3 ON T2.rID  =  T3.rID WHERE T3.name  =  \"Britanny Harris\"",
+        "g_str": [
+            "SELECT mID FROM Rating EXCEPT SELECT T1.mID FROM Rating AS T1 JOIN Reviewer AS T2 ON T1.rID  =  T2.rID WHERE T2.name  =  \"Brittany Harris\"",
+            "movie_1"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT DISTINCT T1.name FROM Reviewer AS T1 JOIN Rating AS T2 ON T1.rID  =  T2.rID WHERE T2.stars  =  3 OR T2.stars  =  4",
+        "g_str": [
+            "SELECT T2.name FROM Rating AS T1 JOIN Reviewer AS T2 ON T1.rID  =  T2.rID WHERE T1.stars  =  3 INTERSECT SELECT T2.name FROM Rating AS T1 JOIN Reviewer AS T2 ON T1.rID  =  T2.rID WHERE T1.stars  =  4",
+            "movie_1"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT title FROM Movie WHERE mID IN (SELECT mID FROM Rating WHERE stars = 3 OR stars = 4)",
+        "g_str": [
+            "SELECT T2.title FROM Rating AS T1 JOIN Movie AS T2 ON T1.mID  =  T2.mID WHERE T1.stars  =  3 INTERSECT SELECT T2.title FROM Rating AS T1 JOIN Movie AS T2 ON T1.mID  =  T2.mID WHERE T1.stars  =  4",
+            "movie_1"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT T1.Police_force FROM county_public_safety AS T1 JOIN city AS T2 ON T1.County_ID  =  T2.County_ID WHERE T2.Location  =  \"east\" INTERSECT SELECT T1.Police_force FROM county_public_safety AS T1 JOIN city AS T2 ON T1.County_ID  =  T2.County_ID WHERE T2.Location  =  \"west\"",
+        "g_str": [
+            "SELECT Police_force FROM county_public_safety WHERE LOCATION  =  \"East\" INTERSECT SELECT Police_force FROM county_public_safety WHERE LOCATION  =  \"West\"",
+            "county_public_safety"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT T1.Police_force FROM county_public_safety AS T1 JOIN city AS T2 ON T1.County_ID  =  T2.County_ID WHERE T2.Location  =  \"East\" INTERSECT SELECT T1.Police_force FROM county_public_safety AS T1 JOIN city AS T2 ON T1.County_ID  =  T2.County_ID WHERE T2.Location  =  \"West\"",
+        "g_str": [
+            "SELECT Police_force FROM county_public_safety WHERE LOCATION  =  \"East\" INTERSECT SELECT Police_force FROM county_public_safety WHERE LOCATION  =  \"West\"",
+            "county_public_safety"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT T1.Party FROM party AS T1 JOIN election AS T2 ON T1.Party_ID  =  T2.Party JOIN committee AS T3 ON T2.Committee  =  T3.Committee WHERE T3.Committee  =  \"Appropriations\" INTERSECT SELECT T1.Party FROM party AS T1 JOIN election AS T2 ON T1.Party_ID  =  T2.Party JOIN committee AS T3 ON T2.Committee  =  T3.Committee WHERE T3.Committee  =  \"Budget\"",
+        "g_str": [
+            "SELECT T2.Party FROM election AS T1 JOIN party AS T2 ON T1.Party  =  T2.Party_ID WHERE T1.Committee  =  \"Appropriations\" INTERSECT SELECT T2.Party FROM election AS T1 JOIN party AS T2 ON T1.Party  =  T2.Party_ID WHERE T1.Committee  =  \"Economic Matters\"",
+            "election"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT T1.party FROM election AS T1 JOIN committee AS T2 ON T1.Committee  =  T2.Committee WHERE T2.Committee  =  \"Appropriations\" INTERSECT SELECT T1.party FROM election AS T1 JOIN committee AS T2 ON T1.Committee  =  T2.Committee WHERE T2.Committee  =  \"Economic Matters\"",
+        "g_str": [
+            "SELECT T2.Party FROM election AS T1 JOIN party AS T2 ON T1.Party  =  T2.Party_ID WHERE T1.Committee  =  \"Appropriations\" INTERSECT SELECT T2.Party FROM election AS T1 JOIN party AS T2 ON T1.Party  =  T2.Party_ID WHERE T1.Committee  =  \"Economic Matters\"",
+            "election"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT T1.title ,  T1.film_id FROM film AS T1 JOIN inventory AS T2 ON T1.film_id  =  T2.film_id WHERE T1.rental_rate  =  0.99 INTERSECT SELECT T1.title ,  T1.film_id FROM film AS T1 JOIN rental AS T2 ON T1.film_id  =  T2.film_id GROUP BY T1.film_id HAVING count(*)  <  3",
+        "g_str": [
+            "SELECT title ,  film_id FROM film WHERE rental_rate  =  0.99 INTERSECT SELECT T1.title ,  T1.film_id FROM film AS T1 JOIN inventory AS T2 ON T1.film_id  =  T2.film_id GROUP BY T1.film_id HAVING count(*)  <  3",
+            "sakila_1"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT payment_date FROM payment WHERE amount  >  10 INTERSECT SELECT payment_date FROM payment JOIN staff ON payment.staff_id  =  staff.staff_id WHERE staff.first_name  =  'Elsa'",
+        "g_str": [
+            "SELECT payment_date FROM payment WHERE amount  >  10 UNION SELECT T1.payment_date FROM payment AS T1 JOIN staff AS T2 ON T1.staff_id  =  T2.staff_id WHERE T2.first_name  =  'Elsa'",
+            "sakila_1"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT T3.line_1 FROM Students AS T1 JOIN Student_Addresses AS T2 ON T1.student_id  =  T2.student_id JOIN Addresses AS T3 ON T2.address_id  =  T3.address_id INTERSECT SELECT T2.line_1 FROM Teachers AS T1 JOIN Addresses AS T2 ON T1.address_id  =  T2.address_id",
+        "g_str": [
+            "SELECT T1.line_1 FROM Addresses AS T1 JOIN Students AS T2 ON T1.address_id  =  T2.address_id INTERSECT SELECT T1.line_1 FROM Addresses AS T1 JOIN Teachers AS T2 ON T1.address_id  =  T2.address_id",
+            "behavior_monitoring"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT T1.asset_id, T1.asset_details FROM Assets AS T1 JOIN Asset_Parts AS T2 ON T1.asset_id = T2.asset_id GROUP BY T1.asset_id HAVING COUNT(*) = 2 INTERSECT SELECT T1.asset_id, T1.asset_details FROM Assets AS T1 LEFT JOIN Fault_Log AS T2 ON T1.asset_id = T2.asset_id GROUP BY T1.asset_id HAVING COUNT(*) < 2",
+        "g_str": [
+            "SELECT T1.asset_id ,  T1.asset_details FROM Assets AS T1 JOIN Asset_Parts AS T2 ON T1.asset_id  =  T2.asset_id GROUP BY T1.asset_id HAVING count(*)  =  2 INTERSECT SELECT T1.asset_id ,  T1.asset_details FROM Assets AS T1 JOIN Fault_Log AS T2 ON T1.asset_id  =  T2.asset_id GROUP BY T1.asset_id HAVING count(*)  <  2",
+            "assets_maintenance"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT PROF_FNAME FROM PROFESSOR EXCEPT SELECT T1.PROF_FNAME FROM PROFESSOR AS T1 JOIN CLASS AS T2 ON T1.PROF_NUM  =  T2.PROF_NUM",
+        "g_str": [
+            "SELECT emp_fname FROM employee WHERE emp_jobcode  =  'PROF' EXCEPT SELECT T1.emp_fname FROM employee AS T1 JOIN CLASS AS T2 ON T1.emp_num  =  T2.prof_num",
+            "college_1"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT EMP_FNAME FROM EMPLOYEE WHERE EMP_NUM IN (SELECT PROF_NUM FROM PROFESSOR) EXCEPT SELECT EMP_FNAME FROM EMPLOYEE WHERE EMP_NUM IN (SELECT PROF_NUM FROM CLASS)",
+        "g_str": [
+            "SELECT emp_fname FROM employee WHERE emp_jobcode  =  'PROF' EXCEPT SELECT T1.emp_fname FROM employee AS T1 JOIN CLASS AS T2 ON T1.emp_num  =  T2.prof_num",
+            "college_1"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT T1.EMP_FNAME FROM PROFESSOR AS T1 JOIN DEPARTMENT AS T2 ON T1.DEPT_CODE  =  T2.DEPT_CODE JOIN EMPLOYEE AS T3 ON T1.EMP_NUM  =  T3.EMP_NUM WHERE T2.DEPT_NAME  =  \"history\" EXCEPT SELECT T1.EMP_FNAME FROM PROFESSOR AS T1 JOIN CLASS AS T2 ON T1.EMP_NUM  =  T2.PROF_NUM",
+        "g_str": [
+            "SELECT T1.emp_fname FROM employee AS T1 JOIN professor AS T2 ON T1.emp_num  =  T2.emp_num JOIN department AS T3 ON T2.dept_code  =  T3.dept_code WHERE T3.dept_name  =  'History' EXCEPT SELECT T4.emp_fname FROM employee AS T4 JOIN CLASS AS T5 ON T4.emp_num  =  T5.prof_num",
+            "college_1"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT T2.EMP_FNAME FROM PROFESSOR AS T1 JOIN EMPLOYEE AS T2 ON T1.EMP_NUM  =  T2.EMP_NUM JOIN DEPARTMENT AS T3 ON T1.DEPT_CODE  =  T3.DEPT_CODE WHERE T3.DEPT_NAME  =  \"history\" EXCEPT SELECT T2.EMP_FNAME FROM PROFESSOR AS T1 JOIN EMPLOYEE AS T2 ON T1.EMP_NUM  =  T2.EMP_NUM JOIN DEPARTMENT AS T3 ON T1.DEPT_CODE  =  T3.DEPT_CODE JOIN CLASS AS T4 ON T1.PROF_NUM  =  T4.PROF_NUM WHERE T3.DEPT_NAME  =  \"history\"",
+        "g_str": [
+            "SELECT T1.emp_fname FROM employee AS T1 JOIN professor AS T2 ON T1.emp_num  =  T2.emp_num JOIN department AS T3 ON T2.dept_code  =  T3.dept_code WHERE T3.dept_name  =  'History' EXCEPT SELECT T4.emp_fname FROM employee AS T4 JOIN CLASS AS T5 ON T4.emp_num  =  T5.prof_num",
+            "college_1"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT T1.EMP_FNAME FROM PROFESSOR AS T1 JOIN EMPLOYEE AS T2 ON T1.EMP_NUM  =  T2.EMP_NUM JOIN CLASS AS T3 ON T1.EMP_NUM  =  T3.PROF_NUM JOIN COURSE AS T4 ON T3.CRS_CODE  =  T4.CRS_CODE WHERE T4.CRS_CODE  =  \"CIS-220\" INTERSECT SELECT T1.EMP_FNAME FROM PROFESSOR AS T1 JOIN EMPLOYEE AS T2 ON T1.EMP_NUM  =  T2.EMP_NUM JOIN CLASS AS T3 ON T1.EMP_NUM  =  T3.PROF_NUM JOIN COURSE AS T4 ON T3.CRS_CODE  =  T4.CRS_CODE WHERE T4.CRS_CODE  =  \"QM-261\"",
+        "g_str": [
+            "SELECT T1.emp_fname FROM employee AS T1 JOIN CLASS AS T2 ON T1.emp_num  =  T2.prof_num WHERE crs_code  =  'CIS-220' INTERSECT SELECT T1.emp_fname FROM employee AS T1 JOIN CLASS AS T2 ON T1.emp_num  =  T2.prof_num WHERE crs_code  =  'QM-261'",
+            "college_1"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT T1.STU_FNAME FROM STUDENT AS T1 JOIN ENROLL AS T2 ON T1.STU_NUM  =  T2.STU_NUM JOIN CLASS AS T3 ON T2.CLASS_CODE  =  T3.CLASS_CODE JOIN COURSE AS T4 ON T3.CRS_CODE  =  T4.CRS_CODE WHERE T4.CRS_DESCRIPTION  =  \"accounting\" INTERSECT SELECT T1.STU_FNAME FROM STUDENT AS T1 JOIN ENROLL AS T2 ON T1.STU_NUM  =  T2.STU_NUM JOIN CLASS AS T3 ON T2.CLASS_CODE  =  T3.CLASS_CODE JOIN COURSE AS T4 ON T3.CRS_CODE  =  T4.CRS_CODE WHERE T4.CRS_DESCRIPTION  =  \"Computer Information Systems\"",
+        "g_str": [
+            "SELECT T1.stu_fname FROM student AS T1 JOIN enroll AS T2 ON T1.stu_num  =  T2.stu_num JOIN CLASS AS T3 ON T2.class_code  =  T3.class_code JOIN course AS T4 ON T3.crs_code  =  T4.crs_code JOIN department AS T5 ON T5.dept_code  =  T4.dept_code WHERE T5.dept_name  =  'Accounting' INTERSECT SELECT T1.stu_fname FROM student AS T1 JOIN enroll AS T2 ON T1.stu_num  =  T2.stu_num JOIN CLASS AS T3 ON T2.class_code  =  T3.class_code JOIN course AS T4 ON T3.crs_code  =  T4.crs_code JOIN department AS T5 ON T5.dept_code  =  T4.dept_code WHERE T5.dept_name  =  'Computer Info. Systems'",
+            "college_1"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT T1.Country FROM competition AS T1 JOIN competition_result AS T2 ON T1.Competition_ID  =  T2.Competition_ID JOIN club AS T3 ON T2.Club_ID_1  =  T3.Club_ID WHERE T1.Competition_type  =  \"Friendly\" INTERSECT SELECT T1.Country FROM competition AS T1 JOIN competition_result AS T2 ON T1.Competition_ID  =  T2.Competition_ID JOIN club AS T3 ON T2.Club_ID_1  =  T3.Club_ID WHERE T1.Competition_type  =  \"Tournament\"",
+        "g_str": [
+            "SELECT country FROM competition WHERE competition_type  =  'Friendly' INTERSECT SELECT country FROM competition WHERE competition_type  =  'Tournament'",
+            "sports_competition"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT T1.Country FROM competition AS T1 JOIN competition_result AS T2 ON T1.Competition_ID  =  T2.Competition_ID WHERE T1.Competition_type  =  \"friendly\" INTERSECT SELECT T1.Country FROM competition AS T1 JOIN competition_result AS T2 ON T1.Competition_ID  =  T2.Competition_ID WHERE T1.Competition_type  =  \"tournament\"",
+        "g_str": [
+            "SELECT country FROM competition WHERE competition_type  =  'Friendly' INTERSECT SELECT country FROM competition WHERE competition_type  =  'Tournament'",
+            "sports_competition"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT DISTINCT country FROM competition_result JOIN competition ON competition_result.Competition_ID  =  competition.Competition_ID WHERE competition.Competition_type  =  \"Friendly\" EXCEPT SELECT DISTINCT country FROM competition",
+        "g_str": [
+            "SELECT country FROM competition EXCEPT SELECT country FROM competition WHERE competition_type  =  'Friendly'",
+            "sports_competition"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT DISTINCT country FROM competition_result JOIN competition ON competition_result.Competition_ID = competition.Competition_ID WHERE competition.Competition_type = \"friendly\" EXCEPT SELECT DISTINCT country FROM competition",
+        "g_str": [
+            "SELECT country FROM competition EXCEPT SELECT country FROM competition WHERE competition_type  =  'Friendly'",
+            "sports_competition"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT f_id FROM files WHERE formats  =  \"mp4\" INTERSECT SELECT f_id FROM files WHERE resolution  <  1000",
+        "g_str": [
+            "SELECT f_id FROM files WHERE formats  =  \"mp4\" INTERSECT SELECT f_id FROM song WHERE resolution  <  1000",
+            "music_1"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT T1.song_id FROM song AS T1 JOIN files AS T2 ON T1.f_id  =  T2.f_id WHERE T2.formats  =  \"mp4\" UNION SELECT T1.song_id FROM song AS T1 JOIN files AS T2 ON T1.f_id  =  T2.f_id WHERE T1.resolution  >  720",
+        "g_str": [
+            "SELECT f_id FROM files WHERE formats  =  \"mp4\" UNION SELECT f_id FROM song WHERE resolution  >  720",
+            "music_1"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT song_name FROM song WHERE duration  =  4 UNION SELECT song_name FROM song WHERE languages  =  \"English\"",
+        "g_str": [
+            "SELECT T2.song_name FROM files AS T1 JOIN song AS T2 ON T1.f_id  =  T2.f_id WHERE T1.duration LIKE \"4:%\" UNION SELECT song_name FROM song WHERE languages  =  \"english\"",
+            "music_1"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT song_name FROM song WHERE duration  =  4 UNION SELECT song_name FROM song WHERE languages  =  \"English\"",
+        "g_str": [
+            "SELECT T2.song_name FROM files AS T1 JOIN song AS T2 ON T1.f_id  =  T2.f_id WHERE T1.duration LIKE \"4:%\" UNION SELECT song_name FROM song WHERE languages  =  \"english\"",
+            "music_1"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT artist_name FROM artist JOIN song ON artist.artist_name  =  song.artist_name WHERE song.languages  =  'English' EXCEPT SELECT artist_name FROM artist JOIN song ON artist.artist_name  =  song.artist_name WHERE song.rating  >  8",
+        "g_str": [
+            "SELECT DISTINCT artist_name FROM song WHERE languages  =  \"english\" EXCEPT SELECT DISTINCT artist_name FROM song WHERE rating  >  8",
+            "music_1"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT artist_name FROM artist JOIN song ON artist.artist_name  =  song.artist_name WHERE song.languages  =  \"English\" EXCEPT SELECT artist_name FROM artist JOIN song ON artist.artist_name  =  song.artist_name WHERE song.rating  >  8",
+        "g_str": [
+            "SELECT DISTINCT artist_name FROM song WHERE languages  =  \"english\" EXCEPT SELECT DISTINCT artist_name FROM song WHERE rating  >  8",
+            "music_1"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT artist_name FROM artist WHERE country  =  \"Bangladesh\" EXCEPT SELECT artist_name FROM artist AS T1 JOIN song AS T2 ON T1.artist_name  =  T2.artist_name WHERE rating  >  7",
+        "g_str": [
+            "SELECT DISTINCT artist_name FROM artist WHERE country  =  \"Bangladesh\" EXCEPT SELECT DISTINCT artist_name FROM song WHERE rating  >  7",
+            "music_1"
+        ],
+        "hardness": "hard"
+    }
+]
