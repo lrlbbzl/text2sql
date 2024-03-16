@@ -1,0 +1,746 @@
+SELECT Creation FROM department GROUP BY Creation ORDER BY COUNT(*) DESC LIMIT 1
+SELECT T1.Status FROM city AS T1 JOIN farm_competition AS T2 ON T1.City_ID  =  T2.Host_city_ID GROUP BY T2.Host_city_ID ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Status FROM city WHERE City_ID = (SELECT Host_city_ID FROM farm_competition GROUP BY Host_city_ID ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT Status, COUNT(City_ID) FROM city GROUP BY Status ORDER BY COUNT(City_ID) ASC
+SELECT Status FROM city GROUP BY Status ORDER BY COUNT(*) ASC
+SELECT Status FROM city GROUP BY Status ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Status FROM city GROUP BY Status ORDER BY COUNT(*) DESC LIMIT 1
+SELECT course_id FROM Student_Course_Registrations GROUP BY course_id ORDER BY COUNT(*) DESC LIMIT 1
+SELECT course_name FROM Courses WHERE course_id = (SELECT course_id FROM Student_Course_Registrations GROUP BY course_id ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT student_id FROM Student_Course_Registrations GROUP BY student_id HAVING COUNT(*) = (SELECT COUNT(*) FROM Student_Course_Registrations GROUP BY student_id ORDER BY COUNT(*) ASC LIMIT 1)
+SELECT student_id FROM Student_Course_Registrations GROUP BY student_id HAVING COUNT(*) = (SELECT COUNT(*) FROM Student_Course_Registrations GROUP BY student_id ORDER BY COUNT(*) ASC LIMIT 1)
+SELECT student_details FROM Students WHERE student_id = (SELECT student_id FROM Student_Course_Registrations GROUP BY student_id ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT * FROM Students WHERE student_id = (SELECT student_id FROM Student_Course_Registrations GROUP BY student_id ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT start_station_name, start_station_id FROM trip WHERE start_date >= '2022-08-01' AND start_date < '2022-09-01' GROUP BY start_station_id ORDER BY COUNT(*) DESC LIMIT 1
+SELECT start_station_name, start_station_id FROM trip WHERE start_date LIKE '2019-08%' GROUP BY start_station_id ORDER BY COUNT(*) DESC LIMIT 1
+SELECT bike_id FROM trip WHERE zip_code = '94002' GROUP BY bike_id ORDER BY COUNT(*) DESC LIMIT 1
+SELECT bike_id FROM trip WHERE zip_code = '94002' GROUP BY bike_id ORDER BY SUM(duration) DESC LIMIT 1
+SELECT cloud_cover FROM weather WHERE zip_code = 94107 GROUP BY cloud_cover ORDER BY COUNT(*) DESC LIMIT 3
+SELECT cloud_cover FROM weather WHERE zip_code = '94107' GROUP BY cloud_cover ORDER BY COUNT(*) DESC LIMIT 3
+SELECT zip_code FROM weather GROUP BY zip_code ORDER BY AVG(mean_sea_level_pressure_inches) ASC LIMIT 1
+SELECT zip_code FROM weather GROUP BY zip_code ORDER BY AVG(mean_sea_level_pressure_inches) ASC LIMIT 1
+SELECT city FROM station GROUP BY city ORDER BY MAX(lat) DESC
+SELECT name FROM station GROUP BY city ORDER BY MAX(lat) DESC
+SELECT Publication_Date FROM publication GROUP BY Publication_Date ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Nominee FROM musical GROUP BY Nominee ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Nominee FROM actor GROUP BY Nominee ORDER BY COUNT(Musical_ID) DESC LIMIT 1
+SELECT Result FROM musical GROUP BY Result ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Result FROM musical GROUP BY Result ORDER BY COUNT(*) DESC LIMIT 1
+SELECT catalog_publisher FROM Catalogs GROUP BY catalog_publisher ORDER BY COUNT(*) DESC LIMIT 1
+SELECT catalog_publisher FROM Catalogs GROUP BY catalog_publisher ORDER BY COUNT(*) DESC LIMIT 1
+SELECT catalog_entry_name FROM Catalog_Contents WHERE catalog_entry_id IN (SELECT catalog_entry_id FROM Catalog_Contents_Additional_Attributes GROUP BY catalog_entry_id ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT catalog_entry_name FROM Catalog_Contents WHERE catalog_entry_id IN (SELECT catalog_entry_id FROM Catalog_Contents_Additional_Attributes GROUP BY attribute_id ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT origin FROM flight GROUP BY origin ORDER BY COUNT(*) DESC LIMIT 1
+SELECT origin FROM flight GROUP BY origin ORDER BY COUNT(*) DESC LIMIT 1
+SELECT destination FROM flight GROUP BY destination ORDER BY COUNT(*) ASC LIMIT 1
+SELECT destination, COUNT(*) FROM flight GROUP BY destination ORDER BY COUNT(*) ASC LIMIT 1
+SELECT T1.name FROM aircraft AS T1 JOIN certificate AS T2 ON T1.aid = T2.aid GROUP BY T2.aid ORDER BY COUNT(*) ASC LIMIT 1
+SELECT T2.name FROM certificate AS T1 JOIN aircraft AS T2 ON T1.aid = T2.aid GROUP BY T1.aid ORDER BY COUNT(*) ASC LIMIT 1
+SELECT T1.name, T1.distance FROM aircraft AS T1 JOIN certificate AS T2 ON T1.aid = T2.aid WHERE T1.distance > 5000 GROUP BY T1.aid HAVING COUNT(*) >= 5
+SELECT T1.name, T1.distance FROM aircraft AS T1 JOIN certificate AS T2 ON T1.aid = T2.aid WHERE T1.distance > 5000 GROUP BY T2.aid HAVING COUNT(*) >= 5
+SELECT T1.name, T1.salary FROM employee AS T1 JOIN certificate AS T2 ON T1.eid = T2.eid GROUP BY T1.eid ORDER BY COUNT(*) DESC LIMIT 1
+SELECT T1.name, T1.salary FROM employee AS T1 JOIN certificate AS T2 ON T1.eid = T2.eid GROUP BY T1.eid ORDER BY COUNT(*) DESC LIMIT 1
+SELECT T1.name, T1.salary FROM employee AS T1 JOIN certificate AS T2 ON T1.eid = T2.eid JOIN aircraft AS T3 ON T2.aid = T3.aid WHERE T3.distance > 5000 GROUP BY T1.eid ORDER BY COUNT(*) DESC LIMIT 1
+SELECT T1.name, T1.salary FROM employee AS T1 JOIN certificate AS T2 ON T1.eid = T2.eid JOIN aircraft AS T3 ON T2.aid = T3.aid WHERE T3.distance > 5000 GROUP BY T1.eid ORDER BY COUNT(*) DESC LIMIT 1
+SELECT AllergyType, COUNT(*) FROM Allergy_Type AS T1 JOIN Has_Allergy AS T2 ON T1.Allergy = T2.Allergy GROUP BY AllergyType ORDER BY COUNT(*) DESC LIMIT 1
+SELECT AllergyType FROM Allergy_Type GROUP BY AllergyType ORDER BY COUNT(*) DESC LIMIT 1
+SELECT AllergyType, COUNT(*) FROM Allergy_Type AS T1 JOIN Has_Allergy AS T2 ON T1.Allergy = T2.Allergy GROUP BY AllergyType ORDER BY COUNT(*) ASC LIMIT 1
+SELECT AllergyType FROM Allergy_Type GROUP BY AllergyType ORDER BY COUNT(*) ASC LIMIT 1
+SELECT Major FROM Student GROUP BY Major ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Major FROM Student GROUP BY Major ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Advisor FROM Student GROUP BY Advisor ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Advisor FROM Student GROUP BY Advisor ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Allergy FROM Has_Allergy GROUP BY Allergy ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Allergy FROM Has_Allergy GROUP BY Allergy ORDER BY COUNT(*) DESC LIMIT 1
+SELECT T1.country, COUNT(*) FROM customers AS T1 JOIN invoices AS T2 ON T1.id = T2.customer_id GROUP BY T1.country ORDER BY COUNT(*) DESC LIMIT 5
+SELECT T1.country, COUNT(*) FROM customers AS T1 JOIN invoices AS T2 ON T1.id = T2.customer_id GROUP BY T1.country ORDER BY COUNT(*) DESC LIMIT 5
+SELECT T1.country, SUM(T2.total) FROM customers AS T1 JOIN invoices AS T2 ON T1.id = T2.customer_id GROUP BY T1.country ORDER BY SUM(T2.total) DESC LIMIT 8
+SELECT T1.country, SUM(T2.total) FROM customers AS T1 JOIN invoices AS T2 ON T1.id = T2.customer_id GROUP BY T1.country ORDER BY SUM(T2.total) DESC LIMIT 8
+country, AVG(T2.total) FROM customers AS T1 JOIN invoices AS T2 ON T1.id = T2.customer_id GROUP BY T1.country ORDER BY AVG(T2.total) DESC LIMIT 10
+SELECT T1.country, AVG(T2.total) FROM customers AS T1 JOIN invoices AS T2 ON T1.id = T2.customer_id GROUP BY T1.country ORDER BY AVG(T2.total) DESC
+SELECT T1.first_name, T1.last_name, COUNT(*) FROM customers AS T1 JOIN invoices AS T2 ON T1.id = T2.customer_id GROUP BY T2.customer_id ORDER BY COUNT(*) DESC LIMIT 10
+select t1.first_name, t1.last_name, count(*) from customers as t1 join invoices as t2 on t1.id = t2.customer_id group by t1.id order by count(*) desc limit 10
+SELECT T1.first_name, T1.last_name, SUM(T2.total) FROM customers AS T1 JOIN invoices AS T2 ON T1.id = T2.customer_id GROUP BY T1.id ORDER BY SUM(T2.total) DESC LIMIT 10
+SELECT T1.first_name, T1.last_name, SUM(T2.total) AS sales FROM customers AS T1 JOIN invoices AS T2 ON T1.id = T2.customer_id GROUP BY T1.id ORDER BY sales DESC LIMIT 10
+SELECT T2.name, COUNT(*) FROM tracks AS T1 JOIN genres AS T2 ON T1.genre_id = T2.id GROUP BY T1.genre_id ORDER BY COUNT(*) DESC LIMIT 5
+SELECT T1.name, COUNT(*) FROM genres AS T1 JOIN tracks AS T2 ON T1.id = T2.genre_id GROUP BY T1.name ORDER BY COUNT(*) DESC LIMIT 5
+SELECT billing_state FROM invoices WHERE billing_country = 'USA' GROUP BY billing_state ORDER BY COUNT(*) DESC LIMIT 1
+SELECT billing_state FROM invoices GROUP BY billing_state ORDER BY COUNT(*) DESC
+SELECT first_name, last_name FROM employees WHERE id = (SELECT support_rep_id FROM customers GROUP BY support_rep_id ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT first_name, last_name FROM employees WHERE id = (SELECT support_rep_id FROM customers GROUP BY support_rep_id ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT first_name, last_name, COUNT(id) FROM employees GROUP BY reports_to ORDER BY COUNT(id) DESC LIMIT 1
+SELECT first_name, last_name, COUNT(id) FROM employees GROUP BY reports_to
+SELECT Age FROM editor GROUP BY Age ORDER BY COUNT(*) DESC LIMIT 1
+SELECT customer_id, COUNT(account_id) FROM Accounts GROUP BY customer_id ORDER BY COUNT(account_id) DESC LIMIT 1
+SELECT customer_id, COUNT(*) FROM Accounts GROUP BY customer_id ORDER BY COUNT(*) DESC LIMIT 1
+SELECT customer_first_name, customer_last_name, customer_id FROM Customers WHERE customer_id = (SELECT customer_id FROM Accounts GROUP BY customer_id ORDER BY COUNT(*) ASC LIMIT 1)
+SELECT customer_first_name, customer_last_name, customer_id FROM Customers WHERE customer_id = (SELECT customer_id FROM Accounts GROUP BY customer_id ORDER BY COUNT(*) ASC LIMIT 1)
+SELECT customer_id, COUNT(*) FROM Customers_Cards GROUP BY customer_id ORDER BY COUNT(*) DESC LIMIT 1
+SELECT customer_id, COUNT(card_id) FROM Customers_Cards GROUP BY customer_id ORDER BY COUNT(card_id) DESC LIMIT 1
+SELECT customer_id, customer_first_name, customer_last_name FROM Customers WHERE customer_id = (SELECT customer_id FROM Accounts GROUP BY customer_id ORDER BY COUNT(*) ASC LIMIT 1)
+SELECT T1.customer_id, CONCAT(T2.customer_first_name, ' ', T2.customer_last_name) AS full_name FROM Accounts AS T1 JOIN Customers AS T2 ON T1.customer_id = T2.customer_id GROUP BY T1.customer_id ORDER BY COUNT(*) ASC LIMIT 1
+SELECT card_type_code FROM Customers_Cards GROUP BY card_type_code ORDER BY COUNT(*) DESC LIMIT 1
+SELECT card_type_code FROM Customers_Cards GROUP BY card_type_code ORDER BY COUNT(*) DESC LIMIT 1
+SELECT transaction_type FROM Financial_Transactions GROUP BY transaction_type ORDER BY SUM(transaction_amount) DESC LIMIT 1
+SELECT transaction_type FROM Financial_Transactions GROUP BY transaction_type ORDER BY SUM(transaction_amount) DESC LIMIT 1
+SELECT Class FROM race GROUP BY Class ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Class FROM race GROUP BY Class ORDER BY COUNT(*) DESC LIMIT 1
+SELECT T2.Name FROM race AS T1 JOIN track AS T2 ON T1.Track_ID = T2.Track_ID GROUP BY T1.Track_ID ORDER BY COUNT(*) DESC LIMIT 1
+SELECT T2.Name FROM race AS T1 JOIN track AS T2 ON T1.Track_ID = T2.Track_ID GROUP BY T1.Track_ID ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Shop_ID, COUNT(HH_ID) FROM happy_hour GROUP BY Shop_ID ORDER BY COUNT(HH_ID) DESC LIMIT 1
+SELECT Month FROM happy_hour GROUP BY Month ORDER BY COUNT(*) DESC LIMIT 1
+SELECT T1.Name FROM Artist AS T1 JOIN Album AS T2 ON T1.ArtistId = T2.ArtistId GROUP BY T1.ArtistId ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Name FROM Artist WHERE ArtistId = (SELECT ArtistId FROM Album GROUP BY ArtistId ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT Genre FROM Track GROUP BY Genre ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Name FROM Genre WHERE GenreId = (SELECT GenreId FROM Track GROUP BY GenreId ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT MediaTypeId FROM Track GROUP BY MediaTypeId ORDER BY COUNT(*) ASC LIMIT 1
+SELECT T1.Name FROM MediaType AS T1 JOIN Track AS T2 ON T1.MediaTypeId = T2.MediaTypeId GROUP BY T2.MediaTypeId ORDER BY COUNT(*) ASC LIMIT 1
+SELECT Name, ArtistId FROM Artist WHERE ArtistId IN (SELECT ArtistId FROM Album GROUP BY ArtistId HAVING COUNT(*) >= 3) ORDER BY Name
+SELECT Name, ArtistId FROM Artist WHERE ArtistId IN (SELECT ArtistId FROM Album GROUP BY ArtistId HAVING COUNT(*) >= 3) ORDER BY Name ASC
+SELECT policy_type_code FROM Available_Policies WHERE Policy_ID = (SELECT Policy_ID FROM Customers_Policies GROUP BY Policy_ID ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT policy_type_code FROM Available_Policies GROUP BY policy_type_code ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Customer_Phone FROM Available_Policies AS T1 JOIN Customers_Policies AS T2 ON T1.Policy_ID = T2.Policy_ID WHERE T1.policy_type_code = (SELECT policy_type_code FROM Available_Policies GROUP BY policy_type_code ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT Customer_Phone FROM Available_Policies WHERE policy_type_code = (SELECT policy_type_code FROM Available_Policies GROUP BY policy_type_code ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT Effective_Date FROM Claims WHERE Claim_ID = (SELECT Claim_ID FROM Settlements GROUP BY Claim_ID ORDER BY SUM(Settlement_Amount) DESC LIMIT 1)
+SELECT T2.Effective_Date FROM Claims AS T1 JOIN Settlements AS T2 ON T1.Claim_ID = T2.Claim_ID GROUP BY T2.Claim_ID ORDER BY SUM(T2.Settlement_Amount) DESC LIMIT 1
+SELECT Customer_name FROM Customers WHERE Customer_ID = (SELECT Customer_ID FROM Customers_Policies GROUP BY Customer_ID ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT Customer_name FROM Customers WHERE Customer_ID = (SELECT Customer_ID FROM Customers_Policies GROUP BY Customer_ID ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT policy_type_code FROM Available_Policies WHERE Policy_ID IN (SELECT Policy_ID FROM Customers_Policies WHERE Customer_ID = (SELECT Customer_ID FROM Customers_Policies GROUP BY Customer_ID ORDER BY COUNT(*) DESC LIMIT 1))
+SELECT policy_type_code FROM Available_Policies WHERE Policy_ID IN (SELECT Policy_ID FROM Customers_Policies WHERE Customer_ID = (SELECT Customer_ID FROM Customers_Policies GROUP BY Customer_ID ORDER BY COUNT(*) DESC LIMIT 1))
+SELECT T1.id, T1.name, T1.FDA_approved FROM medicine AS T1 JOIN medicine_enzyme_interaction AS T2 ON T1.id = T2.medicine_id GROUP BY T2.medicine_id ORDER BY COUNT(*) DESC
+SELECT id, name, FDA_approved FROM medicine ORDER BY (SELECT COUNT(*) FROM medicine_enzyme_interaction WHERE medicine_id = medicine.id) DESC
+SELECT T1.id, T1.name FROM enzyme AS T1 JOIN medicine_enzyme_interaction AS T2 ON T1.id = T2.enzyme_id WHERE T2.interaction_type = 'activator' GROUP BY T2.enzyme_id ORDER BY COUNT(*) DESC LIMIT 1
+SELECT T1.id, T1.name FROM enzyme AS T1 JOIN medicine_enzyme_interaction AS T2 ON T1.id = T2.enzyme_id WHERE T2.interaction_type = 'activator' GROUP BY T2.enzyme_id ORDER BY COUNT(*) DESC LIMIT 1
+SELECT interaction_type, COUNT(*) FROM medicine_enzyme_interaction GROUP BY enzyme_id, medicine_id ORDER BY COUNT(*) DESC LIMIT 1
+eraction_type, count(*) from medicine_enzyme_interaction group by interaction_type order by count(*) desc limit 1;select count(distinct interaction_type) as num_interaction_types from medicine_enzyme_interaction;
+SELECT Company_name, COUNT(Hardware_Model_name) FROM phone GROUP BY Company_name ORDER BY COUNT(Hardware_Model_name) ASC LIMIT 1
+SELECT Position FROM match_season GROUP BY Position ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Position FROM match_season GROUP BY Position ORDER BY COUNT(*) DESC LIMIT 1
+SELECT College, COUNT(*) FROM match_season GROUP BY College ORDER BY COUNT(*) DESC LIMIT 3
+SELECT College, COUNT(Player) FROM match_season GROUP BY College ORDER BY COUNT(Player) DESC LIMIT 3
+SELECT T2.Name FROM match_season AS T1 JOIN team AS T2 ON T1.Team = T2.Team_id GROUP BY T1.Team HAVING COUNT(*) >= 2 ORDER BY T2.Name DESC
+SELECT College FROM match_season GROUP BY College HAVING COUNT(*) >= 2 ORDER BY College DESC
+SELECT Range FROM mountain GROUP BY Range ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Range FROM mountain GROUP BY Range ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Birth_Place FROM people GROUP BY Birth_Place ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Party FROM representative GROUP BY Party ORDER BY COUNT(*) DESC LIMIT 1
+SELECT apt_type_code, COUNT(*) FROM Apartments GROUP BY apt_type_code ORDER BY COUNT(*) ASC
+SELECT apt_type_code, COUNT(*) FROM Apartments GROUP BY apt_type_code ORDER BY COUNT(*) ASC
+SELECT apt_type_code FROM Apartments GROUP BY apt_type_code ORDER BY AVG(room_count) DESC LIMIT 3
+SELECT apt_type_code, AVG(room_count) FROM Apartments GROUP BY apt_type_code ORDER BY AVG(room_count) DESC LIMIT 3
+SELECT apt_type_code, SUM(bathroom_count), SUM(bedroom_count) FROM Apartments GROUP BY apt_type_code ORDER BY SUM(room_count) DESC LIMIT 1
+SELECT apt_type_code, SUM(bathroom_count), SUM(bedroom_count) FROM Apartments GROUP BY apt_type_code ORDER BY SUM(room_count) DESC LIMIT 1
+SELECT apt_type_code FROM Apartments GROUP BY apt_type_code ORDER BY COUNT(*) DESC LIMIT 1
+SELECT apt_type_code FROM Apartments GROUP BY apt_type_code ORDER BY COUNT(*) DESC LIMIT 1
+SELECT apt_type_code FROM Apartments WHERE bathroom_count > 1 GROUP BY apt_type_code ORDER BY COUNT(*) DESC LIMIT 1
+SELECT apt_type_code FROM Apartments WHERE bathroom_count > 1 GROUP BY apt_type_code ORDER BY COUNT(*) DESC LIMIT 1
+SELECT gender_code, COUNT(*) FROM Guests GROUP BY gender_code ORDER BY COUNT(*) DESC
+SELECT gender_code, COUNT(*) FROM Guests GROUP BY gender_code ORDER BY COUNT(*) DESC
+SELECT T2.id, T2.name FROM game AS T1 JOIN stadium AS T2 ON T1.stadium_id = T2.id JOIN injury_accident AS T3 ON T1.id = T3.game_id GROUP BY T1.stadium_id ORDER BY COUNT(*) DESC LIMIT 1
+SELECT T2.id, T2.name FROM game AS T1 JOIN stadium AS T2 ON T1.stadium_id = T2.id JOIN injury_accident AS T3 ON T1.id = T3.game_id GROUP BY T1.stadium_id ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Location FROM performance GROUP BY Location ORDER BY COUNT(*) DESC LIMIT 1
+SELECT dept_name FROM course GROUP BY dept_name ORDER BY COUNT(*) DESC LIMIT 3
+SELECT dept_name FROM course GROUP BY dept_name ORDER BY COUNT(*) DESC LIMIT 3
+SELECT dept_name FROM course GROUP BY dept_name ORDER BY SUM(credits) DESC LIMIT 1
+SELECT dept_name FROM course GROUP BY dept_name ORDER BY SUM(credits) DESC LIMIT 1
+SELECT year FROM section GROUP BY year ORDER BY COUNT(*) DESC LIMIT 1
+SELECT year FROM section GROUP BY year ORDER BY COUNT(*) DESC LIMIT 1
+SELECT year, semester FROM teaches GROUP BY year, semester ORDER BY COUNT(*) DESC LIMIT 1
+SELECT year, semester FROM section GROUP BY year, semester ORDER BY COUNT(*) DESC LIMIT 1
+SELECT dept_name FROM student GROUP BY dept_name ORDER BY COUNT(*) DESC LIMIT 1
+SELECT dept_name FROM student GROUP BY dept_name ORDER BY COUNT(*) DESC LIMIT 1
+SELECT semester, year FROM takes GROUP BY semester, year ORDER BY COUNT(ID) ASC LIMIT 1
+SELECT semester, year FROM takes GROUP BY semester, year ORDER BY COUNT(*) ASC LIMIT 1
+SELECT dept_name FROM instructor GROUP BY dept_name ORDER BY AVG(salary) DESC LIMIT 1
+SELECT dept_name FROM instructor GROUP BY dept_name ORDER BY AVG(salary) DESC LIMIT 1
+SELECT Party FROM people GROUP BY Party ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Policy_Type_Code FROM Policies GROUP BY Policy_Type_Code ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Policy_Type_Code FROM Policies GROUP BY Policy_Type_Code ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Claim_Status_Name FROM Claims_Processing_Stages WHERE Claim_Stage_ID = (SELECT Claim_Stage_ID FROM Claim_Headers GROUP BY Claim_Stage_ID ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT Claim_Status_Name FROM Claims_Processing_Stages WHERE Claim_Stage_ID = (SELECT Claim_Stage_ID FROM Claim_Headers GROUP BY Claim_Stage_ID ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT Customer_Details FROM Customers WHERE Customer_ID = (SELECT Customer_ID FROM Policies GROUP BY Customer_ID ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT Customer_Details FROM Customers WHERE Customer_ID = (SELECT Customer_ID FROM Policies GROUP BY Customer_ID ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT customer_id, customer_first_name, customer_last_name FROM Customers WHERE customer_id = (SELECT customer_id FROM Accounts GROUP BY customer_id ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT customer_id, CONCAT(customer_first_name, ' ', customer_middle_initial, ' ', customer_last_name) AS full_name FROM Customers WHERE customer_id = (SELECT customer_id FROM Accounts GROUP BY customer_id ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT account_id FROM Financial_Transactions GROUP BY account_id ORDER BY COUNT(*) DESC LIMIT 1
+SELECT account_id FROM Financial_Transactions GROUP BY account_id ORDER BY COUNT(*) DESC LIMIT 1
+SELECT invoice_number, invoice_date FROM Invoices WHERE invoice_number = (SELECT invoice_number FROM Financial_Transactions GROUP BY invoice_number ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT invoice_number, invoice_date FROM Invoices WHERE invoice_number = (SELECT invoice_number FROM Financial_Transactions GROUP BY invoice_number ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT customer_last_name, customer_id, phone_number FROM Customers WHERE customer_id = (SELECT customer_id FROM Orders GROUP BY customer_id ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT customer_last_name, customer_id, phone_number FROM Customers WHERE customer_id = (SELECT customer_id FROM Orders GROUP BY customer_id ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT T1.Name, T1.Country FROM artist AS T1 JOIN exhibition AS T2 ON T1.Artist_ID = T2.Artist_ID JOIN exhibition_record AS T3 ON T2.Exhibition_ID = T3.Exhibition_ID GROUP BY T1.Artist_ID ORDER BY COUNT(*) DESC LIMIT 1
+SELECT T1.Name, T1.Country FROM artist AS T1 JOIN exhibition AS T2 ON T1.Artist_ID = T2.Artist_ID GROUP BY T2.Artist_ID ORDER BY COUNT(*) DESC LIMIT 1
+SELECT T1.title FROM item AS T1 JOIN review AS T2 ON T1.i_id = T2.i_id GROUP BY T2.i_id ORDER BY AVG(T2.rating) ASC LIMIT 1
+SELECT name FROM useracct WHERE u_id = (SELECT u_id FROM review GROUP BY u_id ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT title, i_id FROM item ORDER BY (SELECT AVG(rating) FROM review WHERE review.i_id = item.i_id) DESC LIMIT 1
+SELECT T1.title, T1.i_id FROM item AS T1 JOIN review AS T2 ON T1.i_id = T2.i_id GROUP BY T2.i_id ORDER BY AVG(T2.rank) DESC LIMIT 1
+SELECT T2.name FROM trust AS T1 JOIN useracct AS T2 ON T1.source_u_id = T2.u_id GROUP BY T1.source_u_id ORDER BY AVG(T1.trust) DESC LIMIT 1
+SELECT occupation FROM player GROUP BY occupation ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Gold FROM match_result WHERE Club_ID = (SELECT Club_ID FROM coach GROUP BY Club_ID ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT Hometown FROM people GROUP BY Hometown ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Hometown FROM people GROUP BY Hometown ORDER BY COUNT(*) DESC LIMIT 1
+SELECT T2.id, T2.name FROM accelerator_compatible_browser AS T1 JOIN browser AS T2 ON T1.browser_id = T2.id GROUP BY T1.browser_id ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Reign FROM wrestler GROUP BY Reign ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Reign FROM wrestler GROUP BY Reign ORDER BY COUNT(*) DESC LIMIT 1
+SELECT donator_name, amount FROM endowment ORDER BY amount DESC
+SELECT Type FROM Institution GROUP BY Type ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Location FROM cinema WHERE Openning_year >= 2010 GROUP BY Location ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Directed_by, COUNT(*) FROM film JOIN schedule ON film.Film_ID = schedule.Film_ID GROUP BY Directed_by ORDER BY COUNT(*) DESC LIMIT 1
+SELECT customer_id, SUM(amount_paid) FROM Payments GROUP BY customer_id ORDER BY SUM(amount_paid) DESC LIMIT 1
+SELECT T1.booking_id, T2.amount_of_refund FROM Payments AS T1 JOIN Bookings AS T2 ON T1.booking_id = T2.booking_id GROUP BY T1.booking_id ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Carrier FROM phone GROUP BY Carrier ORDER BY COUNT(*) DESC LIMIT 1
+SELECT T1.Name FROM phone AS T1 JOIN phone_market AS T2 ON T1.Phone_ID = T2.Phone_ID GROUP BY T2.Phone_ID HAVING SUM(T2.Num_of_stock) > 2000 ORDER BY SUM(T2.Num_of_stock) DESC
+SELECT Main_Industry, SUM(Market_Value) FROM company GROUP BY Main_Industry ORDER BY SUM(Market_Value) DESC LIMIT 1
+Main_Industry, COUNT(*) FROM company AS T1 JOIN station_company AS T2 ON T1.Company_ID = T2.Company_ID WHERE T1.Main_Industry = (SELECT Main_Industry FROM company GROUP BY Main_Industry ORDER BY SUM(Market_Value) DESC LIMIT 1) GROUP BY T1.Main_Industry
+SELECT Location, COUNT(*) FROM gas_station AS T1 JOIN station_company AS T2 ON T1.Station_ID = T2.Station_ID GROUP BY Location ORDER BY COUNT(*)
+SELECT Location, COUNT(Station_ID) FROM gas_station GROUP BY Location ORDER BY COUNT(Station_ID)
+SELECT Manager_Name FROM gas_station WHERE Open_Year > 2000 GROUP BY Manager_Name ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Manager_Name FROM gas_station WHERE Open_Year > 2000 GROUP BY Manager_Name ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Party_name FROM party WHERE Party_ID = (SELECT Party_ID FROM member GROUP BY Party_ID ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT Party_name FROM party WHERE Party_ID = (SELECT Party_ID FROM member GROUP BY Party_ID ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT Member_Name FROM member GROUP BY Member_ID ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Member_Name FROM member WHERE Member_ID = (SELECT Member_in_charge_ID FROM party_events GROUP BY Member_in_charge_ID ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT Nationality FROM pilot GROUP BY Nationality ORDER BY COUNT(*) DESC LIMIT 1
+SELECT T1.shipping_agent_name, COUNT(*) FROM Documents AS T1 JOIN Ref_Shipping_Agents AS T2 ON T1.shipping_agent_code = T2.shipping_agent_code GROUP BY T1.shipping_agent_code ORDER BY COUNT(*) DESC LIMIT 1
+SELECT document_id, COUNT(*) FROM Draft_Copies GROUP BY document_id ORDER BY COUNT(*) DESC LIMIT 1
+SELECT T2.employee_name, COUNT(*) FROM Circulation_History AS T1 JOIN Employees AS T2 ON T1.employee_id = T2.employee_id GROUP BY T1.employee_id ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Participant_Type_Code FROM Participants GROUP BY Participant_Type_Code ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Service_ID, Service_Type_Code FROM Services WHERE Service_ID = (SELECT Service_ID FROM Participants_in_Events GROUP BY Service_ID ORDER BY COUNT(*) ASC LIMIT 1)
+SELECT Event_ID FROM Participants_in_Events GROUP BY Event_ID ORDER BY COUNT(*) DESC LIMIT 1
+driverId, T2.surname FROM results AS T1 JOIN drivers AS T2 ON T1.driverId = T2.driverId JOIN races AS T3 ON T1.raceId = T3.raceId WHERE T3.year > 2010 GROUP BY T1.driverId ORDER BY COUNT(*) DESC LIMIT 1
+SELECT T2.driverId, T2.surname FROM results AS T1 JOIN drivers AS T2 ON T1.driverId = T2.driverId JOIN races AS T3 ON T1.raceId = T3.raceId WHERE T3.year > 2010 GROUP BY T2.driverId ORDER BY COUNT(*) DESC LIMIT 1
+SELECT r.name, MAX(res.fastestLapSpeed) FROM races AS r JOIN results AS res ON r.raceId = res.raceId WHERE r.year > 2004 GROUP BY r.name ORDER BY r.year
+SELECT T1.name, MAX(T2.fastestLapSpeed) FROM races AS T1 JOIN results AS T2 ON T1.raceId = T2.raceId WHERE T1.year > 2004 GROUP BY T1.name ORDER BY T1.year ASC
+SELECT r.name, AVG(res.fastestLapSpeed) FROM races AS r JOIN results AS res ON r.raceId = res.raceId WHERE r.year > 2004 GROUP BY r.name ORDER BY r.year ASC
+SELECT T2.raceId, AVG(T1.fastestLapSpeed) FROM results AS T1 JOIN races AS T2 ON T1.raceId = T2.raceId WHERE T2.year > 2004 GROUP BY T2.raceId ORDER BY T2.year
+SELECT driverId, surname FROM drivers WHERE driverId = (SELECT driverId FROM results GROUP BY driverId ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT driverId, surname FROM drivers WHERE driverId IN (SELECT driverId FROM results GROUP BY driverId ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT Team FROM technician GROUP BY Team ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Team FROM technician GROUP BY Team ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Investor FROM entrepreneur GROUP BY Investor ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Investor FROM entrepreneur GROUP BY Investor ORDER BY COUNT(Entrepreneur_ID) DESC LIMIT 1
+SELECT Country FROM perpetrator GROUP BY Country ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Year FROM degrees GROUP BY Year ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Year FROM degrees GROUP BY Year ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Campus FROM degrees GROUP BY Campus ORDER BY SUM(Degrees) DESC LIMIT 1
+SELECT Campus, SUM(Degrees) FROM degrees GROUP BY Campus ORDER BY SUM(Degrees) DESC LIMIT 1
+SELECT Poll_Source FROM candidate GROUP BY Poll_Source ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Poll_Source FROM candidate GROUP BY Poll_Source ORDER BY COUNT(*) DESC LIMIT 1
+SELECT T2.Sex, AVG(T1.Unsure_rate) FROM candidate AS T1 JOIN people AS T2 ON T1.People_ID = T2.People_ID GROUP BY T2.Sex ORDER BY AVG(T1.Unsure_rate) DESC LIMIT 1
+SELECT T2.Sex FROM candidate AS T1 JOIN people AS T2 ON T1.People_ID = T2.People_ID WHERE T1.Unsure_rate = (SELECT MAX(Unsure_rate) FROM candidate)
+SELECT Movie.title, AVG(Rating.stars) FROM Movie JOIN Rating ON Movie.mID = Rating.mID GROUP BY Rating.mID ORDER BY AVG(Rating.stars) DESC LIMIT 1
+SELECT T1.title, AVG(T2.stars) FROM Movie AS T1 JOIN Rating AS T2 ON T1.mID = T2.mID GROUP BY T2.mID ORDER BY AVG(T2.stars) DESC LIMIT 1
+SELECT T1.title, AVG(T2.stars) FROM Movie AS T1 JOIN Rating AS T2 ON T1.mID = T2.mID GROUP BY T2.mID ORDER BY AVG(T2.stars) ASC LIMIT 1
+SELECT T2.title, AVG(T1.stars) FROM Rating AS T1 JOIN Movie AS T2 ON T1.mID = T2.mID GROUP BY T1.mID HAVING AVG(T1.stars) = (SELECT AVG(stars) FROM Rating GROUP BY mID ORDER BY AVG(stars) ASC LIMIT 1)
+SELECT title FROM Movie WHERE mID = (SELECT mID FROM Rating GROUP BY mID ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT title FROM Movie WHERE mID = (SELECT mID FROM Rating GROUP BY mID ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT Location FROM city GROUP BY Location ORDER BY COUNT(County_ID) DESC LIMIT 1
+SELECT Location FROM city GROUP BY Location ORDER BY COUNT(County_ID) DESC LIMIT 1
+SELECT Room FROM Reservations GROUP BY Room ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Room FROM Reservations GROUP BY Room ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Rooms.roomName, Reservations.Rate, Reservations.CheckIn, Reservations.CheckOut FROM Reservations JOIN Rooms ON Reservations.Room = Rooms.RoomId WHERE Reservations.Rate = (SELECT MAX(Rate) FROM Reservations)
+SELECT roomName, basePrice, CheckIn, CheckOut FROM Rooms ORDER BY basePrice DESC LIMIT 1
+SELECT decor FROM Rooms JOIN Reservations ON Rooms.RoomId = Reservations.Room GROUP BY decor ORDER BY COUNT(*) ASC LIMIT 1
+SELECT decor FROM Rooms GROUP BY decor ORDER BY COUNT(*) ASC LIMIT 1
+SELECT Nationality FROM host GROUP BY Nationality ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Nationality FROM host GROUP BY Nationality ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Name, Max_speed FROM storm WHERE Storm_ID = (SELECT Storm_ID FROM affected_region GROUP BY Storm_ID ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT T1.Name, T1.Max_speed FROM storm AS T1 JOIN affected_region AS T2 ON T1.Storm_ID = T2.Storm_ID GROUP BY T2.Storm_ID ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Party FROM party WHERE Party_ID = (SELECT Party FROM election GROUP BY Party ORDER BY COUNT(Delegate) DESC LIMIT 1)
+SELECT Party FROM party WHERE Party_ID = (SELECT Party FROM election GROUP BY Party ORDER BY COUNT(Delegate) DESC LIMIT 1)
+SELECT Governor FROM party GROUP BY Governor ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Governor FROM party GROUP BY Governor ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Comptroller, COUNT(*) FROM party GROUP BY Comptroller ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Comptroller, COUNT(*) FROM party GROUP BY Comptroller ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Nationality FROM journalist GROUP BY Nationality ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Advisor, COUNT(*) FROM Student GROUP BY Advisor ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Major, COUNT(*) FROM Student GROUP BY Major ORDER BY COUNT(*) ASC LIMIT 1
+SELECT T2.ResName, SUM(T1.Time) FROM Visits_Restaurant AS T1 JOIN Restaurant AS T2 ON T1.ResID = T2.ResID GROUP BY T1.ResID ORDER BY SUM(T1.Time) ASC LIMIT 1
+SELECT Fname, LName FROM Student WHERE StuID = (SELECT StuID FROM Visits_Restaurant GROUP BY StuID ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT T2.product_name, T2.product_price FROM Regular_Order_Products AS T1 JOIN Products AS T2 ON T1.product_id = T2.product_id GROUP BY T1.product_id ORDER BY COUNT(*) DESC LIMIT 1
+SELECT payment_method FROM Customers GROUP BY payment_method ORDER BY COUNT(*) DESC LIMIT 1
+SELECT T2.route_name FROM Delivery_Route_Locations AS T1 JOIN Delivery_Routes AS T2 ON T1.route_id = T2.route_id GROUP BY T1.route_id ORDER BY COUNT(*) DESC LIMIT 1
+SELECT lname FROM Authors WHERE authID = (SELECT authID FROM Authorship GROUP BY authID ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT lname FROM Authors JOIN Authorship ON Authors.authID = Authorship.authID GROUP BY Authors.authID ORDER BY COUNT(*) DESC LIMIT 1
+SELECT T2.country FROM Authorship AS T1 JOIN Inst AS T2 ON T1.instID = T2.instID GROUP BY T2.country ORDER BY COUNT(T1.paperID) DESC LIMIT 1
+SELECT T2.country FROM Authorship AS T1 JOIN Inst AS T2 ON T1.instID = T2.instID GROUP BY T2.country ORDER BY COUNT(T1.paperID) DESC LIMIT 1
+SELECT T2.name FROM Authorship AS T1 JOIN Inst AS T2 ON T1.instID = T2.instID GROUP BY T1.instID ORDER BY COUNT(*) DESC LIMIT 1
+SELECT name FROM Inst WHERE instID = (SELECT instID FROM Authorship GROUP BY instID ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT first_name FROM actor GROUP BY first_name ORDER BY COUNT(*) DESC LIMIT 1
+SELECT first_name FROM actor GROUP BY first_name ORDER BY COUNT(*) DESC LIMIT 1
+SELECT first_name, last_name FROM actor GROUP BY first_name, last_name ORDER BY COUNT(*) DESC LIMIT 1
+SELECT CONCAT(first_name, ' ', last_name) AS full_name FROM actor GROUP BY first_name, last_name ORDER BY COUNT(*) DESC LIMIT 1
+SELECT city.city, COUNT(address.address_id) AS num_addresses, city.city_id FROM address JOIN city ON address.city_id = city.city_id GROUP BY address.city_id ORDER BY num_addresses DESC LIMIT 1
+SELECT city.city_id, city.city, COUNT(address.address_id) FROM city JOIN address ON city.city_id = address.city_id GROUP BY city.city_id, city.city ORDER BY COUNT(address.address_id) DESC LIMIT 1
+SELECT T1.title, T1.film_id, T1.description FROM film AS T1 JOIN film_actor AS T2 ON T1.film_id = T2.film_id GROUP BY T1.film_id ORDER BY COUNT(*) DESC LIMIT 1
+SELECT title, film_id, description FROM film WHERE film_id = (SELECT film_id FROM film_actor GROUP BY film_id ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT first_name, last_name, actor_id FROM actor WHERE actor_id = (SELECT actor_id FROM film_actor GROUP BY actor_id ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT first_name, last_name, actor_id FROM actor WHERE actor_id = (SELECT actor_id FROM film_actor GROUP BY actor_id ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT store_id FROM inventory GROUP BY store_id ORDER BY COUNT(*) DESC LIMIT 1
+SELECT store_id FROM inventory GROUP BY store_id ORDER BY COUNT(*) DESC LIMIT 1
+irst_name, c.last_name, c.customer_idFROM customer AS cJOIN payment AS p ON c.customer_id = p.customer_idGROUP BY c.customer_idHAVING SUM(p.amount) > 0ORDER BY SUM(p.amount) ASCLIMIT 1
+SELECT CONCAT(c.first_name, ' ', c.last_name) AS full_name, c.customer_id FROM customer AS c JOIN payment AS p ON c.customer_id = p.customer_id GROUP BY c.customer_id ORDER BY SUM(p.amount) ASC LIMIT 1
+SELECT film.title, inventory.film_id FROM film JOIN inventory ON film.film_id = inventory.film_id GROUP BY inventory.film_id ORDER BY COUNT(*) DESC LIMIT 1
+SELECT T1.title, T2.film_id FROM film AS T1 JOIN inventory AS T2 ON T1.film_id = T2.film_id GROUP BY T2.film_id ORDER BY COUNT(*) DESC LIMIT 1
+SELECT T2.title, T1.inventory_id FROM rental AS T1 JOIN inventory AS T2 ON T1.inventory_id = T2.inventory_id GROUP BY T1.inventory_id ORDER BY COUNT(*) DESC LIMIT 1
+SELECT T2.title, T1.inventory_id FROM rental AS T1 JOIN film AS T2 ON T1.film_id = T2.film_id GROUP BY T1.film_id ORDER BY COUNT(*) DESC LIMIT 1
+SELECT CONCAT(first_name, ' ', last_name) AS full_name, staff_id FROM staff WHERE staff_id = (SELECT staff_id FROM payment GROUP BY staff_id ORDER BY COUNT(*) ASC LIMIT 1)
+SELECT CONCAT(staff.first_name, ' ', staff.last_name) AS full_name, staff.staff_id FROM staff LEFT JOIN payment ON staff.staff_id = payment.staff_id GROUP BY staff.staff_id ORDER BY COUNT(payment.staff_id) ASC LIMIT 1
+SELECT store_id FROM customer GROUP BY store_id ORDER BY COUNT(*) DESC LIMIT 1
+SELECT store_id FROM customer GROUP BY store_id ORDER BY COUNT(*) DESC LIMIT 1
+SELECT DISTINCT cust_name FROM customer WHERE cust_ID IN (SELECT cust_ID FROM loan) ORDER BY (SELECT SUM(amount) FROM loan WHERE loan.cust_ID = customer.cust_ID)
+SELECT cust_name FROM customer AS T1 JOIN loan AS T2 ON T1.cust_ID = T2.cust_ID GROUP BY T2.cust_ID ORDER BY SUM(T2.amount) DESC
+SELECT cust_name FROM customer WHERE no_of_loans = (SELECT MAX(no_of_loans) FROM customer)
+SELECT cust_name FROM customer WHERE cust_ID = (SELECT cust_ID FROM loan GROUP BY cust_ID ORDER BY SUM(amount) DESC LIMIT 1)
+SELECT state FROM customer GROUP BY state ORDER BY COUNT(*) DESC LIMIT 1
+SELECT state, SUM(no_of_customers) FROM bank GROUP BY state ORDER BY SUM(no_of_customers) DESC LIMIT 1
+SELECT bname FROM bank JOIN loan ON bank.branch_ID = loan.branch_ID GROUP BY loan.branch_ID ORDER BY SUM(amount) DESC LIMIT 1
+SELECT bname FROM bank AS T1 JOIN loan AS T2 ON T1.branch_ID = T2.branch_ID GROUP BY T2.branch_ID ORDER BY SUM(T2.amount) DESC LIMIT 1
+SELECT bname FROM bank WHERE branch_ID IN (SELECT branch_ID FROM customer WHERE credit_score < 100) ORDER BY (SELECT SUM(amount) FROM loan WHERE loan.branch_ID = bank.branch_ID) DESC LIMIT 1
+SELECT T1.bname FROM bank AS T1 JOIN loan AS T2 ON T1.branch_ID = T2.branch_ID JOIN customer AS T3 ON T2.cust_ID = T3.cust_ID WHERE T3.credit_score < 100 GROUP BY T1.branch_ID ORDER BY SUM(T2.amount) DESC LIMIT 1
+SELECT T2.student_id, T2.first_name FROM Assessment_Notes AS T1 JOIN Students AS T2 ON T1.student_id = T2.student_id GROUP BY T1.student_id ORDER BY COUNT(*) DESC LIMIT 1
+SELECT teacher_id, first_name FROM Teachers WHERE teacher_id IN (SELECT teacher_id FROM Assessment_Notes GROUP BY teacher_id ORDER BY COUNT(*) DESC LIMIT 3)
+SELECT student_id, last_name FROM Students WHERE student_id = (SELECT student_id FROM Behavior_Incident GROUP BY student_id ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT T1.teacher_id, T1.last_name FROM Teachers AS T1 JOIN Detention AS T2 ON T1.teacher_id = T2.teacher_id WHERE T2.detention_type_code = 'AFTER' GROUP BY T1.teacher_id ORDER BY COUNT(*) DESC LIMIT 1
+SELECT T1.student_id, T1.first_name FROM Students AS T1 JOIN Student_Addresses AS T2 ON T1.student_id = T2.student_id GROUP BY T1.student_id ORDER BY AVG(T2.monthly_rental) DESC LIMIT 1
+SELECT T1.address_id, T2.city FROM Student_Addresses AS T1 JOIN Addresses AS T2 ON T1.address_id = T2.address_id GROUP BY T1.address_id ORDER BY AVG(T1.monthly_rental) DESC LIMIT 1
+SELECT T1.incident_type_code, T2.incident_type_description FROM Behavior_Incident AS T1 JOIN Ref_Incident_Type AS T2 ON T1.incident_type_code = T2.incident_type_code GROUP BY T1.incident_type_code ORDER BY COUNT(*) DESC LIMIT 1
+SELECT detention_type_code, detention_type_description FROM Ref_Detention_Type WHERE detention_type_code = (SELECT detention_type_code FROM Ref_Detention_Type GROUP BY detention_type_code ORDER BY COUNT(*) ASC LIMIT 1)
+SELECT T1.engineer_id, T1.first_name, T1.last_name FROM Maintenance_Engineers AS T1 JOIN Engineer_Visits AS T2 ON T1.engineer_id = T2.engineer_id GROUP BY T1.engineer_id ORDER BY COUNT(*) DESC LIMIT 1
+SELECT fault_log_entry_id, COUNT(engineer_visit_id) FROM Engineer_Visits GROUP BY fault_log_entry_id ORDER BY COUNT(engineer_visit_id) DESC LIMIT 1
+SELECT T1.part_id, T1.part_name FROM Parts AS T1 JOIN Part_Faults AS T2 ON T1.part_id = T2.part_id JOIN Skills_Required_To_Fix AS T3 ON T2.part_fault_id = T3.part_fault_id GROUP BY T2.part_fault_id ORDER BY COUNT(*) DESC LIMIT 1
+SELECT part_name FROM Parts WHERE part_id = (SELECT part_id FROM Fault_Log_Parts GROUP BY part_id ORDER BY COUNT(*) ASC LIMIT 1)
+SELECT T1.engineer_id, T2.first_name, T2.last_name FROM Engineer_Visits AS T1 JOIN Maintenance_Engineers AS T2 ON T1.engineer_id = T2.engineer_id GROUP BY T1.engineer_id ORDER BY COUNT(*) ASC LIMIT 1
+SELECT T1.fault_log_entry_id, T1.fault_description, T1.fault_log_entry_datetime FROM Fault_Log AS T1 JOIN Fault_Log_Parts AS T2 ON T1.fault_log_entry_id = T2.fault_log_entry_id GROUP BY T1.fault_log_entry_id ORDER BY COUNT(*) DESC LIMIT 1
+SELECT skill_id, skill_description FROM Skills WHERE skill_id = (SELECT skill_id FROM Part_Faults GROUP BY skill_id ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT gender FROM Staff GROUP BY gender ORDER BY COUNT(*) DESC LIMIT 1
+SELECT T2.name FROM route AS T1 JOIN train AS T2 ON T1.train_id = T2.id GROUP BY T1.train_id ORDER BY COUNT(*) DESC LIMIT 1
+SELECT T2.id, T2.local_authority FROM route AS T1 JOIN station AS T2 ON T1.station_id = T2.id JOIN weekly_weather AS T3 ON T2.id = T3.station_id GROUP BY T2.id ORDER BY AVG(T3.high_temperature) DESC LIMIT 1
+SELECT EMP_JOBCODE, COUNT(*) FROM EMPLOYEE GROUP BY EMP_JOBCODE ORDER BY COUNT(*) DESC LIMIT 1
+SELECT EMP_JOBCODE, COUNT(*) FROM EMPLOYEE GROUP BY EMP_JOBCODE ORDER BY COUNT(*) DESC LIMIT 1
+SELECT SCHOOL_CODE FROM DEPARTMENT GROUP BY SCHOOL_CODE ORDER BY COUNT(EMP_NUM) ASC LIMIT 1
+SELECT SCHOOL_CODE FROM DEPARTMENT GROUP BY SCHOOL_CODE ORDER BY COUNT(*) ASC LIMIT 1
+SELECT DEPARTMENT.DEPT_NAME, AVG(STUDENT.STU_GPA) FROM STUDENT JOIN DEPARTMENT ON STUDENT.DEPT_CODE = DEPARTMENT.DEPT_CODE GROUP BY STUDENT.DEPT_CODE ORDER BY AVG(STUDENT.STU_GPA) DESC LIMIT 1
+SELECT DEPT_NAME, AVG(STU_GPA) FROM DEPARTMENT JOIN STUDENT ON DEPARTMENT.DEPT_CODE = STUDENT.DEPT_CODE GROUP BY DEPARTMENT.DEPT_CODE ORDER BY AVG(STU_GPA) DESC LIMIT 1
+SELECT DEPARTMENT.DEPT_NAME FROM DEPARTMENT JOIN COURSE ON DEPARTMENT.DEPT_CODE = COURSE.DEPT_CODE GROUP BY DEPARTMENT.DEPT_CODE ORDER BY SUM(COURSE.CRS_CREDIT) DESC LIMIT 1
+SELECT DEPT_CODE, SUM(CRS_CREDIT) FROM COURSE GROUP BY DEPT_CODE ORDER BY SUM(CRS_CREDIT) DESC LIMIT 1
+SELECT DEPT_NAME FROM DEPARTMENT WHERE DEPT_CODE = (SELECT DEPT_CODE FROM ENROLL GROUP BY DEPT_CODE ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT DEPT_NAME FROM DEPARTMENT WHERE DEPT_CODE = (SELECT DEPT_CODE FROM ENROLL GROUP BY DEPT_CODE ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT DEPT_NAME FROM DEPARTMENT WHERE DEPT_CODE = (SELECT DEPT_CODE FROM PROFESSOR GROUP BY DEPT_CODE ORDER BY COUNT(*) ASC LIMIT 1)
+SELECT DEPT_NAME FROM DEPARTMENT GROUP BY DEPT_CODE ORDER BY COUNT(EMP_NUM) ASC LIMIT 1
+SELECT DEPT_NAME FROM DEPARTMENT WHERE DEPT_CODE = (SELECT DEPT_CODE FROM PROFESSOR WHERE PROF_HIGH_DEGREE = 'Ph.D.' GROUP BY DEPT_CODE ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT DEPT_CODE FROM PROFESSOR WHERE PROF_HIGH_DEGREE = 'Ph.D.' GROUP BY DEPT_CODE ORDER BY COUNT(*) DESC LIMIT 1
+SELECT DEPT_NAME, DEPT_ADDRESS FROM DEPARTMENT WHERE DEPT_CODE = (SELECT DEPT_CODE FROM STUDENT GROUP BY DEPT_CODE ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT DEPT_NAME, DEPT_ADDRESS FROM DEPARTMENT WHERE DEPT_CODE = (SELECT DEPT_CODE FROM STUDENT GROUP BY DEPT_CODE ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT DEPARTMENT.DEPT_NAME, DEPARTMENT.DEPT_ADDRESS, COUNT(STUDENT.STU_NUM) FROM STUDENT JOIN DEPARTMENT ON STUDENT.DEPT_CODE = DEPARTMENT.DEPT_CODE GROUP BY STUDENT.DEPT_CODE ORDER BY COUNT(STUDENT.STU_NUM) DESC LIMIT 3
+SELECT T1.DEPT_NAME, COUNT(T2.STU_NUM) AS num_students FROM DEPARTMENT AS T1 JOIN ENROLL AS T2 ON T1.DEPT_CODE = T2.DEPT_CODE GROUP BY T1.DEPT_CODE ORDER BY num_students DESC LIMIT 3
+SELECT Competition_type FROM competition GROUP BY Competition_type ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Competition_type FROM competition GROUP BY Competition_type ORDER BY COUNT(*) DESC LIMIT 1
+SELECT T1.Country FROM competition AS T1 JOIN competition_result AS T2 ON T1.Competition_ID = T2.Competition_ID WHERE T1.Competition_type = 'Tournament' GROUP BY T1.Country ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Country FROM competition GROUP BY Country ORDER BY COUNT(*) DESC LIMIT 1
+SELECT formats FROM files GROUP BY formats ORDER BY COUNT(*) DESC LIMIT 1
+SELECT formats FROM files GROUP BY formats ORDER BY COUNT(*) DESC LIMIT 1
+SELECT languages FROM song GROUP BY languages ORDER BY COUNT(*) DESC LIMIT 1
+SELECT languages FROM song GROUP BY languages ORDER BY COUNT(*) DESC LIMIT 1
+SELECT languages FROM song WHERE resolution > 500 GROUP BY languages ORDER BY COUNT(*) DESC LIMIT 1
+SELECT T1.artist_name, T2.languages FROM artist AS T1 JOIN song AS T2 ON T1.artist_name = T2.artist_name WHERE T2.resolution > 500 GROUP BY T1.artist_name, T2.languages ORDER BY COUNT(*) DESC
+SELECT T1.languages, MAX(T1.duration), MAX(T2.resolution) FROM song AS T1 JOIN files AS T2 ON T1.f_id = T2.f_id GROUP BY T1.languages ORDER BY T1.languages
+SELECT languages, MAX(duration), MAX(resolution) FROM song GROUP BY languages ORDER BY languages ASC
+SELECT song.genre_is, genre.g_name, MIN(song.duration), MIN(song.rating) FROM song JOIN genre ON song.genre_is = genre.g_name GROUP BY song.genre_is, genre.g_name ORDER BY genre.g_name
+SELECT T1.genre_is, T2.song_name, T2.duration, T2.rating FROM song AS T2 JOIN genre AS T1 ON T2.genre_is = T1.g_name GROUP BY T1.genre_is ORDER BY T1.genre_is ASC
+artist_name, count(*) from song as t1 join artist as t2 on t1.artist_name = t2.artist_name group by t1.artist_name order by count(*) desc limit 3
+select artist_name, count(*) from song group by artist_name order by count(*) desc limit 3
+SELECT country FROM artist WHERE artist_name = (SELECT artist_name FROM song GROUP BY artist_name ORDER BY COUNT(*) ASC LIMIT 1)
+SELECT T1.country FROM artist AS T1 JOIN song AS T2 ON T1.artist_name = T2.artist_name GROUP BY T2.artist_name ORDER BY COUNT(*) ASC LIMIT 1
+SELECT artist_name, COUNT(*) FROM song WHERE languages = 'Bangla' GROUP BY artist_name ORDER BY COUNT(*) DESC LIMIT 3
+SELECT artist_name, COUNT(*) FROM song WHERE languages = 'Bangla' GROUP BY artist_name ORDER BY COUNT(*) DESC LIMIT 3
+select
+select
+select
+select
+select
+select
+select
+select
+select
+select
+select
+select
+select
+select
+select
+select
+select
+select
+SELECT T1.name FROM camera_lens AS T1 JOIN photos AS T2 ON T1.id = T2.camera_lens_id GROUP BY T2.camera_lens_id ORDER BY COUNT(*) DESC LIMIT 1
+SELECT T1.name, COUNT(*) FROM camera_lens AS T1 JOIN photos AS T2 ON T1.id = T2.camera_lens_id GROUP BY T1.name ORDER BY COUNT(*) DESC
+SELECT Name FROM program WHERE Program_ID = (SELECT Program_ID FROM broadcast GROUP BY Program_ID ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT T2.Name FROM broadcast AS T1 JOIN program AS T2 ON T1.Program_ID = T2.Program_ID GROUP BY T1.Program_ID ORDER BY COUNT(*) DESC LIMIT 1
+SELECT test_result, COUNT(*) FROM Student_Tests_Taken GROUP BY test_result ORDER BY COUNT(*) DESC
+SELECT test_result, COUNT(student_id) FROM Student_Tests_Taken GROUP BY test_result
+SELECT personal_name, family_name, author_id FROM Course_Authors_and_Tutors WHERE author_id = (SELECT author_id FROM Courses GROUP BY author_id ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT personal_name, family_name, author_id FROM Course_Authors_and_Tutors WHERE author_id = (SELECT author_id FROM Courses GROUP BY author_id ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT Courses.subject_id, Subjects.subject_name, COUNT(Courses.course_id) FROM Courses JOIN Subjects ON Courses.subject_id = Subjects.subject_id GROUP BY Courses.subject_id, Subjects.subject_name ORDER BY COUNT(Courses.course_id) ASC
+SELECT Courses.subject_id, Subjects.subject_name, COUNT(Courses.course_id) FROM Courses JOIN Subjects ON Courses.subject_id = Subjects.subject_id GROUP BY Courses.subject_id, Subjects.subject_name ORDER BY COUNT(Courses.course_id) ASC
+SELECT course_name FROM Courses WHERE course_id = (SELECT course_id FROM Student_Course_Enrolment GROUP BY course_id ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT course_name FROM Courses WHERE course_id = (SELECT course_id FROM Student_Course_Enrolment GROUP BY course_id ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT T1.student_id, T2.login_name FROM Student_Course_Enrolment AS T1 JOIN Students AS T2 ON T1.student_id = T2.student_id GROUP BY T1.student_id ORDER BY COUNT(*) DESC LIMIT 1
+SELECT T1.student_id, T2.login_name FROM Student_Course_Enrolment AS T1 JOIN Students AS T2 ON T1.student_id = T2.student_id GROUP BY T1.student_id ORDER BY COUNT(*) DESC LIMIT 1
+SELECT T1.Claim_ID, T2.Date_Claim_Made, COUNT(*) FROM Settlements AS T1 JOIN Claims AS T2 ON T1.Claim_ID = T2.Claim_ID GROUP BY T1.Claim_ID ORDER BY COUNT(*) DESC LIMIT 1
+SELECT T1.Claim_ID, T1.Date_Claim_Made FROM Claims AS T1 JOIN Settlements AS T2 ON T1.Claim_ID = T2.Claim_ID GROUP BY T1.Claim_ID ORDER BY COUNT(*) DESC LIMIT 1
+select count(*), t1.claim_id from settlements as t1 join claims as t2 on t1.claim_id = t2.claim_id where t2.date_claim_settled = (select max(date_claim_settled) from claims) group by t1.claim_id
+SELECT Claim_ID, COUNT(*) FROM Settlements WHERE Date_Claim_Settled = (SELECT MAX(Date_Claim_Settled) FROM Settlements) GROUP BY Claim_ID
+SELECT Payment_Method_Code FROM Payments GROUP BY Payment_Method_Code ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Payment_Method_Code FROM Payments GROUP BY Payment_Method_Code ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Payment_Method_Code FROM Payments GROUP BY Payment_Method_Code ORDER BY COUNT(*) ASC LIMIT 1
+SELECT Payment_Method_Code FROM Payments GROUP BY Payment_Method_Code ORDER BY COUNT(*) ASC LIMIT 1
+SELECT Policy_Type_Code FROM Customer_Policies GROUP BY Policy_Type_Code ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Policy_Type_Code FROM Customer_Policies GROUP BY Policy_Type_Code ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Name FROM Department WHERE DepartmentID = (SELECT Department FROM Affiliated_With GROUP BY Department ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT Department FROM Department GROUP BY Department ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Physician.EmployeeID FROM Physician JOIN Department ON Department.Head = Physician.EmployeeID GROUP BY Department.DepartmentID ORDER BY COUNT(*) ASC LIMIT 1
+SELECT Physician.EmployeeID FROM Physician JOIN Department ON Department.Head = Physician.EmployeeID GROUP BY Department.DepartmentID ORDER BY COUNT(*) ASC LIMIT 1
+SELECT T1.Name, T1.Position FROM Physician AS T1 JOIN Department AS T2 ON T1.EmployeeID = T2.Head GROUP BY T2.DepartmentID ORDER BY COUNT(*) ASC LIMIT 1
+SELECT T1.Name, T1.Position FROM Physician AS T1 JOIN Department AS T2 ON T1.EmployeeID = T2.Head GROUP BY T2.DepartmentID ORDER BY COUNT(*) ASC LIMIT 1
+SELECT PrepNurse FROM Appointment GROUP BY PrepNurse ORDER BY COUNT(*) DESC LIMIT 1
+SELECT PrepNurse FROM Appointment GROUP BY PrepNurse ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Type FROM ship GROUP BY Type ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Type FROM ship GROUP BY Type ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Classroom FROM list GROUP BY Classroom ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Classroom FROM list GROUP BY Classroom ORDER BY COUNT(*) DESC LIMIT 1
+SELECT LastName FROM teachers GROUP BY LastName ORDER BY COUNT(*) DESC LIMIT 1
+SELECT FirstName, LastName FROM teachers GROUP BY LastName ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Headquarters FROM company GROUP BY Headquarters ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Studio FROM film GROUP BY Studio ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Studio FROM film GROUP BY Studio ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Role_Code FROM Employees GROUP BY Role_Code ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Role_Code FROM Employees GROUP BY Role_Code ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Role_Code FROM Employees GROUP BY Role_Code ORDER BY COUNT(*) ASC LIMIT 1
+SELECT Role_Code, COUNT(*) FROM Employees GROUP BY Role_Code ORDER BY COUNT(*) ASC LIMIT 1
+SELECT Location_Code FROM Document_Locations GROUP BY Location_Code ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Location_Code FROM Document_Locations GROUP BY Location_Code ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Location_Name, Location_Code FROM Ref_Locations WHERE Location_Code = (SELECT Location_Code FROM Document_Locations GROUP BY Location_Code ORDER BY COUNT(*) ASC LIMIT 1)
+SELECT Location_Name, Location_Code FROM Ref_Locations WHERE Location_Code = (SELECT Location_Code FROM Document_Locations GROUP BY Location_Code ORDER BY COUNT(*) ASC LIMIT 1)
+SELECT T1.ClubName FROM Club AS T1 JOIN Member_of_club AS T2 ON T1.ClubID = T2.ClubID JOIN Student AS T3 ON T2.StuID = T3.StuID WHERE T3.Major = "600" GROUP BY T1.ClubID ORDER BY COUNT(*) DESC LIMIT 1
+SELECT ClubName FROM Club WHERE ClubID = (SELECT ClubID FROM Member_of_club WHERE StuID IN (SELECT StuID FROM Student WHERE Major = "600") GROUP BY ClubID ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT ClubName FROM Club WHERE ClubID = (SELECT ClubID FROM Member_of_club WHERE StuID IN (SELECT StuID FROM Student WHERE Sex = 'female') GROUP BY ClubID ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT ClubName FROM Club WHERE ClubID = (SELECT ClubID FROM Member_of_club WHERE StuID IN (SELECT StuID FROM Student WHERE Sex = 'female') GROUP BY ClubID ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT organisation_type, organisation_id FROM Organisations WHERE organisation_id = (SELECT employer_organisation_id FROM Research_Staff GROUP BY employer_organisation_id ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT T1.organisation_type, T1.organisation_id FROM Organisations AS T1 JOIN Research_Staff AS T2 ON T1.organisation_id = T2.employer_organisation_id GROUP BY T2.employer_organisation_id ORDER BY COUNT(*) DESC LIMIT 1
+SELECT T1.organisation_type FROM Organisation_Types AS T1 JOIN Organisations AS T2 ON T1.organisation_type = T2.organisation_type JOIN Research_Staff AS T3 ON T2.organisation_id = T3.employer_organisation_id GROUP BY T1.organisation_type ORDER BY COUNT(*) DESC LIMIT 1
+SELECT T2.organisation_type FROM Organisations AS T1 JOIN Research_Staff AS T2 ON T1.organisation_id = T2.employer_organisation_id GROUP BY T2.employer_organisation_id ORDER BY COUNT(*) DESC LIMIT 1
+SELECT T2.project_id, COUNT(*) FROM Project_Staff AS T1 JOIN Projects AS T2 ON T1.project_id = T2.project_id GROUP BY T2.project_id ORDER BY COUNT(*) ASC
+SELECT project_id, COUNT(staff_id) FROM Project_Staff GROUP BY project_id ORDER BY COUNT(staff_id) ASC
+SELECT T2.project_id, T1.project_details FROM Projects AS T2 JOIN Project_Outcomes AS T1 ON T2.project_id = T1.project_id GROUP BY T2.project_id ORDER BY COUNT(*) DESC LIMIT 1
+SELECT project_id, project_details FROM Projects WHERE project_id = (SELECT project_id FROM Project_Outcomes GROUP BY project_id ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT T1.organisation_id, T1.organisation_type, T1.organisation_details FROM Organisations AS T1 JOIN Research_Staff AS T2 ON T1.organisation_id = T2.employer_organisation_id GROUP BY T2.employer_organisation_id ORDER BY COUNT(*) DESC LIMIT 1
+SELECT organisation_id, organisation_type, organisation_details FROM Organisations WHERE organisation_id = (SELECT employer_organisation_id FROM Research_Staff GROUP BY employer_organisation_id ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT T1.role_description, T2.staff_id FROM Staff_Roles AS T1 JOIN Project_Staff AS T2 ON T1.role_code = T2.role_code JOIN Project_Outcomes AS T3 ON T2.project_id = T3.project_id GROUP BY T2.staff_id ORDER BY COUNT(*) DESC LIMIT 1
+SELECT T2.role_description FROM Project_Staff AS T1 JOIN Staff_Roles AS T2 ON T1.role_code = T2.role_code GROUP BY T1.staff_id ORDER BY COUNT(*) DESC LIMIT 1
+SELECT grant_id, COUNT(document_id) FROM Documents GROUP BY grant_id ORDER BY COUNT(document_id) DESC LIMIT 1
+grant_id, count(*), max(t1.document_id) as document_with_most from documents as t1 join grants as t2 on t1.grant_id = t2.grant_id group by t1.grant_id
+SELECT T1.organisation_id, COUNT(*) FROM Projects AS T1 JOIN Project_Outcomes AS T2 ON T1.project_id = T2.project_id GROUP BY T1.organisation_id ORDER BY COUNT(*) DESC LIMIT 1
+SELECT T1.organisation_id, COUNT(*) FROM Projects AS T1 JOIN Project_Outcomes AS T2 ON T1.project_id = T2.project_id GROUP BY T1.organisation_id ORDER BY COUNT(*) DESC LIMIT 1
+SELECT project_details FROM Projects WHERE organisation_id = [organisation_id]
+SELECT * FROM Projects WHERE organisation_id = (SELECT organisation_id FROM Projects GROUP BY organisation_id ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT role_code FROM Project_Staff GROUP BY role_code ORDER BY COUNT(*) DESC LIMIT 1
+SELECT role_code FROM Project_Staff GROUP BY role_code ORDER BY COUNT(*) DESC LIMIT 1
+SELECT T1.name FROM Person AS T1 JOIN PersonFriend AS T2 ON T1.name = T2.friend GROUP BY T1.name ORDER BY AVG(T1.age) DESC LIMIT 1
+SELECT T1.name, AVG(T2.age) FROM Person AS T1 JOIN PersonFriend AS T2 ON T1.name = T2.friend GROUP BY T1.name ORDER BY AVG(T2.age) DESC LIMIT 1
+SELECT Country FROM member GROUP BY Country ORDER BY COUNT(*) DESC LIMIT 1
+SELECT SUM(access_count) FROM Documents WHERE document_type_code = (SELECT document_type_code FROM Documents GROUP BY document_type_code ORDER BY SUM(access_count) DESC LIMIT 1)
+SELECT SUM(access_count) FROM Documents WHERE document_type_code = (SELECT document_type_code FROM Documents GROUP BY document_type_code ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT document_structure_code FROM Documents WHERE access_count = (SELECT MIN(access_count) FROM Documents)
+SELECT document_structure_description FROM Document_Structures WHERE document_structure_code = (SELECT document_structure_code FROM Documents WHERE access_count = (SELECT MIN(access_count) FROM Documents))
+SELECT user_name, password FROM Users WHERE role_code = (SELECT role_code FROM Users GROUP BY role_code ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT user_name, password FROM Users WHERE role_code = (SELECT role_code FROM Users GROUP BY role_code ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT document_name FROM Documents WHERE document_code = (SELECT document_code FROM Document_Sections GROUP BY document_code ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT document_name FROM Documents WHERE document_code = (SELECT document_code FROM Document_Sections GROUP BY document_code ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT role_description FROM Roles WHERE role_code = (SELECT role_code FROM Users GROUP BY role_code ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT role_description FROM Roles WHERE role_code = (SELECT role_code FROM Users WHERE user_login IS NOT NULL GROUP BY role_code ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT AVG(access_count) FROM Documents WHERE document_structure_code = (SELECT document_structure_code FROM Documents GROUP BY document_structure_code ORDER BY COUNT(*) ASC LIMIT 1)
+SELECT AVG(access_count) FROM Documents WHERE document_structure_code = (SELECT document_structure_code FROM Documents GROUP BY document_structure_code ORDER BY COUNT(*) ASC LIMIT 1)
+SELECT T2.name FROM Office_locations AS T1 JOIN buildings AS T2 ON T1.building_id = T2.id GROUP BY T1.building_id ORDER BY COUNT(*) DESC LIMIT 1
+SELECT name FROM buildings WHERE id = (SELECT building_id FROM Office_locations GROUP BY building_id ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT Industry, COUNT(id) FROM Companies GROUP BY Industry ORDER BY COUNT(id) DESC
+SELECT Industry, COUNT(id) FROM Companies GROUP BY Industry ORDER BY COUNT(id) DESC
+SELECT Industry FROM Companies GROUP BY Industry ORDER BY COUNT(*) DESC LIMIT 1
+SELECT industry FROM Companies GROUP BY industry ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Product_Type_Code FROM Products GROUP BY Product_Type_Code ORDER BY COUNT(*) DESC LIMIT 1
+SELECT T2.Product_Name, COUNT(*) FROM Products_in_Events AS T1 JOIN Products AS T2 ON T1.Product_ID = T2.Product_ID GROUP BY T1.Product_ID ORDER BY COUNT(*) DESC
+SELECT Product_Name FROM Products WHERE Product_ID IN (SELECT Product_ID FROM Products_in_Events GROUP BY Product_ID HAVING COUNT(*) >= 2) ORDER BY Product_Name ASC
+SELECT Type FROM artwork GROUP BY Type ORDER BY COUNT(*) DESC LIMIT 1
+SELECT customer_name FROM Customers WHERE customer_id = (SELECT customer_id FROM Mailshot_Customers GROUP BY customer_id ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT DName FROM Department WHERE DNO = (SELECT DNO FROM Minor_in GROUP BY DNO ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT DName FROM Department WHERE DNO = (SELECT DNO FROM Minor_in GROUP BY DNO ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT DName FROM Department WHERE DNO = (SELECT DNO FROM Member_of GROUP BY DNO ORDER BY COUNT(*) ASC LIMIT 1)
+SELECT DName FROM Department WHERE DNO = (SELECT DNO FROM Member_of GROUP BY DNO ORDER BY COUNT(*) ASC LIMIT 1)
+SELECT Rank FROM Faculty GROUP BY Rank ORDER BY COUNT(*) ASC LIMIT 1
+SELECT Rank FROM Faculty GROUP BY Rank ORDER BY COUNT(*) ASC LIMIT 1
+SELECT T2.Fname, T2.Lname FROM Course AS T1 JOIN Faculty AS T2 ON T1.Instructor = T2.FacID GROUP BY T1.Instructor ORDER BY COUNT(T1.CID) DESC LIMIT 3
+SELECT Instructor FROM Course GROUP BY Instructor ORDER BY COUNT(*) DESC LIMIT 3
+SELECT Building FROM Faculty WHERE FacID = (SELECT Instructor FROM Course GROUP BY Instructor ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT Building FROM Faculty WHERE FacID = (SELECT Instructor FROM Course GROUP BY Instructor ORDER BY COUNT(CID) DESC LIMIT 1)
+SELECT product_id FROM Order_Items GROUP BY product_id ORDER BY COUNT(*) DESC LIMIT 1
+SELECT product_id FROM Order_Items GROUP BY product_id ORDER BY COUNT(*) DESC LIMIT 1
+SELECT customer_name, customer_phone, customer_email FROM Customers WHERE customer_id = (SELECT customer_id FROM Customer_Orders GROUP BY customer_id ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT customer_name, customer_phone, customer_email FROM Customers WHERE customer_id = (SELECT customer_id FROM Customer_Orders GROUP BY customer_id ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT dept_store_chain_id FROM Department_Stores GROUP BY dept_store_chain_id ORDER BY COUNT(*) DESC LIMIT 2
+SELECT dept_store_chain_id FROM Department_Stores GROUP BY dept_store_chain_id ORDER BY COUNT(*) DESC LIMIT 2
+SELECT department_id FROM Staff_Department_Assignments GROUP BY department_id ORDER BY COUNT(*) ASC LIMIT 1
+SELECT department_id FROM Staff_Department_Assignments GROUP BY department_id ORDER BY COUNT(*) ASC LIMIT 1
+SELECT supplier_id, AVG(total_amount_purchased), AVG(total_value_purchased) FROM Product_Suppliers GROUP BY supplier_id ORDER BY COUNT(*) DESC LIMIT 1
+SELECT AVG(total_amount_purchased), SUM(total_value_purchased) FROM Product_Suppliers WHERE supplier_id = (SELECT supplier_id FROM Product_Suppliers GROUP BY supplier_id ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT product_type_code, MAX(product_price), MIN(product_price) FROM Products GROUP BY product_type_code ORDER BY product_type_code ASC
+SELECT product_type_code, MAX(product_price), MIN(product_price) FROM Products GROUP BY product_type_code ORDER BY product_type_code
+SELECT Aircraft FROM aircraft WHERE Aircraft_ID = (SELECT Winning_Aircraft FROM match GROUP BY Winning_Aircraft ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT T2.Aircraft FROM match AS T1 JOIN aircraft AS T2 ON T1.Winning_Aircraft = T2.Aircraft_ID GROUP BY T1.Winning_Aircraft ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Name, Age FROM pilot WHERE Age < 30 AND Pilot_Id = (SELECT Winning_Pilot FROM match GROUP BY Winning_Pilot ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT Name, Age FROM pilot WHERE Age < 30 AND Pilot_Id = (SELECT Winning_Pilot FROM match GROUP BY Winning_Pilot ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT T1.resident_id, T1.other_details, COUNT(*) FROM Residents AS T1 JOIN Residents_Services AS T2 ON T1.resident_id = T2.resident_id GROUP BY T1.resident_id ORDER BY COUNT(*) DESC
+SELECT service_id, COUNT(*) FROM Residents_Services GROUP BY service_id ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Denomination FROM school WHERE School_ID = (SELECT School_ID FROM player GROUP BY School_ID ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT Denomination FROM school WHERE School_ID = (SELECT School_ID FROM player GROUP BY School_ID ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT Denomination, COUNT(School_ID) FROM school GROUP BY Denomination ORDER BY COUNT(School_ID) DESC
+SELECT Denomination, COUNT(*) FROM school GROUP BY Denomination ORDER BY COUNT(*) DESC
+SELECT T1.Headquartered_City FROM district AS T1 JOIN store_district AS T2 ON T1.District_ID = T2.District_ID GROUP BY T1.Headquartered_City ORDER BY COUNT(*) DESC LIMIT 1
+SELECT T2.Headquartered_City FROM store_district AS T1 JOIN district AS T2 ON T1.District_ID = T2.District_ID GROUP BY T2.Headquartered_City ORDER BY COUNT(T1.Store_ID) DESC LIMIT 1
+SELECT MAX(max_page_size) FROM product
+SELECT max_page_size FROM product GROUP BY max_page_size ORDER BY COUNT(*) DESC LIMIT 1
+SELECT product FROM product WHERE max_page_size != (SELECT max_page_size FROM product GROUP BY max_page_size ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT product FROM product WHERE max_page_size != (SELECT max_page_size FROM product GROUP BY max_page_size ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT pPos FROM Tryout GROUP BY pPos ORDER BY COUNT(*) DESC LIMIT 1
+SELECT pPos FROM Tryout GROUP BY pPos ORDER BY COUNT(*) DESC LIMIT 1
+SELECT T1.cName, COUNT(*) FROM College AS T1 JOIN Tryout AS T2 ON T1.cName = T2.cName GROUP BY T1.cName ORDER BY COUNT(*) DESC
+SELECT T1.cName, COUNT(*) FROM College AS T1 JOIN Tryout AS T2 ON T1.cName = T2.cName GROUP BY T1.cName ORDER BY COUNT(*) DESC
+SELECT Shop_Name FROM shop WHERE Shop_ID = (SELECT Shop_ID FROM stock GROUP BY Shop_ID ORDER BY COUNT(DISTINCT Device_ID) DESC LIMIT 1)
+SELECT Shop_Name FROM shop WHERE Shop_ID = (SELECT Shop_ID FROM stock GROUP BY Shop_ID ORDER BY COUNT(DISTINCT Device_ID) DESC LIMIT 1)
+SELECT T1.Shop_Name FROM shop AS T1 JOIN stock AS T2 ON T1.Shop_ID = T2.Shop_ID GROUP BY T2.Shop_ID ORDER BY SUM(T2.Quantity) DESC LIMIT 1
+SELECT T1.Shop_Name FROM shop AS T1 JOIN stock AS T2 ON T1.Shop_ID = T2.Shop_ID GROUP BY T2.Shop_ID ORDER BY SUM(T2.Quantity) DESC LIMIT 1
+SELECT Software_Platform, COUNT(Device_ID) FROM device JOIN stock ON device.Device_ID = stock.Device_ID GROUP BY Software_Platform ORDER BY COUNT(Device_ID) DESC
+SELECT Software_Platform, COUNT(Device) FROM device GROUP BY Software_Platform ORDER BY COUNT(Device) DESC
+SELECT Software_Platform FROM device GROUP BY Software_Platform ORDER BY COUNT(Device_ID) DESC LIMIT 1
+SELECT Software_Platform FROM device GROUP BY Software_Platform ORDER BY COUNT(*) DESC LIMIT 1
+select
+select
+select
+select
+select
+select
+select
+select
+select
+select
+SELECT Label FROM Albums GROUP BY Label ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Label FROM Albums GROUP BY Label ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Lastname FROM Band WHERE Id = (SELECT BandmateId FROM Instruments GROUP BY BandmateId ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT Lastname FROM Band WHERE Id = (SELECT Bandmate FROM Performance GROUP BY Bandmate ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT Lastname FROM Band WHERE Id = (SELECT Bandmate FROM Performance WHERE StagePosition = 'back' GROUP BY Bandmate ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT Lastname FROM Band WHERE Id = (SELECT Bandmate FROM Performance WHERE StagePosition = 'Back' GROUP BY Bandmate ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT Instrument FROM Instruments GROUP BY Instrument ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Instrument FROM Instruments GROUP BY Instrument ORDER BY COUNT(*) DESC LIMIT 1
+SELECT SongId FROM Vocals GROUP BY SongId ORDER BY COUNT(*) DESC LIMIT 1
+SELECT SongId FROM Vocals GROUP BY SongId ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Type FROM Vocals GROUP BY Type ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Type FROM Vocals GROUP BY Type ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Type FROM Vocals WHERE Bandmate = (SELECT Id FROM Band WHERE Lastname = 'Heilo') GROUP BY Type ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Type FROM Vocals WHERE Bandmate = (SELECT Id FROM Band WHERE Lastname = 'Heilo') GROUP BY Type ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Lastname FROM Band WHERE Id = (SELECT BandmateId FROM Instruments GROUP BY BandmateId ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT Lastname FROM Band WHERE Id = (SELECT Bandmate FROM Vocals GROUP BY Bandmate ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT Type FROM Vocals WHERE Bandmate = (SELECT Id FROM Band WHERE Firstname = 'Solveig') GROUP BY Type ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Type FROM Vocals WHERE Bandmate = (SELECT Id FROM Band WHERE Firstname = 'Solveig') GROUP BY Type ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Firstname FROM Band WHERE Id = (SELECT Bandmate FROM Performance GROUP BY Bandmate ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT Firstname FROM Band WHERE Id = (SELECT Bandmate FROM Performance GROUP BY Bandmate ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT Type FROM Vocals WHERE Bandmate = (SELECT Id FROM Band WHERE Firstname = 'Marianne') GROUP BY Type ORDER BY COUNT(*) DESC LIMIT 1
+SELECT T1.Type FROM Vocals AS T1 JOIN Band AS T2 ON T1.Bandmate = T2.Id WHERE T2.Firstname = 'Marianne' GROUP BY T1.Bandmate ORDER BY COUNT(*) DESC LIMIT 1
+SELECT T2.product_name, COUNT(*) FROM Problems AS T1 JOIN Product AS T2 ON T1.product_id = T2.product_id GROUP BY T1.product_id ORDER BY COUNT(*) DESC LIMIT 1
+SELECT T2.product_name, COUNT(*) FROM Problems AS T1 JOIN Product AS T2 ON T1.product_id = T2.product_id GROUP BY T1.product_id ORDER BY COUNT(*) DESC LIMIT 1
+SELECT product_id, COUNT(problem_id) FROM Problems GROUP BY product_id ORDER BY COUNT(problem_id) DESC LIMIT 3
+SELECT product_id FROM Problems GROUP BY product_id ORDER BY COUNT(*) DESC LIMIT 3
+SELECT Level FROM member GROUP BY Level ORDER BY COUNT(*) DESC LIMIT 1
+SELECT T2.Level FROM member AS T2 JOIN membership_register_branch AS T1 ON T1.Member_ID = T2.Member_ID GROUP BY T2.Level ORDER BY COUNT(*) DESC LIMIT 1
+SELECT T1.Name, T1.Open_year FROM branch AS T1 JOIN membership_register_branch AS T2 ON T1.Branch_ID = T2.Branch_ID WHERE T2.Register_Year = 2016 GROUP BY T2.Branch_ID ORDER BY COUNT(*) DESC LIMIT 1
+SELECT T1.Name, T1.Open_year FROM branch AS T1 JOIN membership_register_branch AS T2 ON T1.Branch_ID = T2.Branch_ID WHERE T2.Register_Year = 2016 GROUP BY T2.Branch_ID ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Major FROM Student GROUP BY Major ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Major FROM Student GROUP BY Major ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Major FROM Student WHERE Sex = 'F' GROUP BY Major ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Major FROM Student WHERE Sex = 'Female' GROUP BY Major ORDER BY COUNT(*) DESC LIMIT 1
+SELECT city_code FROM Student GROUP BY city_code ORDER BY COUNT(*) DESC LIMIT 1
+SELECT city_code FROM Student GROUP BY city_code ORDER BY COUNT(*) DESC LIMIT 1
+SELECT color_description FROM Ref_Colors WHERE color_code = (SELECT color_code FROM Products GROUP BY color_code ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT color_description FROM Ref_Colors WHERE color_code = (SELECT color_code FROM Products GROUP BY color_code ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT color_description FROM Ref_Colors WHERE color_code = (SELECT color_code FROM Products GROUP BY color_code ORDER BY COUNT(*) ASC LIMIT 1)
+SELECT color_description FROM Ref_Colors WHERE color_code = (SELECT color_code FROM Products GROUP BY color_code ORDER BY COUNT(*) ASC LIMIT 1)
+SELECT characteristic_name FROM Characteristics WHERE characteristic_id = (SELECT characteristic_id FROM Products GROUP BY characteristic_id ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT characteristic_name FROM Characteristics WHERE characteristic_id = (SELECT characteristic_id FROM Product_Characteristics GROUP BY characteristic_id ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT Country FROM stadium GROUP BY Country ORDER BY COUNT(*) DESC LIMIT 1
+SELECT name FROM stadium WHERE ID = (SELECT Stadium_ID FROM event GROUP BY Stadium_ID ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT name FROM swimmer WHERE ID = (SELECT Swimmer_ID FROM record GROUP BY Swimmer_ID ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT T2.name FROM event AS T1 JOIN stadium AS T2 ON T1.Stadium_ID = T2.ID GROUP BY T1.Stadium_ID ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Railway_ID, Builder FROM railway WHERE Railway_ID = (SELECT Railway_ID FROM train GROUP BY Railway_ID ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT Builder FROM railway GROUP BY Builder ORDER BY COUNT(*) DESC LIMIT 1
+SELECT customer_name FROM Customers WHERE customer_id = (SELECT customer_id FROM Customer_Orders GROUP BY customer_id ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT customer_name, customer_phone FROM Customers WHERE customer_id = (SELECT customer_id FROM Order_Items GROUP BY customer_id ORDER BY SUM(order_quantity) DESC LIMIT 1)
+SELECT city_code FROM Lives_in GROUP BY city_code ORDER BY COUNT(*) DESC LIMIT 1
+SELECT city_code FROM Lives_in GROUP BY city_code ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Fname, LName FROM Student WHERE Major != (SELECT Major FROM Student GROUP BY Major ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT Fname, LName FROM Student WHERE Major != (SELECT Major FROM Student GROUP BY Major ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT amenity_name FROM Dorm_amenity WHERE amenid = (SELECT amenid FROM Has_amenity GROUP BY amenid ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT amenity_name FROM Dorm_amenity WHERE amenid = (SELECT amenid FROM Has_amenity GROUP BY amenid ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT Fname FROM Student WHERE StuID IN (SELECT stuid FROM Lives_in WHERE dormid = (SELECT dormid FROM Has_amenity GROUP BY dormid ORDER BY COUNT(*) DESC LIMIT 1))
+SELECT Fname FROM Student WHERE StuID IN (SELECT stuid FROM Lives_in WHERE dormid = (SELECT dormid FROM Has_amenity GROUP BY dormid ORDER BY COUNT(*) DESC LIMIT 1))
+SELECT T1.dorm_name, T1.student_capacity FROM Dorm AS T1 JOIN Has_amenity AS T2 ON T1.dormid = T2.dormid GROUP BY T2.dormid ORDER BY COUNT(*) ASC LIMIT 1
+SELECT T1.dorm_name, T1.student_capacity FROM Dorm AS T1 JOIN Has_amenity AS T2 ON T1.dormid = T2.dormid GROUP BY T2.dormid ORDER BY COUNT(*) ASC LIMIT 1
+SELECT town_city FROM Customers WHERE customer_type_code = 'Good Credit Rating' GROUP BY town_city ORDER BY COUNT(*) ASC LIMIT 1
+SELECT town_city FROM Customers WHERE customer_type_code = 'Good Credit Rating' GROUP BY town_city ORDER BY COUNT(*) ASC LIMIT 1
+SELECT email_address FROM Customers WHERE customer_id IN (SELECT customer_id FROM Complaints GROUP BY product_id ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT email_address FROM Customers WHERE customer_id IN (SELECT customer_id FROM Complaints WHERE product_id = (SELECT product_id FROM Complaints GROUP BY product_id ORDER BY COUNT(*) DESC LIMIT 1))
+SELECT product_id FROM Complaints WHERE customer_id = (SELECT customer_id FROM Complaints GROUP BY customer_id ORDER BY COUNT(*) ASC LIMIT 1)
+SELECT product_name FROM Products WHERE product_id IN (SELECT product_id FROM Complaints WHERE customer_id = (SELECT customer_id FROM Complaints GROUP BY customer_id ORDER BY COUNT(*) ASC LIMIT 1))
+SELECT customer_type_code, COUNT(*) FROM Customers GROUP BY customer_type_code ORDER BY COUNT(*) DESC LIMIT 1
+SELECT customer_type_code, COUNT(*) FROM Customers GROUP BY customer_type_code ORDER BY COUNT(*) DESC LIMIT 1
+SELECT first_name FROM Staff GROUP BY staff_id ORDER BY COUNT(*) DESC LIMIT 5
+SELECT T2.first_name FROM Complaints AS T1 JOIN Staff AS T2 ON T1.staff_id = T2.staff_id GROUP BY T1.staff_id ORDER BY COUNT(*) DESC LIMIT 5
+SELECT state FROM Customers GROUP BY state ORDER BY COUNT(*) DESC LIMIT 1
+SELECT state FROM Customers GROUP BY state ORDER BY COUNT(*) DESC LIMIT 1
+SELECT College FROM submission GROUP BY Author ORDER BY COUNT(*) DESC LIMIT 1
+SELECT College, COUNT(Author) FROM submission GROUP BY College ORDER BY COUNT(Author) DESC LIMIT 1
+SELECT investor_id, AVG(share_count) FROM Transactions GROUP BY investor_id ORDER BY AVG(share_count) ASC
+SELECT T2.lot_id, AVG(T1.amount_of_transaction) FROM Transactions AS T1 JOIN Transactions_Lots AS T2 ON T1.transaction_id = T2.transaction_id GROUP BY T2.lot_id ORDER BY AVG(T1.amount_of_transaction) ASC
+SELECT transaction_type_code FROM Transactions GROUP BY transaction_type_code ORDER BY COUNT(*) ASC LIMIT 1
+SELECT transaction_type_code FROM Transactions GROUP BY transaction_type_code ORDER BY COUNT(*) DESC LIMIT 1
+SELECT transaction_type_description FROM Ref_Transaction_Types WHERE transaction_type_code = (SELECT transaction_type_code FROM Transactions GROUP BY transaction_type_code ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT investor_id, Investor_details FROM Investors WHERE investor_id = (SELECT investor_id FROM Transactions GROUP BY investor_id ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT investor_id, Investor_details FROM Investors WHERE investor_id IN (SELECT investor_id FROM Transactions GROUP BY investor_id ORDER BY COUNT(*) DESC LIMIT 3)
+SELECT How_to_Get_There FROM Tourist_Attractions GROUP BY How_to_Get_There ORDER BY COUNT(*) DESC LIMIT 1
+SELECT How_to_Get_There FROM Tourist_Attractions GROUP BY How_to_Get_There ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Attraction_Type_Description, Attraction_Type_Code FROM Ref_Attraction_Types WHERE Attraction_Type_Code = (SELECT Attraction_Type_Code FROM Tourist_Attractions GROUP BY Attraction_Type_Code ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT T2.Attraction_Type_Description, T1.Attraction_Type_Code FROM Tourist_Attractions AS T1 JOIN Ref_Attraction_Types AS T2 ON T1.Attraction_Type_Code = T2.Attraction_Type_Code GROUP BY T1.Attraction_Type_Code ORDER BY COUNT(*) DESC LIMIT 1
+SELECT GType, COUNT(*) FROM Video_Games GROUP BY GType ORDER BY COUNT(*) DESC LIMIT 1
+SELECT GType FROM Video_Games GROUP BY GType ORDER BY COUNT(*) DESC LIMIT 1
+SELECT GType FROM Video_Games GROUP BY GType ORDER BY COUNT(*) ASC LIMIT 1
+SELECT GType FROM Video_Games JOIN Plays_Games ON Video_Games.GameID = Plays_Games.GameID GROUP BY GType ORDER BY COUNT(*) ASC LIMIT 1
+SELECT Fname, LName FROM Student WHERE StuID = (SELECT StuID FROM SportsInfo GROUP BY StuID ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT Fname, LName FROM Student WHERE StuID = (SELECT StuID FROM SportsInfo GROUP BY StuID ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT SportName FROM SportsInfo GROUP BY SportName ORDER BY COUNT(*) DESC LIMIT 1
+SELECT SportName FROM SportsInfo WHERE OnScholarship = 'Yes' GROUP BY SportName ORDER BY COUNT(*) DESC LIMIT 1
+SELECT GName FROM Video_Games JOIN Plays_Games ON Video_Games.GameID = Plays_Games.GameID GROUP BY Plays_Games.GameID ORDER BY COUNT(Plays_Games.Hours_Played) DESC LIMIT 1
+SELECT GName FROM Video_Games WHERE GameID = (SELECT GameID FROM Plays_Games GROUP BY GameID ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT payment_method FROM Customers GROUP BY payment_method ORDER BY COUNT(*) DESC LIMIT 1
+SELECT payment_method FROM Customers GROUP BY payment_method ORDER BY COUNT(*) DESC LIMIT 1
+SELECT customer_name FROM Customers WHERE payment_method = (SELECT payment_method FROM Customers GROUP BY payment_method ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT customer_name FROM Customers WHERE payment_method = (SELECT payment_method FROM Customers GROUP BY payment_method ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT T1.city FROM Addresses AS T1 JOIN Customer_Addresses AS T2 ON T1.address_id = T2.address_id GROUP BY T1.city ORDER BY COUNT(T2.customer_id) DESC LIMIT 1
+SELECT T1.city FROM Addresses AS T1 JOIN Customer_Addresses AS T2 ON T1.address_id = T2.address_id GROUP BY T1.city ORDER BY COUNT(T2.customer_id) DESC LIMIT 1
+SELECT T2.customer_name FROM Order_Items AS T1 JOIN Customers AS T2 ON T1.customer_id = T2.customer_id GROUP BY T1.customer_id ORDER BY COUNT(*) DESC LIMIT 1
+SELECT T2.customer_name FROM Order_Items AS T1 JOIN Customers AS T2 ON T1.customer_id = T2.customer_id GROUP BY T1.customer_id ORDER BY SUM(T1.order_quantity) DESC LIMIT 1
+SELECT payment_method FROM Customers WHERE customer_id = (SELECT customer_id FROM Order_Items GROUP BY customer_id ORDER BY MIN(order_quantity) LIMIT 1)
+SELECT payment_method FROM Customers WHERE customer_id = (SELECT customer_id FROM Order_Items GROUP BY customer_id ORDER BY SUM(order_quantity) ASC LIMIT 1)
+SELECT product_id FROM Order_Items GROUP BY product_id ORDER BY COUNT(*) DESC LIMIT 1
+SELECT T2.product_details FROM Order_Items AS T1 JOIN Products AS T2 ON T1.product_id = T2.product_id GROUP BY T1.product_id ORDER BY COUNT(*) DESC LIMIT 1
+SELECT T2.product_id, T2.product_details FROM Order_Items AS T1 JOIN Products AS T2 ON T1.product_id = T2.product_id GROUP BY T1.product_id ORDER BY SUM(T1.order_quantity) DESC LIMIT 1
+SELECT T2.product_id, T2.product_details FROM Order_Items AS T1 JOIN Products AS T2 ON T1.product_id = T2.product_id GROUP BY T1.product_id ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Result FROM music_festival GROUP BY Result ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Result FROM music_festival GROUP BY Result ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Result, COUNT(*) FROM music_festival GROUP BY Result ORDER BY COUNT(*) DESC
+SELECT Result, COUNT(ID) FROM music_festival GROUP BY Result ORDER BY COUNT(ID) DESC
+SELECT Status FROM roller_coaster GROUP BY Status ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Rank FROM captain GROUP BY Rank ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Rank FROM captain GROUP BY Rank ORDER BY COUNT(*) ASC LIMIT 1
+SELECT Flag FROM Ship GROUP BY Flag ORDER BY COUNT(*) DESC LIMIT 1
+SELECT flag FROM Ship GROUP BY flag ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Built_Year FROM Ship GROUP BY Built_Year ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Built_Year FROM Ship GROUP BY Built_Year ORDER BY COUNT(*) DESC LIMIT 1
+SELECT T2.City FROM hosting_city AS T1 JOIN city AS T2 ON T1.Host_City = T2.City_ID GROUP BY T1.Host_City ORDER BY COUNT(*) DESC LIMIT 1
+SELECT T2.City FROM hosting_city AS T1 JOIN city AS T2 ON T1.Host_City = T2.City_ID GROUP BY T1.Host_City ORDER BY COUNT(*) DESC LIMIT 1
+SELECT form_name FROM Forms WHERE form_id = (SELECT form_id FROM Party_Forms GROUP BY form_id ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT form_name FROM Forms WHERE form_id = (SELECT form_id FROM Party_Forms GROUP BY form_id ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT party_email FROM Parties WHERE party_id = (SELECT party_id FROM Party_Forms GROUP BY form_id ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT party_email FROM Parties WHERE party_id IN (SELECT party_id FROM Party_Forms GROUP BY form_id ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT party_email FROM Parties WHERE party_id = (SELECT customer_id FROM Party_Services GROUP BY customer_id ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT party_email FROM Parties WHERE party_id = (SELECT customer_id FROM Party_Services GROUP BY customer_id ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT organization_name FROM Organizations WHERE organization_id = (SELECT organization_id FROM Organization_Contact_Individuals GROUP BY organization_id ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT organization_name FROM Organizations WHERE organization_id = (SELECT organization_id FROM Organization_Contact_Individuals GROUP BY organization_id ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT Home_city FROM driver GROUP BY Home_city ORDER BY COUNT(*) DESC LIMIT 1
+SELECT id, name, IATA FROM airport WHERE id = (SELECT airport_id FROM flight GROUP BY airport_id ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT Type, COUNT(*) FROM operate_company GROUP BY Type ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Pilot FROM flight GROUP BY Pilot ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Statement_ID, Statement_Details FROM Statements WHERE Statement_ID = (SELECT Statement_ID FROM Accounts GROUP BY Statement_ID ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT Statement_ID, Statement_Details FROM Statements WHERE Statement_ID = (SELECT Statement_ID FROM Accounts GROUP BY Statement_ID ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT Project_ID FROM Projects GROUP BY Project_ID ORDER BY COUNT(*) ASC LIMIT 1
+SELECT Project_ID FROM Documents GROUP BY Project_ID ORDER BY COUNT(*) ASC LIMIT 1
+SELECT Document_Type_Code FROM Documents GROUP BY Document_Type_Code ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Document_Type_Code FROM Documents GROUP BY Document_Type_Code ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Budget_Type_Code FROM Documents_with_Expenses GROUP BY Budget_Type_Code ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Budget_Type_Code FROM Documents_with_Expenses GROUP BY Budget_Type_Code ORDER BY COUNT(*) DESC LIMIT 1
+SELECT T2.Name, T2.Hours FROM AssignedTo AS T1 JOIN Projects AS T2 ON T1.Project = T2.Code GROUP BY T1.Project ORDER BY COUNT(*) DESC LIMIT 1
+SELECT T1.Name, T1.Hours FROM Projects AS T1 JOIN AssignedTo AS T2 ON T1.Code = T2.Project GROUP BY T2.Project ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Area FROM appellations AS T1 JOIN wine AS T2 ON T1.Appelation = T2.Appelation WHERE T2.Year < 2010 GROUP BY T2.Appelation ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Area FROM appellations WHERE Appelation = (SELECT Appelation FROM wine WHERE Year < 2010 GROUP BY Appelation ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT Color FROM grapes WHERE Grape = (SELECT Grape FROM wine GROUP BY Grape ORDER BY AVG(Price) DESC LIMIT 1)
+SELECT Color FROM grapes WHERE Grape = (SELECT Grape FROM wine GROUP BY Grape ORDER BY AVG(Price) DESC LIMIT 1)
+ery, COUNT(*) FROM wine JOIN grapes ON wine.Grape = grapes.Grape WHERE grapes.Color = 'white' GROUP BY Winery ORDER BY COUNT(*) DESC LIMIT 3
+SELECT Winery FROM wine WHERE Grape IN (SELECT Grape FROM grapes WHERE Color = 'white') GROUP BY Winery ORDER BY COUNT(*) DESC LIMIT 3
+SELECT County FROM appellations AS T1 JOIN wine AS T2 ON T1.Appelation = T2.Appelation WHERE T2.Score > 90 GROUP BY T1.County ORDER BY COUNT(T2.No) DESC LIMIT 1
+SELECT T2.County FROM wine AS T1 JOIN appellations AS T2 ON T1.Appelation = T2.Appelation WHERE T1.Score > 90 GROUP BY T2.County ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Location FROM station GROUP BY Location ORDER BY COUNT(Station_ID) DESC LIMIT 1
+SELECT T2.Name FROM train_station AS T1 JOIN station AS T2 ON T1.Station_ID = T2.Station_ID GROUP BY T1.Station_ID ORDER BY COUNT(*) DESC LIMIT 1
+SELECT city, COUNT(*) FROM Addresses AS T1 JOIN Staff AS T2 ON T1.address_id = T2.staff_address_id GROUP BY city ORDER BY COUNT(*) DESC LIMIT 1
+SELECT city, COUNT(*) FROM Addresses JOIN Staff ON Addresses.address_id = Staff.staff_address_id GROUP BY city ORDER BY COUNT(*) DESC LIMIT 1
+SELECT customer_status_code FROM Customers GROUP BY customer_status_code ORDER BY COUNT(*) ASC LIMIT 1
+SELECT customer_status_code FROM Customers GROUP BY customer_status_code ORDER BY COUNT(*) ASC LIMIT 1
+SELECT city FROM Addresses JOIN Customers ON Addresses.address_id = Customers.customer_address_id GROUP BY city ORDER BY COUNT(Customers.customer_id) DESC LIMIT 1
+SELECT city FROM Addresses JOIN Customers ON Addresses.address_id = Customers.customer_address_id GROUP BY city ORDER BY COUNT(*) DESC LIMIT 1
+SELECT vehicle_id, vehicle_details FROM Vehicles WHERE vehicle_id = (SELECT vehicle_id FROM Lessons GROUP BY vehicle_id ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT Building FROM Faculty GROUP BY Building ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Building FROM Faculty GROUP BY Building ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Rank FROM Faculty GROUP BY Rank ORDER BY COUNT(*) ASC LIMIT 1
+SELECT Rank FROM Faculty GROUP BY Rank ORDER BY COUNT(*) ASC LIMIT 1
+SELECT Fname, Lname FROM Faculty WHERE FacID = (SELECT FacID FROM Faculty_Participates_in GROUP BY FacID ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT Fname, Lname FROM Faculty WHERE FacID = (SELECT FacID FROM Faculty_Participates_in GROUP BY FacID ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT Fname, Lname FROM Faculty WHERE FacID = (SELECT FacID FROM Faculty_Participates_in GROUP BY FacID ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT Fname, Lname FROM Faculty WHERE FacID = (SELECT FacID FROM Faculty_Participates_in GROUP BY FacID ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT activity_name FROM Activity WHERE actid = (SELECT actid FROM Faculty_Participates_in GROUP BY actid ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT activity_name FROM Activity WHERE actid = (SELECT actid FROM Faculty_Participates_in GROUP BY actid ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT Fname, Lname FROM Student WHERE StuID = (SELECT StuID FROM Participates_in GROUP BY StuID ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT Fname, Lname FROM Student WHERE StuID = (SELECT stuid FROM Participates_in GROUP BY stuid ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT activity_name FROM Activity WHERE actid = (SELECT actid FROM Participates_in GROUP BY actid ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT activity_name FROM Activity WHERE actid = (SELECT actid FROM Participates_in GROUP BY actid ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT name, city FROM airports WHERE apid = (SELECT dst_apid FROM routes GROUP BY dst_apid ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT T1.name, T1.city FROM airports AS T1 JOIN routes AS T2 ON T1.apid = T2.dst_apid GROUP BY T2.dst_apid ORDER BY COUNT(*) DESC LIMIT 1
+SELECT T2.name FROM routes AS T1 JOIN airlines AS T2 ON T1.alid = T2.alid GROUP BY T1.alid ORDER BY COUNT(*) DESC LIMIT 10
+SELECT T2.name FROM routes AS T1 JOIN airlines AS T2 ON T1.alid = T2.alid GROUP BY T1.alid ORDER BY COUNT(*) DESC LIMIT 10
+SELECT name, city FROM airports WHERE apid = (SELECT src_apid FROM routes GROUP BY src_apid ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT name, city FROM airports WHERE apid = (SELECT src_apid FROM routes GROUP BY src_apid ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT country FROM airlines GROUP BY country ORDER BY COUNT(*) DESC LIMIT 1
+SELECT country FROM airlines GROUP BY country ORDER BY COUNT(*) DESC LIMIT 1
+SELECT country FROM airlines WHERE active = 'Y' GROUP BY country ORDER BY COUNT(*) DESC LIMIT 1
+SELECT country FROM airlines WHERE active = 'Y' GROUP BY country ORDER BY COUNT(*) DESC
+SELECT T1.country, COUNT(*) FROM airports AS T1 JOIN airlines AS T2 ON T1.apid = T2.alid GROUP BY T1.country ORDER BY COUNT(*) DESC
+SELECT T1.country, COUNT(*) FROM airports AS T1 JOIN routes AS T2 ON T1.apid = T2.src_apid GROUP BY T1.country ORDER BY COUNT(*) DESC
+SELECT country, COUNT(apid) FROM airports GROUP BY country ORDER BY COUNT(apid) DESC
+SELECT country, COUNT(apid) FROM airports GROUP BY country ORDER BY COUNT(apid) DESC
+SELECT city, COUNT(*) FROM airports WHERE country = 'United States' GROUP BY city ORDER BY COUNT(*) DESC
+SELECT city, COUNT(apid) FROM airports WHERE country = 'US' GROUP BY city ORDER BY COUNT(apid) DESC
+SELECT city, COUNT(*) FROM airports GROUP BY city HAVING COUNT(*) > 2 ORDER BY COUNT(*) DESC
+SELECT city, COUNT(apid) FROM airports GROUP BY city HAVING COUNT(apid) > 2 ORDER BY COUNT(apid) DESC
+SELECT src_ap, COUNT(*) FROM routes GROUP BY src_ap ORDER BY COUNT(*) DESC
+SELECT T2.name, COUNT(*) FROM routes AS T1 JOIN airports AS T2 ON T1.src_apid = T2.apid GROUP BY T1.src_apid ORDER BY COUNT(*) DESC
+SELECT name FROM airlines WHERE alid = (SELECT alid FROM routes GROUP BY alid ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT name FROM airlines WHERE alid = (SELECT alid FROM routes GROUP BY alid ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT T2.name FROM routes AS T1 JOIN airports AS T2 ON T1.src_apid = T2.apid WHERE T2.country = 'China' GROUP BY T1.src_apid ORDER BY COUNT(*) DESC LIMIT 1
+SELECT name FROM airports WHERE apid = (SELECT src_apid FROM routes WHERE dst_apid = (SELECT apid FROM airports WHERE country = 'China') GROUP BY src_apid ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT T2.name FROM routes AS T1 JOIN airports AS T2 ON T1.dst_apid = T2.apid WHERE T2.country = 'China' GROUP BY T1.dst_apid ORDER BY COUNT(*) DESC LIMIT 1
+SELECT T2.name FROM routes AS T1 JOIN airports AS T2 ON T1.dst_apid = T2.apid WHERE T1.src_apid IN (SELECT apid FROM airports WHERE country = 'China') GROUP BY T1.dst_apid ORDER BY COUNT(*) DESC LIMIT 1
+SELECT customer_name FROM Customers WHERE customer_id = (SELECT customer_id FROM Orders GROUP BY customer_id ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT customer_name FROM Customers WHERE customer_id = (SELECT customer_id FROM Orders GROUP BY customer_id ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT customer_id FROM Orders GROUP BY customer_id ORDER BY COUNT(*) DESC LIMIT 1
+SELECT customer_id FROM Orders GROUP BY customer_id ORDER BY COUNT(*) DESC LIMIT 1
+SELECT order_id FROM Order_Items GROUP BY order_id ORDER BY COUNT(*) DESC LIMIT 1
+SELECT order_id FROM Order_Items GROUP BY order_id ORDER BY COUNT(*) DESC LIMIT 1
+SELECT customer_name FROM Customers WHERE customer_id = (SELECT customer_id FROM Orders GROUP BY customer_id ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT customer_name FROM Customers WHERE customer_id = (SELECT customer_id FROM Orders GROUP BY customer_id ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT id, name, nationality FROM architect WHERE id = (SELECT architect_id FROM mill GROUP BY architect_id ORDER BY COUNT(*) DESC LIMIT 1)
+SELECT type, COUNT(id) FROM mill GROUP BY type ORDER BY COUNT(id) DESC LIMIT 1
+SELECT T1.Publisher FROM book_club AS T1 JOIN culture_company AS T2 ON T1.book_club_id = T2.book_club_id GROUP BY T2.book_club_id ORDER BY COUNT(*) DESC LIMIT 1
+SELECT Publisher FROM book_club WHERE book_club_id = (SELECT book_club_id FROM culture_company GROUP BY book_club_id ORDER BY COUNT(*) DESC LIMIT 1)

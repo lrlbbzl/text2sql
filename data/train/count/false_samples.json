@@ -1,0 +1,317 @@
+[
+    {
+        "db_id": "farm",
+        "gold": "SELECT Status FROM city GROUP BY Status ORDER BY COUNT(*) ASC",
+        "question": "Please show the different statuses, ordered by the number of cities that have each.",
+        "fields": "Table city, columns = [*,City_ID,Official_Name,Status,Area_km_2,Population,Census_Ranking]\nTable competition_record, columns = [*,Competition_ID,Farm_ID,Rank]\nTable farm, columns = [*,Farm_ID,Year,Total_Horses,Working_Horses,Total_Cattle,Oxen,Bulls,Cows,Pigs,Sheep_and_Goats]\nTable farm_competition, columns = [*,Competition_ID,Year,Theme,Host_city_ID,Hosts]\n",
+        "foreign_keys": "Foreign_keys = [farm_competition.Host_city_ID = city.City_ID,competition_record.Farm_ID = farm.Farm_ID,competition_record.Competition_ID = farm_competition.Competition_ID]\n",
+        "reasoning": "<1> Operation: The query requires the different statuses ordered by the number of cities that have each status, so we should apply the 'count' operation to the 'city' table for the 'Status' column, and sort it in ascending order. Since the unit to which the statuses being counted in the query belong is the city, we should apply the 'group by' operation to the 'Status' column in the 'city' table.\n\n<2> Schema Linking: In this step, we identify the tables and columns that should be used based on the first step and the foreign key relationships. In this question, we only need to use table ['city'].\n\n<3> SQL Generation: The query requires the different statuses ordered by the number of cities that have each status, so we should select the 'Status' column in the 'city' table. The query does not require the count of cities, so it is only used for filtering and not selected.\n\nSQL query: \nSELECT Status FROM city GROUP BY Status ORDER BY COUNT(*) ASC",
+        "predict": ""
+    },
+    {
+        "db_id": "student_assessment",
+        "gold": "SELECT T1.course_name FROM courses AS T1 JOIN student_course_registrations AS T2 ON T1.course_id = T2.course_Id GROUP BY T1.course_id ORDER BY count(*) DESC LIMIT 1",
+        "question": "which course has most number of registered students?",
+        "fields": "Table Addresses, columns = [*,address_id,line_1,line_2,city,zip_postcode,state_province_county,country]\nTable Candidate_Assessments, columns = [*,candidate_id,qualification,assessment_date,asessment_outcome_code]\nTable Candidates, columns = [*,candidate_id,candidate_details]\nTable Courses, columns = [*,course_id,course_name,course_description,other_details]\nTable People, columns = [*,person_id,first_name,middle_name,last_name,cell_mobile_number,email_address,login_name,password]\nTable People_Addresses, columns = [*,person_address_id,person_id,address_id,date_from,date_to]\nTable Student_Course_Attendance, columns = [*,student_id,course_id,date_of_attendance]\nTable Student_Course_Registrations, columns = [*,student_id,course_id,registration_date]\nTable Students, columns = [*,student_id,student_details]\n",
+        "foreign_keys": "Foreign_keys = [Students.student_id = People.person_id,People_Addresses.address_id = Addresses.address_id,People_Addresses.person_id = People.person_id,Student_Course_Registrations.course_id = Courses.course_id,Student_Course_Registrations.student_id = Students.student_id,Student_Course_Attendance.student_id = Student_Course_Registrations.student_id,Student_Course_Attendance.course_id = Student_Course_Registrations.course_id,Candidates.candidate_id = People.person_id,Candidate_Assessments.candidate_id = Candidates.candidate_id]\n",
+        "reasoning": "<1> Operation: The query requires the course with the most number of registered students, so we should apply the 'count' operation to the 'Student_Course_Registrations' table for the 'student_id' column, and find the course with the highest count. Since the unit to which the registered students being counted in the query belong is the course, we should apply the 'group by' operation to the 'course_id' column in the 'Student_Course_Registrations' table.\n\n<2> Schema Linking: In this step, we identify the tables and columns that should be used based on the first step and the foreign key relationships. Due to the direct foreign key connection between table 'Courses' and 'Student_Course_Registrations', we need to use tables ['Courses', 'Student_Course_Registrations'].\n\n<3> SQL Generation: The query requires the course with the most number of registered students, so we should select the 'course_name' column in the 'Courses' table and the 'course_id' column in the 'Student_Course_Registrations' table.\n\nSQL query: \nSELECT T1.course_name FROM Courses AS T1 JOIN Student_Course_Registrations AS T2 ON T1.course_id = T2.course_id GROUP BY T1.course_id ORDER BY COUNT(T2.student_id) DESC LIMIT 1",
+        "predict": ""
+    },
+    {
+        "db_id": "student_assessment",
+        "gold": "SELECT student_id FROM student_course_registrations GROUP BY student_id ORDER BY count(*) LIMIT 1",
+        "question": "what is id of students who registered some courses but the least number of courses in these students?",
+        "fields": "Table Addresses, columns = [*,address_id,line_1,line_2,city,zip_postcode,state_province_county,country]\nTable Candidate_Assessments, columns = [*,candidate_id,qualification,assessment_date,asessment_outcome_code]\nTable Candidates, columns = [*,candidate_id,candidate_details]\nTable Courses, columns = [*,course_id,course_name,course_description,other_details]\nTable People, columns = [*,person_id,first_name,middle_name,last_name,cell_mobile_number,email_address,login_name,password]\nTable People_Addresses, columns = [*,person_address_id,person_id,address_id,date_from,date_to]\nTable Student_Course_Attendance, columns = [*,student_id,course_id,date_of_attendance]\nTable Student_Course_Registrations, columns = [*,student_id,course_id,registration_date]\nTable Students, columns = [*,student_id,student_details]\n",
+        "foreign_keys": "Foreign_keys = [Students.student_id = People.person_id,People_Addresses.address_id = Addresses.address_id,People_Addresses.person_id = People.person_id,Student_Course_Registrations.course_id = Courses.course_id,Student_Course_Registrations.student_id = Students.student_id,Student_Course_Attendance.student_id = Student_Course_Registrations.student_id,Student_Course_Attendance.course_id = Student_Course_Registrations.course_id,Candidates.candidate_id = People.person_id,Candidate_Assessments.candidate_id = Candidates.candidate_id]\n",
+        "reasoning": "",
+        "predict": ""
+    },
+    {
+        "db_id": "student_assessment",
+        "gold": "SELECT student_id FROM student_course_registrations GROUP BY student_id ORDER BY count(*) LIMIT 1",
+        "question": "What are the ids of the students who registered for some courses but had the least number of courses for all students?",
+        "fields": "Table Addresses, columns = [*,address_id,line_1,line_2,city,zip_postcode,state_province_county,country]\nTable Candidate_Assessments, columns = [*,candidate_id,qualification,assessment_date,asessment_outcome_code]\nTable Candidates, columns = [*,candidate_id,candidate_details]\nTable Courses, columns = [*,course_id,course_name,course_description,other_details]\nTable People, columns = [*,person_id,first_name,middle_name,last_name,cell_mobile_number,email_address,login_name,password]\nTable People_Addresses, columns = [*,person_address_id,person_id,address_id,date_from,date_to]\nTable Student_Course_Attendance, columns = [*,student_id,course_id,date_of_attendance]\nTable Student_Course_Registrations, columns = [*,student_id,course_id,registration_date]\nTable Students, columns = [*,student_id,student_details]\n",
+        "foreign_keys": "Foreign_keys = [Students.student_id = People.person_id,People_Addresses.address_id = Addresses.address_id,People_Addresses.person_id = People.person_id,Student_Course_Registrations.course_id = Courses.course_id,Student_Course_Registrations.student_id = Students.student_id,Student_Course_Attendance.student_id = Student_Course_Registrations.student_id,Student_Course_Attendance.course_id = Student_Course_Registrations.course_id,Candidates.candidate_id = People.person_id,Candidate_Assessments.candidate_id = Candidates.candidate_id]\n",
+        "reasoning": "",
+        "predict": ""
+    },
+    {
+        "db_id": "student_assessment",
+        "gold": "SELECT T1.student_details FROM students AS T1 JOIN student_course_registrations AS T2 ON T1.student_id = T2.student_id GROUP BY T1.student_id ORDER BY count(*) DESC LIMIT 1",
+        "question": "What are the details of the student who registered for the most number of courses?",
+        "fields": "Table Addresses, columns = [*,address_id,line_1,line_2,city,zip_postcode,state_province_county,country]\nTable Candidate_Assessments, columns = [*,candidate_id,qualification,assessment_date,asessment_outcome_code]\nTable Candidates, columns = [*,candidate_id,candidate_details]\nTable Courses, columns = [*,course_id,course_name,course_description,other_details]\nTable People, columns = [*,person_id,first_name,middle_name,last_name,cell_mobile_number,email_address,login_name,password]\nTable People_Addresses, columns = [*,person_address_id,person_id,address_id,date_from,date_to]\nTable Student_Course_Attendance, columns = [*,student_id,course_id,date_of_attendance]\nTable Student_Course_Registrations, columns = [*,student_id,course_id,registration_date]\nTable Students, columns = [*,student_id,student_details]\n",
+        "foreign_keys": "Foreign_keys = [Students.student_id = People.person_id,People_Addresses.address_id = Addresses.address_id,People_Addresses.person_id = People.person_id,Student_Course_Registrations.course_id = Courses.course_id,Student_Course_Registrations.student_id = Students.student_id,Student_Course_Attendance.student_id = Student_Course_Registrations.student_id,Student_Course_Attendance.course_id = Student_Course_Registrations.course_id,Candidates.candidate_id = People.person_id,Candidate_Assessments.candidate_id = Candidates.candidate_id]\n",
+        "reasoning": "",
+        "predict": ""
+    },
+    {
+        "db_id": "bike_1",
+        "gold": "SELECT start_station_name ,  start_station_id FROM trip WHERE start_date LIKE \"8/%\" GROUP BY start_station_name ORDER BY COUNT(*) DESC LIMIT 1",
+        "question": "Which start station had the most trips starting from August? Give me the name and id of the station.",
+        "fields": "Table station, columns = [*,id,name,lat,long,dock_count,city,installation_date]\nTable status, columns = [*,station_id,bikes_available,docks_available,time]\nTable trip, columns = [*,id,duration,start_date,start_station_name,start_station_id,end_date,end_station_name,end_station_id,bike_id,subscription_type,zip_code]\nTable weather, columns = [*,date,max_temperature_f,mean_temperature_f,min_temperature_f,max_dew_point_f,mean_dew_point_f,min_dew_point_f,max_humidity,mean_humidity,min_humidity,max_sea_level_pressure_inches,mean_sea_level_pressure_inches,min_sea_level_pressure_inches,max_visibility_miles,mean_visibility_miles,min_visibility_miles,max_wind_Speed_mph,mean_wind_speed_mph,max_gust_speed_mph,precipitation_inches,cloud_cover,events,wind_dir_degrees,zip_code]\n",
+        "foreign_keys": "Foreign_keys = [status.station_id = station.id]\n",
+        "reasoning": "",
+        "predict": ""
+    },
+    {
+        "db_id": "bike_1",
+        "gold": "SELECT bike_id FROM trip WHERE zip_code  =  94002 GROUP BY bike_id ORDER BY COUNT(*) DESC LIMIT 1",
+        "question": "What is the id of the bike that traveled the most in 94002?",
+        "fields": "Table station, columns = [*,id,name,lat,long,dock_count,city,installation_date]\nTable status, columns = [*,station_id,bikes_available,docks_available,time]\nTable trip, columns = [*,id,duration,start_date,start_station_name,start_station_id,end_date,end_station_name,end_station_id,bike_id,subscription_type,zip_code]\nTable weather, columns = [*,date,max_temperature_f,mean_temperature_f,min_temperature_f,max_dew_point_f,mean_dew_point_f,min_dew_point_f,max_humidity,mean_humidity,min_humidity,max_sea_level_pressure_inches,mean_sea_level_pressure_inches,min_sea_level_pressure_inches,max_visibility_miles,mean_visibility_miles,min_visibility_miles,max_wind_Speed_mph,mean_wind_speed_mph,max_gust_speed_mph,precipitation_inches,cloud_cover,events,wind_dir_degrees,zip_code]\n",
+        "foreign_keys": "Foreign_keys = [status.station_id = station.id]\n",
+        "reasoning": "",
+        "predict": ""
+    },
+    {
+        "db_id": "bike_1",
+        "gold": "SELECT city FROM station GROUP BY city ORDER BY max(lat) DESC",
+        "question": "For each city, list their names in decreasing order by their highest station latitude.",
+        "fields": "Table station, columns = [*,id,name,lat,long,dock_count,city,installation_date]\nTable status, columns = [*,station_id,bikes_available,docks_available,time]\nTable trip, columns = [*,id,duration,start_date,start_station_name,start_station_id,end_date,end_station_name,end_station_id,bike_id,subscription_type,zip_code]\nTable weather, columns = [*,date,max_temperature_f,mean_temperature_f,min_temperature_f,max_dew_point_f,mean_dew_point_f,min_dew_point_f,max_humidity,mean_humidity,min_humidity,max_sea_level_pressure_inches,mean_sea_level_pressure_inches,min_sea_level_pressure_inches,max_visibility_miles,mean_visibility_miles,min_visibility_miles,max_wind_Speed_mph,mean_wind_speed_mph,max_gust_speed_mph,precipitation_inches,cloud_cover,events,wind_dir_degrees,zip_code]\n",
+        "foreign_keys": "Foreign_keys = [status.station_id = station.id]\n",
+        "reasoning": "",
+        "predict": ""
+    },
+    {
+        "db_id": "musical",
+        "gold": "SELECT Nominee FROM musical GROUP BY Nominee ORDER BY COUNT(*) DESC LIMIT 1",
+        "question": "Who is the nominee who has been nominated for the most musicals?",
+        "fields": "Table actor, columns = [*,Actor_ID,Name,Musical_ID,Character,Duration,age]\nTable musical, columns = [*,Musical_ID,Name,Year,Award,Category,Nominee,Result]\n",
+        "foreign_keys": "Foreign_keys = [actor.Musical_ID = actor.Actor_ID]\n",
+        "reasoning": "",
+        "predict": ""
+    },
+    {
+        "db_id": "product_catalog",
+        "gold": "SELECT t1.catalog_entry_name FROM Catalog_Contents AS t1 JOIN Catalog_Contents_Additional_Attributes AS t2 ON t1.catalog_entry_id  =  t2.catalog_entry_id WHERE t2.attribute_value  =  (SELECT attribute_value FROM Catalog_Contents_Additional_Attributes GROUP BY attribute_value ORDER BY count(*) DESC LIMIT 1)",
+        "question": "What are the entry names of catalog with the attribute possessed by most entries.",
+        "fields": "Table Attribute_Definitions, columns = [*,attribute_id,attribute_name,attribute_data_type]\nTable Catalog_Contents, columns = [*,catalog_entry_id,catalog_level_number,parent_entry_id,previous_entry_id,next_entry_id,catalog_entry_name,product_stock_number,price_in_dollars,price_in_euros,price_in_pounds,capacity,length,height,width]\nTable Catalog_Contents_Additional_Attributes, columns = [*,catalog_entry_id,catalog_level_number,attribute_id,attribute_value]\nTable Catalog_Structure, columns = [*,catalog_level_number,catalog_id,catalog_level_name]\nTable Catalogs, columns = [*,catalog_id,catalog_name,catalog_publisher,date_of_publication,date_of_latest_revision]\n",
+        "foreign_keys": "Foreign_keys = [Catalog_Structure.catalog_id = Catalogs.catalog_id,Catalog_Contents.catalog_level_number = Catalog_Structure.catalog_level_number,Catalog_Contents_Additional_Attributes.catalog_level_number = Catalog_Structure.catalog_level_number,Catalog_Contents_Additional_Attributes.catalog_entry_id = Catalog_Contents.catalog_entry_id]\n",
+        "reasoning": "",
+        "predict": ""
+    },
+    {
+        "db_id": "product_catalog",
+        "gold": "SELECT t1.catalog_entry_name FROM Catalog_Contents AS t1 JOIN Catalog_Contents_Additional_Attributes AS t2 ON t1.catalog_entry_id  =  t2.catalog_entry_id WHERE t2.attribute_value  =  (SELECT attribute_value FROM Catalog_Contents_Additional_Attributes GROUP BY attribute_value ORDER BY count(*) DESC LIMIT 1)",
+        "question": "Find the entry names of the catalog with the attribute that have the most entries.",
+        "fields": "Table Attribute_Definitions, columns = [*,attribute_id,attribute_name,attribute_data_type]\nTable Catalog_Contents, columns = [*,catalog_entry_id,catalog_level_number,parent_entry_id,previous_entry_id,next_entry_id,catalog_entry_name,product_stock_number,price_in_dollars,price_in_euros,price_in_pounds,capacity,length,height,width]\nTable Catalog_Contents_Additional_Attributes, columns = [*,catalog_entry_id,catalog_level_number,attribute_id,attribute_value]\nTable Catalog_Structure, columns = [*,catalog_level_number,catalog_id,catalog_level_name]\nTable Catalogs, columns = [*,catalog_id,catalog_name,catalog_publisher,date_of_publication,date_of_latest_revision]\n",
+        "foreign_keys": "Foreign_keys = [Catalog_Structure.catalog_id = Catalogs.catalog_id,Catalog_Contents.catalog_level_number = Catalog_Structure.catalog_level_number,Catalog_Contents_Additional_Attributes.catalog_level_number = Catalog_Structure.catalog_level_number,Catalog_Contents_Additional_Attributes.catalog_entry_id = Catalog_Contents.catalog_entry_id]\n",
+        "reasoning": "",
+        "predict": ""
+    },
+    {
+        "db_id": "flight_1",
+        "gold": "SELECT destination FROM Flight GROUP BY destination ORDER BY count(*) LIMIT 1",
+        "question": "What destination has the fewest number of flights?",
+        "fields": "Table aircraft, columns = [*,aid,name,distance]\nTable certificate, columns = [*,eid,aid]\nTable employee, columns = [*,eid,name,salary]\nTable flight, columns = [*,flno,origin,destination,distance,departure_date,arrival_date,price,aid]\n",
+        "foreign_keys": "Foreign_keys = [flight.aid = aircraft.aid,certificate.aid = aircraft.aid,certificate.eid = employee.eid]\n",
+        "reasoning": "",
+        "predict": ""
+    },
+    {
+        "db_id": "flight_1",
+        "gold": "SELECT T2.name FROM Certificate AS T1 JOIN Aircraft AS T2 ON T2.aid  =  T1.aid GROUP BY T1.aid ORDER BY count(*) DESC LIMIT 1",
+        "question": "Show the name of aircraft which fewest people have its certificate.",
+        "fields": "Table aircraft, columns = [*,aid,name,distance]\nTable certificate, columns = [*,eid,aid]\nTable employee, columns = [*,eid,name,salary]\nTable flight, columns = [*,flno,origin,destination,distance,departure_date,arrival_date,price,aid]\n",
+        "foreign_keys": "Foreign_keys = [flight.aid = aircraft.aid,certificate.aid = aircraft.aid,certificate.eid = employee.eid]\n",
+        "reasoning": "",
+        "predict": ""
+    },
+    {
+        "db_id": "flight_1",
+        "gold": "SELECT T2.name FROM Certificate AS T1 JOIN Aircraft AS T2 ON T2.aid  =  T1.aid GROUP BY T1.aid ORDER BY count(*) DESC LIMIT 1",
+        "question": "What are the names of the aircraft that the least people are certified to fly?",
+        "fields": "Table aircraft, columns = [*,aid,name,distance]\nTable certificate, columns = [*,eid,aid]\nTable employee, columns = [*,eid,name,salary]\nTable flight, columns = [*,flno,origin,destination,distance,departure_date,arrival_date,price,aid]\n",
+        "foreign_keys": "Foreign_keys = [flight.aid = aircraft.aid,certificate.aid = aircraft.aid,certificate.eid = employee.eid]\n",
+        "reasoning": "",
+        "predict": ""
+    },
+    {
+        "db_id": "flight_1",
+        "gold": "SELECT T2.name FROM Certificate AS T1 JOIN Aircraft AS T2 ON T2.aid  =  T1.aid WHERE T2.distance  >  5000 GROUP BY T1.aid ORDER BY count(*)  >=  5",
+        "question": "Show the name and distance of the aircrafts with more than 5000 distance and which at least 5 people have its certificate.",
+        "fields": "Table aircraft, columns = [*,aid,name,distance]\nTable certificate, columns = [*,eid,aid]\nTable employee, columns = [*,eid,name,salary]\nTable flight, columns = [*,flno,origin,destination,distance,departure_date,arrival_date,price,aid]\n",
+        "foreign_keys": "Foreign_keys = [flight.aid = aircraft.aid,certificate.aid = aircraft.aid,certificate.eid = employee.eid]\n",
+        "reasoning": "",
+        "predict": ""
+    },
+    {
+        "db_id": "flight_1",
+        "gold": "SELECT T2.name FROM Certificate AS T1 JOIN Aircraft AS T2 ON T2.aid  =  T1.aid WHERE T2.distance  >  5000 GROUP BY T1.aid ORDER BY count(*)  >=  5",
+        "question": "What is the name and distance of every aircraft that can cover a distance of more than 5000 and which at least 5 people can fly?",
+        "fields": "Table aircraft, columns = [*,aid,name,distance]\nTable certificate, columns = [*,eid,aid]\nTable employee, columns = [*,eid,name,salary]\nTable flight, columns = [*,flno,origin,destination,distance,departure_date,arrival_date,price,aid]\n",
+        "foreign_keys": "Foreign_keys = [flight.aid = aircraft.aid,certificate.aid = aircraft.aid,certificate.eid = employee.eid]\n",
+        "reasoning": "",
+        "predict": ""
+    },
+    {
+        "db_id": "flight_1",
+        "gold": "SELECT T1.name FROM Employee AS T1 JOIN Certificate AS T2 ON T1.eid  =  T2.eid JOIN Aircraft AS T3 ON T3.aid  =  T2.aid WHERE T3.distance  >  5000 GROUP BY T1.eid ORDER BY count(*) DESC LIMIT 1",
+        "question": "What is the salary and name of the employee who has the most number of certificates on aircrafts with distance more than 5000?",
+        "fields": "Table aircraft, columns = [*,aid,name,distance]\nTable certificate, columns = [*,eid,aid]\nTable employee, columns = [*,eid,name,salary]\nTable flight, columns = [*,flno,origin,destination,distance,departure_date,arrival_date,price,aid]\n",
+        "foreign_keys": "Foreign_keys = [flight.aid = aircraft.aid,certificate.aid = aircraft.aid,certificate.eid = employee.eid]\n",
+        "reasoning": "",
+        "predict": ""
+    },
+    {
+        "db_id": "flight_1",
+        "gold": "SELECT T1.name FROM Employee AS T1 JOIN Certificate AS T2 ON T1.eid  =  T2.eid JOIN Aircraft AS T3 ON T3.aid  =  T2.aid WHERE T3.distance  >  5000 GROUP BY T1.eid ORDER BY count(*) DESC LIMIT 1",
+        "question": "What is the salaray and name of the employee with the most certificates to fly planes more than 5000?",
+        "fields": "Table aircraft, columns = [*,aid,name,distance]\nTable certificate, columns = [*,eid,aid]\nTable employee, columns = [*,eid,name,salary]\nTable flight, columns = [*,flno,origin,destination,distance,departure_date,arrival_date,price,aid]\n",
+        "foreign_keys": "Foreign_keys = [flight.aid = aircraft.aid,certificate.aid = aircraft.aid,certificate.eid = employee.eid]\n",
+        "reasoning": "",
+        "predict": ""
+    },
+    {
+        "db_id": "allergy_1",
+        "gold": "SELECT allergytype FROM Allergy_type GROUP BY allergytype ORDER BY count(*) DESC LIMIT 1",
+        "question": "Which allergy type has most number of allergies?",
+        "fields": "Table Allergy_Type, columns = [*,Allergy,AllergyType]\nTable Has_Allergy, columns = [*,StuID,Allergy]\nTable Student, columns = [*,StuID,LName,Fname,Age,Sex,Major,Advisor,city_code]\n",
+        "foreign_keys": "Foreign_keys = [Has_Allergy.Allergy = Allergy_Type.Allergy,Has_Allergy.StuID = Student.StuID]\n",
+        "reasoning": "",
+        "predict": ""
+    },
+    {
+        "db_id": "allergy_1",
+        "gold": "SELECT allergytype FROM Allergy_type GROUP BY allergytype ORDER BY count(*) ASC LIMIT 1",
+        "question": "Which allergy type has least number of allergies?",
+        "fields": "Table Allergy_Type, columns = [*,Allergy,AllergyType]\nTable Has_Allergy, columns = [*,StuID,Allergy]\nTable Student, columns = [*,StuID,LName,Fname,Age,Sex,Major,Advisor,city_code]\n",
+        "foreign_keys": "Foreign_keys = [Has_Allergy.Allergy = Allergy_Type.Allergy,Has_Allergy.StuID = Student.StuID]\n",
+        "reasoning": "",
+        "predict": ""
+    },
+    {
+        "db_id": "store_1",
+        "gold": "SELECT billing_country ,  AVG(total) FROM invoices GROUP BY billing_country ORDER BY AVG(total) DESC LIMIT 10;",
+        "question": "A list of the top 10 countries by average invoice size. List country name and average invoice size.",
+        "fields": "Table albums, columns = [*,id,title,artist_id]\nTable artists, columns = [*,id,name]\nTable customers, columns = [*,id,first_name,last_name,company,address,city,state,country,postal_code,phone,fax,email,support_rep_id]\nTable employees, columns = [*,id,last_name,first_name,title,reports_to,birth_date,hire_date,address,city,state,country,postal_code,phone,fax,email]\nTable genres, columns = [*,id,name]\nTable invoice_lines, columns = [*,id,invoice_id,track_id,unit_price,quantity]\nTable invoices, columns = [*,id,customer_id,invoice_date,billing_address,billing_city,billing_state,billing_country,billing_postal_code,total]\nTable media_types, columns = [*,id,name]\nTable playlist_tracks, columns = [*,playlist_id,track_id]\nTable playlists, columns = [*,id,name]\nTable sqlite_sequence, columns = [*,name,seq]\nTable tracks, columns = [*,id,name,album_id,media_type_id,genre_id,composer,milliseconds,bytes,unit_price]\n",
+        "foreign_keys": "Foreign_keys = [albums.artist_id = artists.id,employees.reports_to = employees.id,customers.support_rep_id = employees.id,invoices.customer_id = customers.id,tracks.media_type_id = media_types.id,tracks.genre_id = genres.id,tracks.album_id = albums.id,invoice_lines.track_id = tracks.id,invoice_lines.invoice_id = invoices.id,playlist_tracks.track_id = tracks.id,playlist_tracks.playlist_id = playlists.id]\n",
+        "reasoning": "",
+        "predict": ""
+    },
+    {
+        "db_id": "store_1",
+        "gold": "SELECT billing_country ,  AVG(total) FROM invoices GROUP BY billing_country ORDER BY AVG(total) DESC LIMIT 10;",
+        "question": "What are the names of the countries and average invoice size of the top countries by size?",
+        "fields": "Table albums, columns = [*,id,title,artist_id]\nTable artists, columns = [*,id,name]\nTable customers, columns = [*,id,first_name,last_name,company,address,city,state,country,postal_code,phone,fax,email,support_rep_id]\nTable employees, columns = [*,id,last_name,first_name,title,reports_to,birth_date,hire_date,address,city,state,country,postal_code,phone,fax,email]\nTable genres, columns = [*,id,name]\nTable invoice_lines, columns = [*,id,invoice_id,track_id,unit_price,quantity]\nTable invoices, columns = [*,id,customer_id,invoice_date,billing_address,billing_city,billing_state,billing_country,billing_postal_code,total]\nTable media_types, columns = [*,id,name]\nTable playlist_tracks, columns = [*,playlist_id,track_id]\nTable playlists, columns = [*,id,name]\nTable sqlite_sequence, columns = [*,name,seq]\nTable tracks, columns = [*,id,name,album_id,media_type_id,genre_id,composer,milliseconds,bytes,unit_price]\n",
+        "foreign_keys": "Foreign_keys = [albums.artist_id = artists.id,employees.reports_to = employees.id,customers.support_rep_id = employees.id,invoices.customer_id = customers.id,tracks.media_type_id = media_types.id,tracks.genre_id = genres.id,tracks.album_id = albums.id,invoice_lines.track_id = tracks.id,invoice_lines.invoice_id = invoices.id,playlist_tracks.track_id = tracks.id,playlist_tracks.playlist_id = playlists.id]\n",
+        "reasoning": "",
+        "predict": ""
+    },
+    {
+        "db_id": "store_1",
+        "gold": "SELECT billing_state ,  COUNT(*) FROM invoices WHERE billing_country  =  \"USA\" GROUP BY billing_state ORDER BY COUNT(*) DESC LIMIT 1;",
+        "question": "List the state in the US with the most invoices.",
+        "fields": "Table albums, columns = [*,id,title,artist_id]\nTable artists, columns = [*,id,name]\nTable customers, columns = [*,id,first_name,last_name,company,address,city,state,country,postal_code,phone,fax,email,support_rep_id]\nTable employees, columns = [*,id,last_name,first_name,title,reports_to,birth_date,hire_date,address,city,state,country,postal_code,phone,fax,email]\nTable genres, columns = [*,id,name]\nTable invoice_lines, columns = [*,id,invoice_id,track_id,unit_price,quantity]\nTable invoices, columns = [*,id,customer_id,invoice_date,billing_address,billing_city,billing_state,billing_country,billing_postal_code,total]\nTable media_types, columns = [*,id,name]\nTable playlist_tracks, columns = [*,playlist_id,track_id]\nTable playlists, columns = [*,id,name]\nTable sqlite_sequence, columns = [*,name,seq]\nTable tracks, columns = [*,id,name,album_id,media_type_id,genre_id,composer,milliseconds,bytes,unit_price]\n",
+        "foreign_keys": "Foreign_keys = [albums.artist_id = artists.id,employees.reports_to = employees.id,customers.support_rep_id = employees.id,invoices.customer_id = customers.id,tracks.media_type_id = media_types.id,tracks.genre_id = genres.id,tracks.album_id = albums.id,invoice_lines.track_id = tracks.id,invoice_lines.invoice_id = invoices.id,playlist_tracks.track_id = tracks.id,playlist_tracks.playlist_id = playlists.id]\n",
+        "reasoning": "",
+        "predict": ""
+    },
+    {
+        "db_id": "store_1",
+        "gold": "SELECT billing_state ,  COUNT(*) FROM invoices WHERE billing_country  =  \"USA\" GROUP BY billing_state ORDER BY COUNT(*) DESC LIMIT 1;",
+        "question": "What are the states with the most invoices?",
+        "fields": "Table albums, columns = [*,id,title,artist_id]\nTable artists, columns = [*,id,name]\nTable customers, columns = [*,id,first_name,last_name,company,address,city,state,country,postal_code,phone,fax,email,support_rep_id]\nTable employees, columns = [*,id,last_name,first_name,title,reports_to,birth_date,hire_date,address,city,state,country,postal_code,phone,fax,email]\nTable genres, columns = [*,id,name]\nTable invoice_lines, columns = [*,id,invoice_id,track_id,unit_price,quantity]\nTable invoices, columns = [*,id,customer_id,invoice_date,billing_address,billing_city,billing_state,billing_country,billing_postal_code,total]\nTable media_types, columns = [*,id,name]\nTable playlist_tracks, columns = [*,playlist_id,track_id]\nTable playlists, columns = [*,id,name]\nTable sqlite_sequence, columns = [*,name,seq]\nTable tracks, columns = [*,id,name,album_id,media_type_id,genre_id,composer,milliseconds,bytes,unit_price]\n",
+        "foreign_keys": "Foreign_keys = [albums.artist_id = artists.id,employees.reports_to = employees.id,customers.support_rep_id = employees.id,invoices.customer_id = customers.id,tracks.media_type_id = media_types.id,tracks.genre_id = genres.id,tracks.album_id = albums.id,invoice_lines.track_id = tracks.id,invoice_lines.invoice_id = invoices.id,playlist_tracks.track_id = tracks.id,playlist_tracks.playlist_id = playlists.id]\n",
+        "reasoning": "",
+        "predict": ""
+    },
+    {
+        "db_id": "store_1",
+        "gold": "SELECT T2.first_name , T2.last_name ,  count(T1.reports_to) FROM employees AS T1 JOIN employees AS T2 ON T1.reports_to = T2.id GROUP BY T1.reports_to ORDER BY count(T1.reports_to) DESC LIMIT 1;",
+        "question": "Which employee manage most number of peoples? List employee's first and last name, and number of people report to that employee.",
+        "fields": "Table albums, columns = [*,id,title,artist_id]\nTable artists, columns = [*,id,name]\nTable customers, columns = [*,id,first_name,last_name,company,address,city,state,country,postal_code,phone,fax,email,support_rep_id]\nTable employees, columns = [*,id,last_name,first_name,title,reports_to,birth_date,hire_date,address,city,state,country,postal_code,phone,fax,email]\nTable genres, columns = [*,id,name]\nTable invoice_lines, columns = [*,id,invoice_id,track_id,unit_price,quantity]\nTable invoices, columns = [*,id,customer_id,invoice_date,billing_address,billing_city,billing_state,billing_country,billing_postal_code,total]\nTable media_types, columns = [*,id,name]\nTable playlist_tracks, columns = [*,playlist_id,track_id]\nTable playlists, columns = [*,id,name]\nTable sqlite_sequence, columns = [*,name,seq]\nTable tracks, columns = [*,id,name,album_id,media_type_id,genre_id,composer,milliseconds,bytes,unit_price]\n",
+        "foreign_keys": "Foreign_keys = [albums.artist_id = artists.id,employees.reports_to = employees.id,customers.support_rep_id = employees.id,invoices.customer_id = customers.id,tracks.media_type_id = media_types.id,tracks.genre_id = genres.id,tracks.album_id = albums.id,invoice_lines.track_id = tracks.id,invoice_lines.invoice_id = invoices.id,playlist_tracks.track_id = tracks.id,playlist_tracks.playlist_id = playlists.id]\n",
+        "reasoning": "",
+        "predict": ""
+    },
+    {
+        "db_id": "store_1",
+        "gold": "SELECT T2.first_name , T2.last_name ,  count(T1.reports_to) FROM employees AS T1 JOIN employees AS T2 ON T1.reports_to = T2.id GROUP BY T1.reports_to ORDER BY count(T1.reports_to) DESC LIMIT 1;",
+        "question": "What are the first and last names of all the employees and how many people report to them?",
+        "fields": "Table albums, columns = [*,id,title,artist_id]\nTable artists, columns = [*,id,name]\nTable customers, columns = [*,id,first_name,last_name,company,address,city,state,country,postal_code,phone,fax,email,support_rep_id]\nTable employees, columns = [*,id,last_name,first_name,title,reports_to,birth_date,hire_date,address,city,state,country,postal_code,phone,fax,email]\nTable genres, columns = [*,id,name]\nTable invoice_lines, columns = [*,id,invoice_id,track_id,unit_price,quantity]\nTable invoices, columns = [*,id,customer_id,invoice_date,billing_address,billing_city,billing_state,billing_country,billing_postal_code,total]\nTable media_types, columns = [*,id,name]\nTable playlist_tracks, columns = [*,playlist_id,track_id]\nTable playlists, columns = [*,id,name]\nTable sqlite_sequence, columns = [*,name,seq]\nTable tracks, columns = [*,id,name,album_id,media_type_id,genre_id,composer,milliseconds,bytes,unit_price]\n",
+        "foreign_keys": "Foreign_keys = [albums.artist_id = artists.id,employees.reports_to = employees.id,customers.support_rep_id = employees.id,invoices.customer_id = customers.id,tracks.media_type_id = media_types.id,tracks.genre_id = genres.id,tracks.album_id = albums.id,invoice_lines.track_id = tracks.id,invoice_lines.invoice_id = invoices.id,playlist_tracks.track_id = tracks.id,playlist_tracks.playlist_id = playlists.id]\n",
+        "reasoning": "",
+        "predict": ""
+    },
+    {
+        "db_id": "customers_card_transactions",
+        "gold": "SELECT T1.customer_id ,  T2.customer_first_name ,  T2.customer_last_name FROM Customers_cards AS T1 JOIN Customers AS T2 ON T1.customer_id  =  T2.customer_id GROUP BY T1.customer_id ORDER BY count(*) ASC LIMIT 1",
+        "question": "What is the customer id, first and last name with least number of accounts.",
+        "fields": "Table Accounts, columns = [*,account_id,customer_id,account_name,other_account_details]\nTable Customers, columns = [*,customer_id,customer_first_name,customer_last_name,customer_address,customer_phone,customer_email,other_customer_details]\nTable Customers_Cards, columns = [*,card_id,customer_id,card_type_code,card_number,date_valid_from,date_valid_to,other_card_details]\nTable Financial_Transactions, columns = [*,transaction_id,previous_transaction_id,account_id,card_id,transaction_type,transaction_date,transaction_amount,transaction_comment,other_transaction_details]\n",
+        "foreign_keys": "Foreign_keys = [Financial_Transactions.account_id = Accounts.account_id,Financial_Transactions.card_id = Customers_Cards.card_id]\n",
+        "reasoning": "",
+        "predict": ""
+    },
+    {
+        "db_id": "customers_card_transactions",
+        "gold": "SELECT T1.customer_id ,  T2.customer_first_name ,  T2.customer_last_name FROM Customers_cards AS T1 JOIN Customers AS T2 ON T1.customer_id  =  T2.customer_id GROUP BY T1.customer_id ORDER BY count(*) ASC LIMIT 1",
+        "question": "Return the id and full name of the customer who has the fewest accounts.",
+        "fields": "Table Accounts, columns = [*,account_id,customer_id,account_name,other_account_details]\nTable Customers, columns = [*,customer_id,customer_first_name,customer_last_name,customer_address,customer_phone,customer_email,other_customer_details]\nTable Customers_Cards, columns = [*,card_id,customer_id,card_type_code,card_number,date_valid_from,date_valid_to,other_card_details]\nTable Financial_Transactions, columns = [*,transaction_id,previous_transaction_id,account_id,card_id,transaction_type,transaction_date,transaction_amount,transaction_comment,other_transaction_details]\n",
+        "foreign_keys": "Foreign_keys = [Financial_Transactions.account_id = Accounts.account_id,Financial_Transactions.card_id = Customers_Cards.card_id]\n",
+        "reasoning": "",
+        "predict": ""
+    },
+    {
+        "db_id": "chinook_1",
+        "gold": "SELECT T1.Name FROM GENRE AS T1 JOIN TRACK AS T2 ON T1.GenreId  =  T2.GenreId GROUP BY T2.GenreId ORDER BY COUNT(*) DESC LIMIT 1",
+        "question": "What is the name of the most common genre in all tracks?",
+        "fields": "Table Album, columns = [*,AlbumId,Title,ArtistId]\nTable Artist, columns = [*,ArtistId,Name]\nTable Customer, columns = [*,CustomerId,FirstName,LastName,Company,Address,City,State,Country,PostalCode,Phone,Fax,Email,SupportRepId]\nTable Employee, columns = [*,EmployeeId,LastName,FirstName,Title,ReportsTo,BirthDate,HireDate,Address,City,State,Country,PostalCode,Phone,Fax,Email]\nTable Genre, columns = [*,GenreId,Name]\nTable Invoice, columns = [*,InvoiceId,CustomerId,InvoiceDate,BillingAddress,BillingCity,BillingState,BillingCountry,BillingPostalCode,Total]\nTable InvoiceLine, columns = [*,InvoiceLineId,InvoiceId,TrackId,UnitPrice,Quantity]\nTable MediaType, columns = [*,MediaTypeId,Name]\nTable Playlist, columns = [*,PlaylistId,Name]\nTable PlaylistTrack, columns = [*,PlaylistId,TrackId]\nTable Track, columns = [*,TrackId,Name,AlbumId,MediaTypeId,GenreId,Composer,Milliseconds,Bytes,UnitPrice]\n",
+        "foreign_keys": "Foreign_keys = [Album.ArtistId = Artist.ArtistId,Customer.SupportRepId = Employee.EmployeeId,Employee.ReportsTo = Employee.EmployeeId,Invoice.CustomerId = Customer.CustomerId,InvoiceLine.TrackId = Track.TrackId,InvoiceLine.InvoiceId = Invoice.InvoiceId,PlaylistTrack.TrackId = Track.TrackId,PlaylistTrack.PlaylistId = Playlist.PlaylistId,Track.MediaTypeId = MediaType.MediaTypeId,Track.GenreId = Genre.GenreId,Track.AlbumId = Album.AlbumId]\n",
+        "reasoning": "",
+        "predict": ""
+    },
+    {
+        "db_id": "chinook_1",
+        "gold": "SELECT T1.Name FROM MEDIATYPE AS T1 JOIN TRACK AS T2 ON T1.MediaTypeId  =  T2.MediaTypeId GROUP BY T2.MediaTypeId ORDER BY COUNT(*) ASC LIMIT 1",
+        "question": "What is the least common media type in all tracks?",
+        "fields": "Table Album, columns = [*,AlbumId,Title,ArtistId]\nTable Artist, columns = [*,ArtistId,Name]\nTable Customer, columns = [*,CustomerId,FirstName,LastName,Company,Address,City,State,Country,PostalCode,Phone,Fax,Email,SupportRepId]\nTable Employee, columns = [*,EmployeeId,LastName,FirstName,Title,ReportsTo,BirthDate,HireDate,Address,City,State,Country,PostalCode,Phone,Fax,Email]\nTable Genre, columns = [*,GenreId,Name]\nTable Invoice, columns = [*,InvoiceId,CustomerId,InvoiceDate,BillingAddress,BillingCity,BillingState,BillingCountry,BillingPostalCode,Total]\nTable InvoiceLine, columns = [*,InvoiceLineId,InvoiceId,TrackId,UnitPrice,Quantity]\nTable MediaType, columns = [*,MediaTypeId,Name]\nTable Playlist, columns = [*,PlaylistId,Name]\nTable PlaylistTrack, columns = [*,PlaylistId,TrackId]\nTable Track, columns = [*,TrackId,Name,AlbumId,MediaTypeId,GenreId,Composer,Milliseconds,Bytes,UnitPrice]\n",
+        "foreign_keys": "Foreign_keys = [Album.ArtistId = Artist.ArtistId,Customer.SupportRepId = Employee.EmployeeId,Employee.ReportsTo = Employee.EmployeeId,Invoice.CustomerId = Customer.CustomerId,InvoiceLine.TrackId = Track.TrackId,InvoiceLine.InvoiceId = Invoice.InvoiceId,PlaylistTrack.TrackId = Track.TrackId,PlaylistTrack.PlaylistId = Playlist.PlaylistId,Track.MediaTypeId = MediaType.MediaTypeId,Track.GenreId = Genre.GenreId,Track.AlbumId = Album.AlbumId]\n",
+        "reasoning": "",
+        "predict": ""
+    },
+    {
+        "db_id": "insurance_fnol",
+        "gold": "SELECT policy_type_code FROM available_policies GROUP BY policy_type_code ORDER BY count(*) DESC LIMIT 1",
+        "question": "Which policy type has the most records in the database?",
+        "fields": "Table Available_Policies, columns = [*,Policy_ID,policy_type_code,Customer_Phone]\nTable Claims, columns = [*,Claim_ID,FNOL_ID,Effective_Date]\nTable Customers, columns = [*,Customer_ID,Customer_name]\nTable Customers_Policies, columns = [*,Customer_ID,Policy_ID,Date_Opened,Date_Closed]\nTable First_Notification_of_Loss, columns = [*,FNOL_ID,Customer_ID,Policy_ID,Service_ID]\nTable Services, columns = [*,Service_ID,Service_name]\nTable Settlements, columns = [*,Settlement_ID,Claim_ID,Effective_Date,Settlement_Amount]\n",
+        "foreign_keys": "Foreign_keys = [Customers_Policies.Policy_ID = Available_Policies.Policy_ID,Customers_Policies.Customer_ID = Customers.Customer_ID,First_Notification_of_Loss.Customer_ID = Customers_Policies.Customer_ID,First_Notification_of_Loss.Policy_ID = Customers_Policies.Policy_ID,First_Notification_of_Loss.Service_ID = Services.Service_ID,Claims.FNOL_ID = First_Notification_of_Loss.FNOL_ID,Settlements.Claim_ID = Claims.Claim_ID]\n",
+        "reasoning": "",
+        "predict": ""
+    },
+    {
+        "db_id": "insurance_fnol",
+        "gold": "SELECT customer_phone FROM available_policies WHERE policy_type_code  =  (SELECT policy_type_code FROM available_policies GROUP BY policy_type_code ORDER BY count(*) DESC LIMIT 1)",
+        "question": "What are all the customer phone numbers under the most popular policy type?",
+        "fields": "Table Available_Policies, columns = [*,Policy_ID,policy_type_code,Customer_Phone]\nTable Claims, columns = [*,Claim_ID,FNOL_ID,Effective_Date]\nTable Customers, columns = [*,Customer_ID,Customer_name]\nTable Customers_Policies, columns = [*,Customer_ID,Policy_ID,Date_Opened,Date_Closed]\nTable First_Notification_of_Loss, columns = [*,FNOL_ID,Customer_ID,Policy_ID,Service_ID]\nTable Services, columns = [*,Service_ID,Service_name]\nTable Settlements, columns = [*,Settlement_ID,Claim_ID,Effective_Date,Settlement_Amount]\n",
+        "foreign_keys": "Foreign_keys = [Customers_Policies.Policy_ID = Available_Policies.Policy_ID,Customers_Policies.Customer_ID = Customers.Customer_ID,First_Notification_of_Loss.Customer_ID = Customers_Policies.Customer_ID,First_Notification_of_Loss.Policy_ID = Customers_Policies.Policy_ID,First_Notification_of_Loss.Service_ID = Services.Service_ID,Claims.FNOL_ID = First_Notification_of_Loss.FNOL_ID,Settlements.Claim_ID = Claims.Claim_ID]\n",
+        "reasoning": "",
+        "predict": ""
+    },
+    {
+        "db_id": "insurance_fnol",
+        "gold": "SELECT t1.Effective_Date FROM claims AS t1 JOIN settlements AS t2 ON t1.claim_id  =  t2.claim_id GROUP BY t1.claim_id ORDER BY sum(t2.settlement_amount) DESC LIMIT 1",
+        "question": "Find the claim that has the largest total settlement amount. Return the effective date of the claim.",
+        "fields": "Table Available_Policies, columns = [*,Policy_ID,policy_type_code,Customer_Phone]\nTable Claims, columns = [*,Claim_ID,FNOL_ID,Effective_Date]\nTable Customers, columns = [*,Customer_ID,Customer_name]\nTable Customers_Policies, columns = [*,Customer_ID,Policy_ID,Date_Opened,Date_Closed]\nTable First_Notification_of_Loss, columns = [*,FNOL_ID,Customer_ID,Policy_ID,Service_ID]\nTable Services, columns = [*,Service_ID,Service_name]\nTable Settlements, columns = [*,Settlement_ID,Claim_ID,Effective_Date,Settlement_Amount]\n",
+        "foreign_keys": "Foreign_keys = [Customers_Policies.Policy_ID = Available_Policies.Policy_ID,Customers_Policies.Customer_ID = Customers.Customer_ID,First_Notification_of_Loss.Customer_ID = Customers_Policies.Customer_ID,First_Notification_of_Loss.Policy_ID = Customers_Policies.Policy_ID,First_Notification_of_Loss.Service_ID = Services.Service_ID,Claims.FNOL_ID = First_Notification_of_Loss.FNOL_ID,Settlements.Claim_ID = Claims.Claim_ID]\n",
+        "reasoning": "",
+        "predict": ""
+    },
+    {
+        "db_id": "medicine_enzyme_interaction",
+        "gold": "SELECT T1.id ,  T1.Name ,  T1.FDA_approved FROM medicine AS T1 JOIN medicine_enzyme_interaction AS T2 ON T2.medicine_id  =  T1.id GROUP BY T1.id ORDER BY count(*) DESC",
+        "question": "What are the ids, names, and FDA approval status for medicines ordered by descending number of possible enzyme interactions?",
+        "fields": "Table enzyme, columns = [*,id,name,Location,Product,Chromosome,OMIM,Porphyria]\nTable medicine, columns = [*,id,name,Trade_Name,FDA_approved]\nTable medicine_enzyme_interaction, columns = [*,enzyme_id,medicine_id,interaction_type]\n",
+        "foreign_keys": "Foreign_keys = [medicine_enzyme_interaction.medicine_id = medicine.id,medicine_enzyme_interaction.enzyme_id = enzyme.id]\n",
+        "reasoning": "",
+        "predict": ""
+    },
+    {
+        "db_id": "medicine_enzyme_interaction",
+        "gold": "SELECT interaction_type ,  count(*) FROM medicine_enzyme_interaction GROUP BY interaction_type ORDER BY count(*) DESC LIMIT 1",
+        "question": "What is the most common interaction type between enzymes and medicine? And how many are there?",
+        "fields": "Table enzyme, columns = [*,id,name,Location,Product,Chromosome,OMIM,Porphyria]\nTable medicine, columns = [*,id,name,Trade_Name,FDA_approved]\nTable medicine_enzyme_interaction, columns = [*,enzyme_id,medicine_id,interaction_type]\n",
+        "foreign_keys": "Foreign_keys = [medicine_enzyme_interaction.medicine_id = medicine.id,medicine_enzyme_interaction.enzyme_id = enzyme.id]\n",
+        "reasoning": "",
+        "predict": ""
+    }
+]
