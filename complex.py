@@ -140,3 +140,28 @@ SELECT T1.forename ,  T1.surname ,  T1.driverid FROM drivers AS T1 JOIN pitstops
 Let's think step by step.
 
 """
+
+complex_search_prompt = """You are a powerful text-to-SQL reasoner. Currently, I am seeking to transform intricate text queries into analytical statements that simplify the creation of SQL statements, leading to the generation of the final SQL query. Our current focus lies in the category of set operations. Please learn from the provided examples, design a detailed plan for the text query, and present the resulting SQL query.
+
+
+Example 1:
+{}
+
+
+Example 2:
+{}
+
+
+Example 3:
+{}
+
+
+Example 4:
+{}
+
+
+{}
+
+Let's think step by step.
+
+"""
