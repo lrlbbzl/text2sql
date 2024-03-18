@@ -2,7 +2,7 @@ import json
 import os
 from utils import remove_count_as
 
-predict_path = './complex/auto_select/predict.json'
+predict_path = '../../classification/complex/auto_select/predict.json'
 x = json.load(open(predict_path, 'r'))
 fp1, fp2 = open(os.path.join(os.path.dirname(predict_path), 'dev_gold.txt'), 'w'), open(os.path.join(os.path.dirname(predict_path), 'predicted_sql.txt'), 'w')
 

@@ -75,7 +75,7 @@ def question_to_item(x, data):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--test-data", default='./data/test/complex/complex.json', type=str)
+    parser.add_argument("--test-data", default='./classification/complex/complex_new.json', type=str)
     parser.add_argument("--train-data", default='./data/train/complex/true_samples.json', type=str)
     args = parser.parse_args()
 
