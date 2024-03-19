@@ -1,8 +1,8 @@
 import json
 
-files = ['./count/count.json', './complex/complex.json']
+files = ['./combination/combination.json', './complex/complex.json']
 
-output = './others/others.json'
+output = './filter/filter.json'
 golds = []
 for file in files:
     for x in json.load(open(file, 'r')):
@@ -10,7 +10,7 @@ for file in files:
 
 ls = []
 for x in json.load(open('./all/test_data.json')):
-    if x['gold'] not in golds:
+    if x['gold'] not in golds and ('where' in x['gold'].lower()):
         ls.append(x)
 
-json.dump(ls, open('./others/others.json', 'w'))
+json.dump(ls, open(output, 'w'))

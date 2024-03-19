@@ -11,17 +11,16 @@ prompt = """## Tables:
 
 Let's think step by step."""
 x = json.load(open('test_data.json', 'r'))
-y = open('./complex/complex_new.txt', 'r').readlines()
 
 
 ls = []
-for query in y:
-    query = query.strip()
+while True:
+    query = input().strip()
     idx = 0
     tep = None
     for i, k in enumerate(x):
         if k['question'] == query:
-            tep = k
+            tep = i
             break
-    ls.append(tep)
-json.dump(ls, open('complex_new.json', 'w'))
+    temp = x[tep]
+    print(prompt.format(temp['tables'], temp['foreign_keys'], temp['question']))

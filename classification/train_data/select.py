@@ -35,13 +35,30 @@ for p in x:
 simple_select_data = random.sample(simple_data, 400)
 
 
-dic = {}
-for k in complex_select_data:
-    dic.update({k : 'Set operation'})
-for k in combination_select_data:
-    dic.update({k : 'Combination operation'})
-for k in filter_select_data:
-    dic.update({k : 'Filter problem'})
-for k in simple_select_data:
-    dic.update({k : 'Other simple problem'})
-json.dump(dic, open('ft_data.json', 'w'))
+# dic = {}
+# for k in complex_select_data:
+#     dic.update({k : 'Set operation'})
+# for k in combination_select_data:
+#     dic.update({k : 'Combination operation'})
+# for k in filter_select_data:
+#     dic.update({k : 'Filter problem'})
+# for k in simple_select_data:
+#     dic.update({k : 'Other simple problem'})
+# json.dump(dic, open('ft_data.json', 'w'))
+
+dic = json.load(open('ft_data.json', 'r'))
+st = list(dic.keys())
+print(len(dic))
+for data in combination_select_data:
+    if data not in st:
+        dic.update({data : 'Combination operation'})
+        st.append(data)
+for data in filter_select_data:
+    if data not in st:
+        dic.update({data : 'Filter problem'})
+        st.append(data)
+for data in simple_select_data:
+    if data not in st:
+        dic.update({data : 'Other simple problem'})
+print(len(dic))
+json.dump(dic, open('ft_new_data.json', 'w'))
