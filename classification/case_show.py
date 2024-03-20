@@ -21,11 +21,12 @@ import json
 #     ls[v].append(k)
 # json.dump(ls, open('group_type_data.json', 'w'))
 
-x = json.load(open('group_type_data.json', 'r'))['Combination operations']
+x = json.load(open('group_type_data.json', 'r'))['Combination operation']
 y = json.load(open('combination.json', 'r'))
 
 y = [p['question'] for p in y]
 
-ls = list(set(y) - set(x))
+ls = list(set(x) - set(y))
+print(len(ls))
 for a in ls:
     print(a)

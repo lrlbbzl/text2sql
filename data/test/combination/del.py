@@ -1,19 +1,11 @@
 import json
 
-x = json.load(open('predict.json', 'r'))
+x = json.load(open('combination.json', 'r'))
+q = [p['gold'] for p in x]
 
-print(x[0]['reasoning'])
-print(x[0]['predict'])
+y = json.load(open('../../../classification/combination/auto_select/fail_examples.json', 'r'))
+f = [p['g_str'][0] for p in y]
 
-ls = []
-
-for xx in x:
-    predict = xx['predict']
-    sql = predict[predict.rfind('SQL query: ') + len('SQL query: ') :]
-    reason = xx['reasoning']
-    reason = reason[:reason.rfind('SQL query: ')] + 'SQL query: ' + sql
-    xx['reasoning'] = reason
-    xx['predict'] = sql
-    ls.append(xx)
-
-json.dump(ls, open('temp.json', 'w'))
+for ls in f:
+    if ls not in q:
+        print(ls)

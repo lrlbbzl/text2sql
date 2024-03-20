@@ -2,10 +2,8 @@ import json
 
 prompt = """## Tables:
 {}
-
 ## Foreign_keys:
 {}
-
 ## Query:
 {}
 

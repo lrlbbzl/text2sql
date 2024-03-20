@@ -1,4 +1,4 @@
-count_prompt = """You are a powerful text-to-SQL reasoner. Currently, I am seeking to transform intricate text queries into analytical statements that simplify the creation of SQL statements, leading to the generation of the final SQL query. Our current focus lies in the category of set operations. Please learn from the provided examples, design a detailed plan for the text query, and present the resulting SQL query.
+combination_prompt = """You are a powerful text-to-SQL reasoner. Currently, I am seeking to transform intricate text queries into analytical statements that simplify the creation of SQL statements, leading to the generation of the final SQL query. Our current focus lies in the category of combination operations. Please learn from the provided examples, design a detailed plan for the text query, and present the resulting SQL query.
 
 
 Example 1:
@@ -164,6 +164,31 @@ SQL query: SELECT customer_name FROM Customers WHERE payment_method = (SELECT pa
 {}
 
 ## Query:
+{}
+
+Let's think step by step.
+
+"""
+
+combination_search_prompt = """You are a powerful text-to-SQL reasoner. Currently, I am seeking to transform intricate text queries into analytical statements that simplify the creation of SQL statements, leading to the generation of the final SQL query. Our current focus lies in the category of combination operations. Please learn from the provided examples, design a detailed plan for the text query, and present the resulting SQL query.
+
+
+Example 1:
+{}
+
+
+Example 2:
+{}
+
+
+Example 3:
+{}
+
+
+Example 4:
+{}
+
+
 {}
 
 Let's think step by step.

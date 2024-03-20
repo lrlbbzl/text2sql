@@ -1,10 +1,11 @@
 import json
 import random
 
-x = json.load(open('train_data.json', 'r'))
+x = json.load(open('ft_data.json', 'r'))
 
 complex_data = []
 complex_select_data = []
+
 
 for p in x:
     if 'union' in p['gold'].lower() or 'intersect' in p['gold'].lower() or 'except' in p['gold'].lower():
@@ -46,19 +47,19 @@ simple_select_data = random.sample(simple_data, 400)
 #     dic.update({k : 'Other simple problem'})
 # json.dump(dic, open('ft_data.json', 'w'))
 
-dic = json.load(open('ft_data.json', 'r'))
-st = list(dic.keys())
-print(len(dic))
-for data in combination_select_data:
-    if data not in st:
-        dic.update({data : 'Combination operation'})
-        st.append(data)
-for data in filter_select_data:
-    if data not in st:
-        dic.update({data : 'Filter problem'})
-        st.append(data)
-for data in simple_select_data:
-    if data not in st:
-        dic.update({data : 'Other simple problem'})
-print(len(dic))
-json.dump(dic, open('ft_new_data.json', 'w'))
+# dic = json.load(open('ft_data.json', 'r'))
+# st = list(dic.keys())
+# print(len(dic))
+# for data in combination_select_data:
+#     if data not in st:
+#         dic.update({data : 'Combination operation'})
+#         st.append(data)
+# for data in filter_select_data:
+#     if data not in st:
+#         dic.update({data : 'Filter problem'})
+#         st.append(data)
+# for data in simple_select_data:
+#     if data not in st:
+#         dic.update({data : 'Other simple problem'})
+# print(len(dic))
+# json.dump(dic, open('ft_new_data.json', 'w'))
