@@ -1,0 +1,3018 @@
+[
+    {
+        "p_str": "SELECT COUNT(*) FROM department WHERE Department_ID NOT IN (SELECT department_ID FROM management)",
+        "g_str": [
+            "SELECT count(*) FROM department WHERE department_id NOT IN (SELECT department_id FROM management);",
+            "department_management"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT Hosts FROM farm_competition WHERE Theme != 'Aliens'",
+        "g_str": [
+            "SELECT Hosts FROM farm_competition WHERE Theme !=  'Aliens'",
+            "farm"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT student_id FROM Students WHERE student_id NOT IN (SELECT student_id FROM Student_Course_Attendance)",
+        "g_str": [
+            "SELECT student_id FROM students WHERE student_id NOT IN (SELECT student_id FROM student_course_attendance)",
+            "student_assessment"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT COUNT(DISTINCT student_id) FROM Student_Course_Attendance WHERE course_id = (SELECT course_id FROM Courses WHERE course_name = 'English')",
+        "g_str": [
+            "SELECT count(*) FROM courses AS T1 JOIN student_course_attendance AS T2 ON T1.course_id = T2.course_id WHERE T1.course_name = \"English\"",
+            "student_assessment"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM Student_Course_Attendance WHERE student_id = 171",
+        "g_str": [
+            "SELECT count(*) FROM courses AS T1 JOIN student_course_attendance AS T2 ON T1.course_id = T2.course_id WHERE T2.student_id = 171",
+            "student_assessment"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM Student_Course_Attendance WHERE student_id = 171 AND course_id IN (SELECT course_id FROM Student_Course_Registrations WHERE student_id = 171)",
+        "g_str": [
+            "SELECT count(*) FROM courses AS T1 JOIN student_course_attendance AS T2 ON T1.course_id = T2.course_id WHERE T2.student_id = 171",
+            "student_assessment"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT name FROM station WHERE lat < 37.5",
+        "g_str": [
+            "SELECT name FROM station WHERE lat  <  37.5",
+            "bike_1"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM station WHERE city = 'Mountain View'",
+        "g_str": [
+            "SELECT COUNT(*) FROM station WHERE city  =  \"Mountain View\"",
+            "bike_1"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM weather WHERE mean_humidity > 50 AND mean_visibility_miles > 8",
+        "g_str": [
+            "SELECT COUNT(*) FROM weather WHERE mean_humidity  >  50 AND mean_visibility_miles  >  8",
+            "bike_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT station.lat, station.long, station.city FROM trip JOIN station ON trip.start_station_id = station.id WHERE trip.duration = (SELECT MIN(duration) FROM trip)",
+        "g_str": [
+            "SELECT T1.lat ,  T1.long ,  T1.city FROM station AS T1 JOIN trip AS T2 ON T1.id  =  T2.start_station_id ORDER BY T2.duration LIMIT 1",
+            "bike_1"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT AVG(bikes_available) FROM status WHERE station_id NOT IN (SELECT id FROM station WHERE city = 'Palo Alto')",
+        "g_str": [
+            "SELECT avg(bikes_available) FROM status WHERE station_id NOT IN (SELECT id FROM station WHERE city  =  \"Palo Alto\")",
+            "bike_1"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT AVG(bikes_available) FROM status WHERE station_id NOT IN (SELECT id FROM station WHERE city = 'Palo Alto')",
+        "g_str": [
+            "SELECT avg(bikes_available) FROM status WHERE station_id NOT IN (SELECT id FROM station WHERE city  =  \"Palo Alto\")",
+            "bike_1"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM trip WHERE end_station_id NOT IN (SELECT id FROM station WHERE city = 'San Francisco')",
+        "g_str": [
+            "SELECT count(*) FROM trip AS T1 JOIN station AS T2 ON T1.end_station_id  =  T2.id WHERE T2.city != \"San Francisco\"",
+            "bike_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT Title FROM book WHERE Writer != 'Elaine Lee'",
+        "g_str": [
+            "SELECT Title FROM book WHERE Writer != \"Elaine Lee\"",
+            "book_2"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT Title FROM book WHERE Book_ID NOT IN (SELECT Book_ID FROM publication)",
+        "g_str": [
+            "SELECT Title FROM book WHERE Book_ID NOT IN (SELECT Book_ID FROM publication)",
+            "book_2"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT Name FROM actor WHERE age != 20",
+        "g_str": [
+            "SELECT Name FROM actor WHERE Age != 20",
+            "musical"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT DISTINCT Nominee FROM musical WHERE Award != 'Tony Award'",
+        "g_str": [
+            "SELECT DISTINCT Nominee FROM musical WHERE Award != \"Tony Award\"",
+            "musical"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT Name FROM musical WHERE Musical_ID NOT IN (SELECT Musical_ID FROM actor)",
+        "g_str": [
+            "SELECT Name FROM musical WHERE Musical_ID NOT IN (SELECT Musical_ID FROM actor)",
+            "musical"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT name, email FROM user_profiles WHERE followers > 1000",
+        "g_str": [
+            "SELECT name ,  email FROM user_profiles WHERE followers  >  1000",
+            "twitter_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT aid FROM aircraft WHERE distance > 1000",
+        "g_str": [
+            "SELECT aid FROM Aircraft WHERE distance  >  1000",
+            "flight_1"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM employee WHERE salary BETWEEN 100000 AND 200000",
+        "g_str": [
+            "SELECT count(*) FROM Employee WHERE salary BETWEEN 100000 AND 200000",
+            "flight_1"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT name FROM employee WHERE salary > (SELECT AVG(salary) FROM employee)",
+        "g_str": [
+            "SELECT name FROM Employee WHERE salary  >  (SELECT avg(salary) FROM Employee)",
+            "flight_1"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT departure_date, arrival_date FROM flight WHERE origin = 'Los Angeles' AND destination = 'Honolulu'",
+        "g_str": [
+            "SELECT departure_date ,  arrival_date FROM Flight WHERE origin  =  \"Los Angeles\" AND destination  =  \"Honolulu\"",
+            "flight_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT departure_date, arrival_date FROM flight WHERE origin = 'LA' AND destination = 'Honolulu'",
+        "g_str": [
+            "SELECT departure_date ,  arrival_date FROM Flight WHERE origin  =  \"Los Angeles\" AND destination  =  \"Honolulu\"",
+            "flight_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT flno FROM flight WHERE distance > 2000",
+        "g_str": [
+            "SELECT flno FROM Flight WHERE distance  >  2000",
+            "flight_1"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM Student WHERE Age = 18",
+        "g_str": [
+            "SELECT count(*) FROM Student WHERE age  =  18",
+            "allergy_1"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT StuID FROM Student WHERE Age > 20",
+        "g_str": [
+            "SELECT StuID FROM Student WHERE age  >  20",
+            "allergy_1"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM Student WHERE city_code = 'HKG' OR city_code = 'CHI'",
+        "g_str": [
+            "SELECT count(*) FROM Student WHERE city_code  =  \"HKG\" OR city_code  =  \"CHI\"",
+            "allergy_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM Has_Allergy WHERE Allergy = 'cat'",
+        "g_str": [
+            "SELECT count(*) FROM Has_allergy WHERE Allergy  =  \"Cat\"",
+            "allergy_1"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT first_name, last_name FROM customers JOIN invoices ON customers.id = invoices.customer_id ORDER BY invoice_date DESC LIMIT 5",
+        "g_str": [
+            "SELECT T1.first_name ,  T1.last_name FROM customers AS T1 JOIN invoices AS T2 ON T2.customer_id  =  T1.id ORDER BY T2.invoice_date DESC LIMIT 5;",
+            "store_1"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM albums WHERE artist_id = (SELECT id FROM artists WHERE name = 'Billy Cobam')",
+        "g_str": [
+            "SELECT count(*) FROM albums AS T1 JOIN artists AS T2 ON  T1.artist_id = T2.id WHERE T2.name = \"Billy Cobham\";",
+            "store_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT email, phone FROM customers WHERE first_name = 'Astrid' AND last_name = 'Gruber'",
+        "g_str": [
+            "SELECT email ,  phone FROM customers WHERE first_name = \"Astrid\" AND last_name = \"Gruber\";",
+            "store_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT email, phone FROM customers WHERE first_name = 'Astrid' AND last_name = 'Gruber'",
+        "g_str": [
+            "SELECT email ,  phone FROM customers WHERE first_name = \"Astrid\" AND last_name = \"Gruber\";",
+            "store_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM customers WHERE city = 'Prague'",
+        "g_str": [
+            "SELECT count(*) FROM customers WHERE city = \"Prague\";",
+            "store_1"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM customers WHERE state = 'CA'",
+        "g_str": [
+            "SELECT count(*) FROM customers WHERE state = \"CA\";",
+            "store_1"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM customers WHERE state = 'California'",
+        "g_str": [
+            "SELECT count(*) FROM customers WHERE state = \"CA\";",
+            "store_1"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT country FROM customers WHERE first_name = 'Roberto' AND last_name = 'Almeida'",
+        "g_str": [
+            "SELECT country FROM customers WHERE first_name = \"Roberto\" AND last_name = \"Almeida\";",
+            "store_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM customers WHERE support_rep_id = (SELECT id FROM employees WHERE first_name = 'Steve' AND last_name = 'Johnson')",
+        "g_str": [
+            "SELECT count(*) FROM employees AS T1 JOIN customers AS T2 ON T2.support_rep_id = T1.id WHERE T1.first_name = \"Steve\" AND T1.last_name = \"Johnson\";",
+            "store_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT address FROM employees WHERE first_name = 'Nancy' AND last_name = 'Edwards'",
+        "g_str": [
+            "SELECT address FROM employees WHERE first_name = \"Nancy\" AND last_name = \"Edwards\";",
+            "store_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT phone FROM employees WHERE first_name = 'Nancy' AND last_name = 'Edwards'",
+        "g_str": [
+            "SELECT phone FROM employees WHERE first_name = \"Nancy\" AND last_name = \"Edwards\";",
+            "store_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM invoices WHERE customer_id = (SELECT id FROM customers WHERE first_name = 'Luca' AND last_name = 'Mancini')",
+        "g_str": [
+            "SELECT count(*) FROM customers AS T1 JOIN invoices AS T2 ON T1.id = T2.customer_id WHERE T1.first_name = \"Lucas\" AND T1.last_name = \"Mancini\";",
+            "store_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT Name FROM editor WHERE Editor_ID NOT IN (SELECT Editor_ID FROM journal_committee)",
+        "g_str": [
+            "SELECT Name FROM editor WHERE editor_id NOT IN (SELECT editor_id FROM journal_committee)",
+            "journal_committee"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM Customers LEFT JOIN Accounts ON Customers.customer_id = Accounts.customer_id WHERE Accounts.account_id IS NULL",
+        "g_str": [
+            "SELECT count(*) FROM Customers WHERE customer_id NOT IN (SELECT customer_id FROM Accounts)",
+            "customers_card_transactions"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM Customers WHERE customer_id NOT IN (SELECT customer_id FROM Accounts)",
+        "g_str": [
+            "SELECT count(*) FROM Customers WHERE customer_id NOT IN (SELECT customer_id FROM Accounts)",
+            "customers_card_transactions"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT customer_phone, customer_email FROM Customers WHERE customer_first_name = 'Aniyah' AND customer_last_name = 'Feest'",
+        "g_str": [
+            "SELECT customer_phone ,  customer_email FROM Customers WHERE customer_first_name  =  \"Aniyah\" AND customer_last_name  =  \"Feest\"",
+            "customers_card_transactions"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT customer_phone, customer_email FROM Customers WHERE customer_first_name = 'Aniyah' AND customer_last_name = 'Feest'",
+        "g_str": [
+            "SELECT customer_phone ,  customer_email FROM Customers WHERE customer_first_name  =  \"Aniyah\" AND customer_last_name  =  \"Feest\"",
+            "customers_card_transactions"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM Customers_Cards WHERE customer_id = (SELECT customer_id FROM Customers WHERE customer_first_name = 'Art' AND customer_last_name = 'Turcotte')",
+        "g_str": [
+            "SELECT count(*) FROM Customers_cards AS T1 JOIN Customers AS T2 ON T1.customer_id  =  T2.customer_id WHERE T2.customer_first_name  =  \"Art\" AND T2.customer_last_name  =  \"Turcotte\"",
+            "customers_card_transactions"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM Customers_Cards WHERE card_type_code = 'debit'",
+        "g_str": [
+            "SELECT count(*) FROM Customers_cards WHERE card_type_code  =  \"Debit\"",
+            "customers_card_transactions"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT Name, Seating FROM track WHERE Year_Opened > 2000 ORDER BY Seating",
+        "g_str": [
+            "SELECT name ,  seating FROM track WHERE year_opened  >  2000 ORDER BY seating",
+            "race_track"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT Name FROM track WHERE Track_ID NOT IN (SELECT Track_ID FROM race)",
+        "g_str": [
+            "SELECT name FROM track WHERE track_id NOT IN (SELECT track_id FROM race)",
+            "race_track"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT Name FROM track WHERE Track_ID NOT IN (SELECT Track_ID FROM race)",
+        "g_str": [
+            "SELECT name FROM track WHERE track_id NOT IN (SELECT track_id FROM race)",
+            "race_track"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT Year_Opened FROM track WHERE Seating >= 5000 AND Seating <= 4000",
+        "g_str": [
+            "SELECT year_opened FROM track WHERE seating BETWEEN 4000 AND 5000",
+            "race_track"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT Shop_ID, Address FROM shop WHERE Score < (SELECT AVG(Score) FROM shop)",
+        "g_str": [
+            "SELECT shop_id ,  address FROM shop WHERE score  <  (SELECT avg(score) FROM shop)",
+            "coffee_shop"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT Address, Num_of_staff FROM shop WHERE Shop_ID NOT IN (SELECT Shop_ID FROM happy_hour)",
+        "g_str": [
+            "SELECT address ,  num_of_staff FROM shop WHERE shop_id NOT IN (SELECT shop_id FROM happy_hour)",
+            "coffee_shop"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM Album WHERE ArtistId = (SELECT ArtistId FROM Artist WHERE Name = \"Metallica\")",
+        "g_str": [
+            "SELECT COUNT(*) FROM ALBUM AS T1 JOIN ARTIST AS T2 ON T1.ArtistId  =  T2.ArtistId WHERE T2.Name  =  \"Metallica\"",
+            "chinook_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM track WHERE MediaTypeId = (SELECT MediaTypeId FROM mediatype WHERE Name = 'AAC audio file')",
+        "g_str": [
+            "SELECT COUNT(*) FROM MEDIATYPE AS T1 JOIN TRACK AS T2 ON T1.MediaTypeId  =  T2.MediaTypeId WHERE T1.Name  =  \"AAC audio file\"",
+            "chinook_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM Artist LEFT JOIN Album ON Artist.ArtistId = Album.ArtistId WHERE Album.AlbumId IS NULL",
+        "g_str": [
+            "SELECT count(*) FROM ARTIST WHERE artistid NOT IN(SELECT artistid FROM ALBUM)",
+            "chinook_1"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM Customers_Policies WHERE Customer_ID = (SELECT Customer_ID FROM Customers WHERE Customer_name = \"Dayana Robel\")",
+        "g_str": [
+            "SELECT count(*) FROM customers AS t1 JOIN customers_policies AS t2 ON t1.customer_id  =  t2.customer_id WHERE t1.customer_name  =  \"Dayana Robel\"",
+            "insurance_fnol"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT enzyme.name FROM medicine_enzyme_interaction JOIN enzyme ON medicine_enzyme_interaction.enzyme_id = enzyme.id WHERE medicine_enzyme_interaction.medicine_id = (SELECT id FROM medicine WHERE name = 'Amisulpride') AND medicine_enzyme_interaction.interaction_type = 'inhibitor'",
+        "g_str": [
+            "SELECT T1.name FROM enzyme AS T1 JOIN medicine_enzyme_interaction AS T2 ON T1.id  =  T2.enzyme_id JOIN medicine AS T3 ON T2.medicine_id  =  T3.id WHERE T3.name  =  'Amisulpride' AND T2.interaction_type  =  'inhibitor'",
+            "medicine_enzyme_interaction"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT interaction_type FROM medicine_enzyme_interaction WHERE enzyme_id = (SELECT id FROM enzyme WHERE name = 'ALA synthase') AND medicine_id = (SELECT id FROM medicine WHERE name = 'Aripiprazole')",
+        "g_str": [
+            "SELECT T1.interaction_type FROM medicine_enzyme_interaction AS T1 JOIN medicine AS T2 ON T1.medicine_id  =  T2.id JOIN enzyme AS T3 ON T1.enzyme_id  =  T3.id WHERE T3.name  =  'ALA synthase' AND T2.name  =  'Aripiprazole'",
+            "medicine_enzyme_interaction"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM enzyme WHERE id NOT IN (SELECT enzyme_id FROM medicine_enzyme_interaction)",
+        "g_str": [
+            "SELECT count(*) FROM enzyme WHERE id NOT IN ( SELECT enzyme_id FROM medicine_enzyme_interaction );",
+            "medicine_enzyme_interaction"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT Founded FROM university WHERE Affiliation != 'public' ORDER BY Founded DESC LIMIT 1",
+        "g_str": [
+            "SELECT founded FROM university WHERE affiliation != 'Public' ORDER BY founded DESC LIMIT 1",
+            "university_basketball"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM university LEFT JOIN basketball_match ON university.School_ID = basketball_match.School_ID WHERE basketball_match.School_ID IS NULL",
+        "g_str": [
+            "SELECT count(*) FROM university WHERE school_id NOT IN (SELECT school_id FROM basketball_match)",
+            "university_basketball"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM university WHERE School_ID NOT IN (SELECT School_ID FROM basketball_match)",
+        "g_str": [
+            "SELECT count(*) FROM university WHERE school_id NOT IN (SELECT school_id FROM basketball_match)",
+            "university_basketball"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT COUNT(DISTINCT Location) FROM university WHERE Location LIKE '%NY%'",
+        "g_str": [
+            "SELECT count(*) FROM university WHERE LOCATION LIKE \"%NY%\"",
+            "university_basketball"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT COUNT(DISTINCT Hardware_Model_name) FROM phone WHERE Company_name = 'Nokia Corporation'",
+        "g_str": [
+            "SELECT count(*) FROM phone WHERE Company_name = \"Nokia Corporation\";",
+            "phone_1"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT AVG(RAM_MiB) FROM chip_model WHERE NOT EXISTS (SELECT * FROM phone WHERE phone.chip_model = chip_model.Model_name)",
+        "g_str": [
+            "SELECT avg(RAM_MiB) FROM chip_model WHERE model_name NOT IN (SELECT chip_model FROM phone)",
+            "phone_1"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT Name FROM team LEFT JOIN match_season ON team.Team_id = match_season.Team WHERE Season IS NULL",
+        "g_str": [
+            "SELECT Name FROM team WHERE Team_id NOT IN (SELECT Team FROM match_season)",
+            "match_season"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT Name FROM team LEFT JOIN match_season ON team.Team_id = match_season.Team WHERE match_season.Team IS NULL",
+        "g_str": [
+            "SELECT Name FROM team WHERE Team_id NOT IN (SELECT Team FROM match_season)",
+            "match_season"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT Name FROM mountain WHERE NOT EXISTS (SELECT * FROM climber WHERE climber.Mountain_ID = mountain.Mountain_ID)",
+        "g_str": [
+            "SELECT Name FROM mountain WHERE Mountain_ID NOT IN (SELECT Mountain_ID FROM climber)",
+            "climbing"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT Name FROM mountain WHERE Height > 5000 OR Prominence > 1000",
+        "g_str": [
+            "SELECT Name FROM mountain WHERE Height  >  5000 OR Prominence  >  1000",
+            "climbing"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT people.Name FROM body_builder JOIN people ON body_builder.People_ID = people.People_ID WHERE body_builder.Total > 300",
+        "g_str": [
+            "SELECT T2.Name FROM body_builder AS T1 JOIN people AS T2 ON T1.People_ID  =  T2.People_ID WHERE T1.Total  >  300",
+            "body_builder"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM people WHERE People_ID NOT IN (SELECT People_ID FROM body_builder)",
+        "g_str": [
+            "SELECT count(*) FROM people WHERE people_id NOT IN (SELECT People_ID FROM body_builder)",
+            "body_builder"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT Name FROM representative WHERE Representative_ID IN (SELECT Representative_ID FROM election WHERE Votes > 10000)",
+        "g_str": [
+            "SELECT T2.Name FROM election AS T1 JOIN representative AS T2 ON T1.Representative_ID  =  T2.Representative_ID WHERE Votes  >  10000",
+            "election_representative"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM Apartments LEFT JOIN Apartment_Facilities ON Apartments.apt_id = Apartment_Facilities.apt_id WHERE facility_code IS NULL",
+        "g_str": [
+            "SELECT count(*) FROM Apartments WHERE apt_id NOT IN (SELECT apt_id FROM Apartment_Facilities)",
+            "apartment_rentals"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM Apartments LEFT JOIN Apartment_Facilities ON Apartments.apt_id = Apartment_Facilities.apt_id WHERE facility_code IS NULL",
+        "g_str": [
+            "SELECT count(*) FROM Apartments WHERE apt_id NOT IN (SELECT apt_id FROM Apartment_Facilities)",
+            "apartment_rentals"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM game WHERE Season > 2007",
+        "g_str": [
+            "SELECT count(*) FROM game WHERE season  >  2007",
+            "game_injury"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT Player, Number_of_matches, Source FROM injury_accident JOIN game ON injury_accident.game_id = game.id WHERE Injury != 'Knee problem'",
+        "g_str": [
+            "SELECT player ,  number_of_matches ,  SOURCE FROM injury_accident WHERE injury != 'Knee problem'",
+            "game_injury"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT COUNT(DISTINCT Injury) FROM injury_accident AS T1 JOIN game AS T2 ON T1.game_id = T2.id WHERE T2.Season > 2010",
+        "g_str": [
+            "SELECT count(DISTINCT T1.injury) FROM injury_accident AS T1 JOIN game AS T2 ON T1.game_id  =  T2.id WHERE T2.season  >  2010",
+            "game_injury"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT player_name FROM Player WHERE player_api_id IN (SELECT player_api_id FROM Player_Attributes WHERE crossing > 90 AND preferred_foot = 'right')",
+        "g_str": [
+            "SELECT DISTINCT T1.player_name FROM Player AS T1 JOIN Player_Attributes AS T2 ON T1.player_api_id = T2.player_api_id WHERE T2.crossing  >  90 AND T2.preferred_foot  =  \"right\"",
+            "soccer_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT Name FROM member WHERE Member_ID NOT IN (SELECT Member_ID FROM member_attendance)",
+        "g_str": [
+            "SELECT Name FROM member WHERE Member_ID NOT IN (SELECT Member_ID FROM member_attendance)",
+            "performance_attendance"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM classroom WHERE building != 'Lamberton'",
+        "g_str": [
+            "SELECT count(*) FROM classroom WHERE building != 'Lamberton'",
+            "college_2"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM classroom WHERE building != 'Lamberton'",
+        "g_str": [
+            "SELECT count(*) FROM classroom WHERE building != 'Lamberton'",
+            "college_2"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT i_ID FROM advisor WHERE s_ID IN (SELECT ID FROM student WHERE dept_name = 'History')",
+        "g_str": [
+            "SELECT i_id FROM advisor AS T1 JOIN student AS T2 ON T1.s_id  =  T2.id WHERE T2.dept_name  =  'History'",
+            "college_2"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT name FROM instructor WHERE ID NOT IN (SELECT DISTINCT ID FROM teaches WHERE semester = 'Spring')",
+        "g_str": [
+            "SELECT name FROM instructor WHERE id NOT IN (SELECT id FROM teaches WHERE semester  =  'Spring')",
+            "college_2"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT name FROM student WHERE ID IN (SELECT ID FROM takes WHERE course_id = (SELECT prereq_id FROM prereq WHERE course_id = (SELECT course_id FROM course WHERE title = 'International Finance')))",
+        "g_str": [
+            "SELECT T1.name FROM student AS T1 JOIN takes AS T2 ON T1.id  =  T2.id WHERE T2.course_id IN (SELECT T4.prereq_id FROM course AS T3 JOIN prereq AS T4 ON T3.course_id  =  T4.course_id WHERE T3.title  =  'International Finance')",
+            "college_2"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT name FROM instructor WHERE dept_name = 'Comp. Sci.' AND salary > 80000",
+        "g_str": [
+            "SELECT name FROM instructor WHERE dept_name  =  'Comp. Sci.'  AND salary  >  80000",
+            "college_2"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT name FROM instructor WHERE dept_name = 'Comp. Sci.' AND salary > 80000",
+        "g_str": [
+            "SELECT name FROM instructor WHERE dept_name  =  'Comp. Sci.'  AND salary  >  80000",
+            "college_2"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT Name FROM people WHERE Age = 35 OR Age = 36",
+        "g_str": [
+            "SELECT Name FROM  people WHERE Age  =  35 OR Age  =  36",
+            "debate"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT people.Name FROM debate_people JOIN people ON debate_people.Affirmative = people.People_ID WHERE debate_people.Debate_ID IN (SELECT Debate_ID FROM debate WHERE Num_of_Audience > 200)",
+        "g_str": [
+            "SELECT T3.Name FROM debate_people AS T1 JOIN debate AS T2 ON T1.Debate_ID  =  T2.Debate_ID JOIN people AS T3 ON T1.Affirmative  =  T3.People_ID WHERE T2.Num_of_Audience  >  200",
+            "debate"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM Customers WHERE customer_id NOT IN (SELECT customer_id FROM Accounts)",
+        "g_str": [
+            "SELECT count(*) FROM Customers WHERE customer_id NOT IN (SELECT customer_id FROM Accounts)",
+            "customers_and_invoices"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT transaction_id FROM Financial_Transactions WHERE transaction_amount > (SELECT AVG(transaction_amount) FROM Financial_Transactions)",
+        "g_str": [
+            "SELECT transaction_id FROM Financial_transactions WHERE transaction_amount  >  (SELECT avg(transaction_amount) FROM Financial_transactions)",
+            "customers_and_invoices"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM Products WHERE product_id NOT IN (SELECT DISTINCT product_id FROM Order_Items)",
+        "g_str": [
+            "SELECT count(*) FROM products WHERE product_id NOT IN ( SELECT product_id FROM Order_items )",
+            "customers_and_invoices"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM Products LEFT JOIN Order_Items ON Products.product_id = Order_Items.product_id WHERE Order_Items.order_item_id IS NULL",
+        "g_str": [
+            "SELECT count(*) FROM products WHERE product_id NOT IN ( SELECT product_id FROM Order_items )",
+            "customers_and_invoices"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM church WHERE Open_Date < 1850",
+        "g_str": [
+            "SELECT count(*) FROM Church WHERE Open_Date  <  1850",
+            "wedding"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM people WHERE Is_Male = 0 AND Age > 30",
+        "g_str": [
+            "SELECT count(*) FROM people WHERE is_male  =  'F' AND age  >  30",
+            "wedding"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT p1.Name AS Male_Name, p2.Name AS Female_Name FROM wedding AS w JOIN people AS p1 ON w.Male_ID = p1.People_ID JOIN people AS p2 ON w.Female_ID = p2.People_ID WHERE w.Year > 2014",
+        "g_str": [
+            "SELECT T2.name ,  T3.name FROM wedding AS T1 JOIN people AS T2 ON T1.male_id  =  T2.people_id JOIN people AS T3 ON T1.female_id  =  T3.people_id WHERE T1.year  >  2014",
+            "wedding"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT church.Name FROM church JOIN wedding ON church.Church_ID = wedding.Church_ID WHERE wedding.Male_ID IN (SELECT People_ID FROM people WHERE Age > 30) OR wedding.Female_ID IN (SELECT People_ID FROM people WHERE Age > 30)",
+        "g_str": [
+            "SELECT T4.name FROM wedding AS T1 JOIN people AS T2 ON T1.male_id  =  T2.people_id JOIN people AS T3 ON T1.female_id  =  T3.people_id JOIN church AS T4 ON T4.church_id  =  T1.church_id WHERE T2.age  >  30 OR T3.age  >  30",
+            "wedding"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT COUNT(DISTINCT Church_ID) FROM wedding WHERE Year = 2016",
+        "g_str": [
+            "SELECT COUNT (DISTINCT church_id) FROM wedding WHERE YEAR  =  2016",
+            "wedding"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT Name, Year_Join FROM artist WHERE Country != 'United States'",
+        "g_str": [
+            "SELECT name ,  year_join FROM artist WHERE country != 'United States'",
+            "theme_gallery"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM artist WHERE Age > 46 AND Year_Join > 1990",
+        "g_str": [
+            "SELECT count(*) FROM artist WHERE age  >  46 AND year_join  >  1990",
+            "theme_gallery"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM artist WHERE Age > 46 AND Year_Join > 1990",
+        "g_str": [
+            "SELECT count(*) FROM artist WHERE age  >  46 AND year_join  >  1990",
+            "theme_gallery"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM item LEFT JOIN review ON item.i_id = review.i_id WHERE review.rating IS NULL",
+        "g_str": [
+            "SELECT count(*) FROM item WHERE i_id NOT IN (SELECT i_id FROM review)",
+            "epinions_1"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT COUNT(DISTINCT useracct.u_id) FROM useracct LEFT JOIN review ON useracct.u_id = review.u_id WHERE review.i_id IS NULL",
+        "g_str": [
+            "SELECT count(*) FROM useracct WHERE u_id NOT IN (SELECT u_id FROM review)",
+            "epinions_1"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM item LEFT JOIN review ON item.i_id = review.i_id WHERE review.i_id IS NULL",
+        "g_str": [
+            "SELECT count(*) FROM item WHERE i_id NOT IN (SELECT i_id FROM review)",
+            "epinions_1"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT Player_name FROM player ORDER BY Votes ASC",
+        "g_str": [
+            "SELECT Player_name FROM player ORDER BY Votes ASC",
+            "riding_club"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT Name FROM people JOIN gymnast ON people.People_ID = gymnast.Gymnast_ID WHERE Hometown != 'Santo Domingo'",
+        "g_str": [
+            "SELECT T2.Name FROM gymnast AS T1 JOIN people AS T2 ON T1.Gymnast_ID  =  T2.People_ID WHERE T2.Hometown != \"Santo Domingo\"",
+            "gymnast"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT name FROM ACCOUNTS WHERE custid IN (SELECT custid FROM CHECKING WHERE balance < (SELECT AVG(balance) FROM CHECKING))",
+        "g_str": [
+            "SELECT T1.name FROM accounts AS T1 JOIN checking AS T2 ON T1.custid  =  T2.custid WHERE T2.balance  <  (SELECT avg(balance) FROM checking)",
+            "small_bank_1"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT Name FROM wrestler WHERE Days_held = (SELECT MIN(Days_held) FROM wrestler)",
+        "g_str": [
+            "SELECT Name FROM wrestler ORDER BY Days_held ASC LIMIT 1",
+            "wrestler"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT Name FROM wrestler WHERE Days_held < 100",
+        "g_str": [
+            "SELECT Name FROM wrestler WHERE Days_held  <  100",
+            "wrestler"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT COUNT(DISTINCT donator_name) FROM endowment WHERE School_id = (SELECT School_id FROM School WHERE School_name = \"Glenn\")",
+        "g_str": [
+            "SELECT count(DISTINCT T1.donator_name) FROM endowment AS T1 JOIN school AS T2 ON T1.school_id  =  T2.school_id WHERE T2.school_name  =  \"Glenn\"",
+            "school_finance"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM budget WHERE Budgeted < Invested",
+        "g_str": [
+            "SELECT count(*) FROM budget WHERE budgeted  <  invested",
+            "school_finance"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT Name FROM building WHERE Height_feet >= 200 AND Floors >= 20",
+        "g_str": [
+            "SELECT name FROM building WHERE height_feet  >=  200 AND floors  >=  20",
+            "protein_institute"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT Type FROM Institution WHERE Founded > 1990 AND Enrollment >= 1000",
+        "g_str": [
+            "SELECT TYPE FROM institution WHERE founded  >  1990 AND enrollment  >=  1000",
+            "protein_institute"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM protein WHERE Institution_id IN (SELECT Institution_id FROM Institution WHERE Founded > 1880 OR Type = \"Private\")",
+        "g_str": [
+            "SELECT count(*) FROM institution AS T1 JOIN protein AS T2 ON T1.institution_id  =  T2.institution_id WHERE T1.founded  >  1880 OR T1.type  =  'Private'",
+            "protein_institute"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM Institution WHERE Institution_id NOT IN (SELECT Institution_id FROM protein)",
+        "g_str": [
+            "SELECT count(*) FROM institution WHERE institution_id NOT IN (SELECT institution_id FROM protein)",
+            "protein_institute"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT Title, Directed_by FROM film WHERE Film_ID NOT IN (SELECT Film_ID FROM schedule)",
+        "g_str": [
+            "SELECT title ,  directed_by FROM film WHERE film_id NOT IN (SELECT film_id FROM schedule)",
+            "cinema"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT COUNT(DISTINCT product_id) FROM Products_for_Hire WHERE product_id NOT IN (SELECT DISTINCT product_id FROM Products_Booked WHERE booked_amount > 200)",
+        "g_str": [
+            "SELECT count(*) FROM Products_for_hire WHERE product_id NOT IN ( SELECT product_id FROM products_booked WHERE booked_amount  >  200 )",
+            "products_for_hire"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT payment_date FROM Payments WHERE amount_paid > 300 OR payment_type_code = 'Check'",
+        "g_str": [
+            "SELECT payment_date FROM payments WHERE amount_paid  >  300 OR payment_type_code  =  'Check'",
+            "products_for_hire"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT Company, Main_Industry FROM company WHERE Headquarters != 'USA'",
+        "g_str": [
+            "SELECT company ,  main_industry FROM company WHERE headquarters != 'USA'",
+            "gas_company"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT Company, Main_Industry FROM company WHERE Headquarters != 'United States'",
+        "g_str": [
+            "SELECT company ,  main_industry FROM company WHERE headquarters != 'USA'",
+            "gas_company"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM gas_station WHERE Open_Year >= 2000 AND Open_Year <= 2005",
+        "g_str": [
+            "SELECT count(*) FROM gas_station WHERE open_year BETWEEN 2000 AND 2005",
+            "gas_company"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT company.Company, company.Main_Industry FROM company LEFT JOIN station_company ON company.Company_ID = station_company.Company_ID WHERE station_company.Station_ID IS NULL",
+        "g_str": [
+            "SELECT company ,  main_industry FROM company WHERE company_id NOT IN (SELECT company_id FROM station_company)",
+            "gas_company"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT Main_Industry, Company FROM company WHERE Company_ID NOT IN (SELECT Company_ID FROM station_company)",
+        "g_str": [
+            "SELECT company ,  main_industry FROM company WHERE company_id NOT IN (SELECT company_id FROM station_company)",
+            "gas_company"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT Location FROM gas_station WHERE Station_ID IN (SELECT Station_ID FROM station_company WHERE Company_ID IN (SELECT Company_ID FROM company WHERE Market_Value > 100))",
+        "g_str": [
+            "SELECT T3.location FROM station_company AS T1 JOIN company AS T2 ON T1.company_id  =  T2.company_id JOIN gas_station AS T3 ON T1.station_id  =  T3.station_id WHERE T2.market_value  >  100",
+            "gas_company"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT party_name FROM party WHERE NOT EXISTS (SELECT * FROM member WHERE member.Party_ID = party.Party_ID)",
+        "g_str": [
+            "SELECT party_name FROM party WHERE party_id NOT IN (SELECT party_id FROM Member)",
+            "party_people"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT document_status_description FROM Ref_Document_Status WHERE document_status_code = (SELECT document_status_code FROM Documents WHERE document_id = 1)",
+        "g_str": [
+            "SELECT Ref_Document_Status.document_status_description FROM Ref_Document_Status JOIN Documents ON Documents.document_status_code = Ref_Document_Status.document_status_code WHERE Documents.document_id = 1;",
+            "cre_Doc_Control_Systems"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM dependent WHERE sex = 'female'",
+        "g_str": [
+            "SELECT count(*) FROM dependent WHERE sex  =  'F'",
+            "company_1"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT COUNT(DISTINCT driverId) FROM results WHERE raceId = (SELECT raceId FROM races WHERE name = 'Australian Grand Prix' AND year = 2009)",
+        "g_str": [
+            "SELECT count(*) FROM results AS T1 JOIN races AS T2 ON T1.raceid = T2.raceid WHERE T2.name = \"Australian Grand Prix\" AND YEAR = 2009",
+            "formula_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT name FROM races WHERE year BETWEEN 2009 AND 2011",
+        "g_str": [
+            "SELECT name FROM races WHERE YEAR BETWEEN 2009 AND 2011",
+            "formula_1"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT name FROM races WHERE time > '12:00:00' OR time < '09:00:00'",
+        "g_str": [
+            "SELECT name FROM races WHERE TIME > \"12:00:00\" OR TIME < \"09:00:00\"",
+            "formula_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT MAX(fastestLapSpeed) FROM results WHERE raceId = (SELECT raceId FROM races WHERE name = 'Monaco Grand Prix' AND year = 2008)",
+        "g_str": [
+            "SELECT max(T2.fastestlapspeed) FROM races AS T1 JOIN results AS T2 ON T1.raceid = T2.raceid WHERE T1.year = 2008 AND T1.name = \"Monaco Grand Prix\"",
+            "formula_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT MAX(fastestLapSpeed) FROM results WHERE raceId = (SELECT raceId FROM races WHERE name = 'Monaco Grand Prix' AND year = 2008)",
+        "g_str": [
+            "SELECT max(T2.fastestlapspeed) FROM races AS T1 JOIN results AS T2 ON T1.raceid = T2.raceid WHERE T1.year = 2008 AND T1.name = \"Monaco Grand Prix\"",
+            "formula_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT name FROM technician WHERE team != 'NYY'",
+        "g_str": [
+            "SELECT Name FROM technician WHERE Team != \"NYY\"",
+            "machine_repair"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT Name FROM technician WHERE Team != 'NYY'",
+        "g_str": [
+            "SELECT Name FROM technician WHERE Team != \"NYY\"",
+            "machine_repair"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT Name FROM technician LEFT JOIN repair_assignment ON technician.technician_id = repair_assignment.technician_id WHERE repair_assignment.Machine_ID IS NULL",
+        "g_str": [
+            "SELECT Name FROM technician WHERE technician_id NOT IN (SELECT technician_id FROM repair_assignment)",
+            "machine_repair"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT Name FROM people WHERE People_ID NOT IN (SELECT People_ID FROM entrepreneur)",
+        "g_str": [
+            "SELECT Name FROM people WHERE People_ID NOT IN (SELECT People_ID FROM entrepreneur)",
+            "entrepreneur"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT Name FROM people WHERE People_ID NOT IN (SELECT People_ID FROM perpetrator)",
+        "g_str": [
+            "SELECT Name FROM people WHERE People_ID NOT IN (SELECT People_ID FROM perpetrator)",
+            "perpetrator"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT Campus FROM Campuses WHERE County = 'Los Angeles'",
+        "g_str": [
+            "SELECT campus FROM campuses WHERE county  =  \"Los Angeles\"",
+            "csu_1"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT Campus FROM Campuses WHERE Year >= 1935 AND Year <= 1939",
+        "g_str": [
+            "SELECT campus FROM campuses WHERE YEAR  >=  1935 AND YEAR  <=  1939",
+            "csu_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM csu_fees WHERE CampusFee > (SELECT AVG(CampusFee) FROM csu_fees)",
+        "g_str": [
+            "SELECT count(*) FROM csu_fees WHERE campusfee  >  (SELECT avg(campusfee) FROM csu_fees)",
+            "csu_1"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM csu_fees WHERE CampusFee > (SELECT AVG(CampusFee) FROM csu_fees)",
+        "g_str": [
+            "SELECT count(*) FROM csu_fees WHERE campusfee  >  (SELECT avg(campusfee) FROM csu_fees)",
+            "csu_1"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM csu_fees WHERE CampusFee > (SELECT AVG(CampusFee) FROM csu_fees)",
+        "g_str": [
+            "SELECT count(*) FROM csu_fees WHERE campusfee  >  (SELECT avg(campusfee) FROM csu_fees)",
+            "csu_1"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM Campuses WHERE County = 'Los Angeles'",
+        "g_str": [
+            "SELECT count(*) FROM campuses WHERE county  =  \"Los Angeles\"",
+            "csu_1"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT Campus FROM Campuses WHERE County = 'Los Angeles'",
+        "g_str": [
+            "SELECT campus FROM campuses WHERE county  =  \"Los Angeles\"",
+            "csu_1"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT Degrees FROM degrees WHERE Campus = (SELECT Id FROM Campuses WHERE Campus = 'San Francisco State University') AND Year = 2001",
+        "g_str": [
+            "SELECT degrees FROM campuses AS T1 JOIN degrees AS T2 ON t1.id  =  t2.campus WHERE t1.campus  =  \"San Francisco State University\" AND t2.year  =  2001",
+            "csu_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT Campus FROM faculty WHERE Year = 2004 AND Faculty BETWEEN 600 AND 1000",
+        "g_str": [
+            "SELECT T1.campus FROM campuses AS t1 JOIN faculty AS t2 ON t1.id  =  t2.campus WHERE t2.faculty  >=  600 AND t2.faculty  <=  1000 AND T1.year  =  2004",
+            "csu_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT CampusFee FROM csu_fees WHERE Campus = (SELECT Id FROM Campuses WHERE Campus = 'San Francisco State University') AND Year = 2000",
+        "g_str": [
+            "SELECT t1.campusfee FROM csu_fees AS t1 JOIN campuses AS t2 ON t1.campus  =  t2.id WHERE t2.campus  =  \"San Francisco State University\" AND t1.year  =  2000",
+            "csu_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT Name FROM people WHERE Height > 200 OR Height < 190",
+        "g_str": [
+            "SELECT name FROM people WHERE height  >  200 OR height  <  190",
+            "candidate_poll"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT Name FROM people WHERE People_ID NOT IN (SELECT People_ID FROM candidate)",
+        "g_str": [
+            "SELECT name FROM people WHERE people_id NOT IN (SELECT people_id FROM candidate)",
+            "candidate_poll"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT Name FROM people WHERE People_ID NOT IN (SELECT People_ID FROM candidate)",
+        "g_str": [
+            "SELECT name FROM people WHERE people_id NOT IN (SELECT people_id FROM candidate)",
+            "candidate_poll"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM Movie WHERE year < 2000",
+        "g_str": [
+            "SELECT count(*) FROM Movie WHERE YEAR  <  2000",
+            "movie_1"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM Movie WHERE year < 2000",
+        "g_str": [
+            "SELECT count(*) FROM Movie WHERE YEAR  <  2000",
+            "movie_1"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM Rating WHERE stars > 3",
+        "g_str": [
+            "SELECT count(*) FROM Rating WHERE stars  >  3",
+            "movie_1"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT DISTINCT year FROM Movie WHERE mID IN (SELECT mID FROM Rating WHERE stars >= 4) ORDER BY year ASC",
+        "g_str": [
+            "SELECT DISTINCT YEAR FROM Movie AS T1 JOIN Rating AS T2 ON T1.mID  =  T2.mID WHERE T2.stars  >=  4 ORDER BY T1.year",
+            "movie_1"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT AVG(stars), title FROM Movie JOIN Rating ON Movie.mID = Rating.mID WHERE year = (SELECT MIN(year) FROM Movie)",
+        "g_str": [
+            "SELECT avg(T1.stars) ,  T2.title FROM Rating AS T1 JOIN Movie AS T2 ON T1.mID  =  T2.mID WHERE T2.year  =  (SELECT min(YEAR) FROM Movie)",
+            "movie_1"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT director FROM Movie WHERE mID IN (SELECT mID FROM Rating WHERE rID = (SELECT rID FROM Reviewer WHERE name = 'Sarah Martinez'))",
+        "g_str": [
+            "SELECT DISTINCT T2.director FROM Rating AS T1 JOIN Movie AS T2 ON T1.mID  =  T2.mID JOIN Reviewer AS T3 ON T1.rID  =  T3.rID WHERE T3.name  =  'Sarah Martinez'",
+            "movie_1"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT Reviewer.name, Movie.title, Rating.stars FROM Rating JOIN Reviewer ON Rating.rID = Reviewer.rID JOIN Movie ON Rating.mID = Movie.mID WHERE Reviewer.name = Movie.director",
+        "g_str": [
+            "SELECT DISTINCT T3.name ,  T2.title ,  T1.stars FROM Rating AS T1 JOIN Movie AS T2 ON T1.mID  =  T2.mID JOIN Reviewer AS T3 ON T1.rID  =  T3.rID WHERE T2.director  =  T3.name",
+            "movie_1"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT title FROM Movie JOIN Rating ON Movie.mID = Rating.mID WHERE stars BETWEEN 3 AND 5",
+        "g_str": [
+            "SELECT T2.title FROM Rating AS T1 JOIN Movie AS T2 ON T1.mID  =  T2.mID WHERE T1.stars BETWEEN 3 AND 5",
+            "movie_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT title FROM Movie WHERE year < 1980 OR director = 'James Cameron'",
+        "g_str": [
+            "SELECT title FROM Movie WHERE director  =  \"James Cameron\" OR YEAR   <  1980",
+            "movie_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM city WHERE County_ID IN (SELECT County_ID FROM county_public_safety WHERE Population > 20000)",
+        "g_str": [
+            "SELECT count(*) FROM city WHERE county_ID IN (SELECT county_ID FROM county_public_safety WHERE population  >  20000)",
+            "county_public_safety"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT roomName FROM Rooms WHERE decor = 'modern' AND basePrice < 160 AND beds = 2",
+        "g_str": [
+            "SELECT roomName FROM Rooms WHERE basePrice  <  160 AND beds =  2 AND decor  =  'modern';",
+            "inn_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT roomName, RoomId FROM Rooms WHERE basePrice > 160 AND maxOccupancy > 2",
+        "g_str": [
+            "SELECT roomName ,  RoomId FROM Rooms WHERE basePrice  >  160 AND maxOccupancy  >  2;",
+            "inn_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT Adults FROM Reservations WHERE LastName = 'SELBIG' AND FirstName = 'CONRAD' AND CheckIn = '2010-10-23'",
+        "g_str": [
+            "SELECT Adults FROM Reservations WHERE CheckIn  =  \"2010-10-23\" AND FirstName  =  \"CONRAD\" AND LastName  =  \"SELBIG\";",
+            "inn_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM Reservations AS T1 JOIN Rooms AS T2 ON T1.Room = T2.RoomId WHERE (T1.Adults + T1.Kids) = T2.maxOccupancy",
+        "g_str": [
+            "SELECT count(*) FROM Reservations AS T1 JOIN Rooms AS T2 ON T1.Room  =  T2.RoomId WHERE T2.maxOccupancy  =  T1.Adults + T1.Kids;",
+            "inn_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM Rooms LEFT JOIN Reservations ON Rooms.RoomId = Reservations.Room WHERE Reservations.Code IS NULL",
+        "g_str": [
+            "SELECT count(*) FROM rooms WHERE roomid NOT IN (SELECT DISTINCT room FROM reservations)",
+            "inn_1"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT Name FROM host WHERE Host_ID NOT IN (SELECT Host_ID FROM party_host)",
+        "g_str": [
+            "SELECT Name FROM HOST WHERE Host_ID NOT IN (SELECT Host_ID FROM party_host)",
+            "party_host"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT AVG(Damage_millions_USD), MAX(Damage_millions_USD) FROM storm WHERE Max_speed > 1000",
+        "g_str": [
+            "SELECT avg(damage_millions_USD) ,  max(damage_millions_USD) FROM storm WHERE max_speed  >  1000",
+            "storm_record"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT COUNT(DISTINCT Delegate) FROM election WHERE District IN (SELECT County_Id FROM county WHERE Population > 50000)",
+        "g_str": [
+            "SELECT count(DISTINCT T2.Delegate) FROM county AS T1 JOIN election AS T2 ON T1.County_id  =  T2.District WHERE T1.Population  >  50000",
+            "election"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT Fname, LName FROM Student WHERE Age > 18 AND Major = 600",
+        "g_str": [
+            "SELECT Fname , Lname FROM Student WHERE Age  >  18 AND Major = 600;",
+            "restaurant_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT Fname, Lname FROM Student WHERE Sex = 'F' AND Age > 18 AND Major != 600",
+        "g_str": [
+            "SELECT Fname , Lname FROM Student WHERE Age  >  18 AND Major != 600 AND Sex = 'F';",
+            "restaurant_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM Visits_Restaurant WHERE StuID = (SELECT StuID FROM Student WHERE LName = 'Smith' AND Fname = 'Linda') AND ResID = (SELECT ResID FROM Restaurant WHERE ResName = 'Subway')",
+        "g_str": [
+            "SELECT count(*) FROM Student JOIN Visits_Restaurant ON Student.StuID = Visits_Restaurant.StuID JOIN Restaurant ON Visits_Restaurant.ResID = Restaurant.ResID WHERE Student.Fname = \"Linda\" AND Student.Lname = \"Smith\" AND Restaurant.ResName = \"Subway\";",
+            "restaurant_1"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT Time FROM Visits_Restaurant WHERE StuID = (SELECT StuID FROM Student WHERE LName = 'Smith' AND Fname = 'Linda') AND ResID = (SELECT ResID FROM Restaurant WHERE ResName = 'Subway')",
+        "g_str": [
+            "SELECT TIME FROM Student JOIN Visits_Restaurant ON Student.StuID = Visits_Restaurant.StuID JOIN Restaurant ON Visits_Restaurant.ResID = Restaurant.ResID WHERE Student.Fname = \"Linda\" AND Student.Lname = \"Smith\" AND Restaurant.ResName = \"Subway\";",
+            "restaurant_1"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT name FROM Inst WHERE instID = (SELECT instID FROM Authorship WHERE authID = (SELECT authID FROM Authors WHERE lname = 'Blume' AND fname = 'Matthias'))",
+        "g_str": [
+            "SELECT DISTINCT t3.name FROM authors AS t1 JOIN authorship AS t2 ON t1.authid  =  t2.authid JOIN inst AS t3 ON t2.instid  =  t3.instid WHERE t1.fname  =  \"Matthias\" AND t1.lname  =  \"Blume\"",
+            "icfp_1"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT COUNT(DISTINCT paperID) FROM Authorship WHERE instID = (SELECT instID FROM Inst WHERE name = \"University of Pennsylvania\")",
+        "g_str": [
+            "SELECT count(DISTINCT t1.title) FROM papers AS t1 JOIN authorship AS t2 ON t1.paperid  =  t2.paperid JOIN inst AS t3 ON t2.instid  =  t3.instid WHERE t3.name  =  \"University of Pennsylvania\"",
+            "icfp_1"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT Papers.title FROM Papers JOIN Authorship ON Papers.paperID = Authorship.paperID JOIN Authors ON Authorship.authID = Authors.authID JOIN Inst ON Authorship.instID = Inst.instID WHERE Inst.country = \"USA\" AND Authors.lname = \"Turon\" AND Authorship.authOrder = 2",
+        "g_str": [
+            "SELECT t3.title FROM authors AS t1 JOIN authorship AS t2 ON t1.authid  =  t2.authid JOIN papers AS t3 ON t2.paperid  =  t3.paperid JOIN inst AS t4 ON t2.instid  =  t4.instid WHERE t4.country  =  \"USA\" AND t2.authorder  =  2 AND t1.lname  =  \"Turon\"",
+            "icfp_1"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM customer WHERE active = 1",
+        "g_str": [
+            "SELECT count(*) FROM customer WHERE active = '1'",
+            "sakila_1"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT cust_name, acc_bal FROM customer WHERE cust_name LIKE '%a%'",
+        "g_str": [
+            "SELECT cust_name ,  acc_bal FROM customer WHERE cust_name LIKE '%a%'",
+            "loan_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT cust_name FROM customer WHERE credit_score = (SELECT MIN(credit_score) FROM customer)",
+        "g_str": [
+            "SELECT cust_name FROM customer ORDER BY credit_score LIMIT 1",
+            "loan_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT cust_name FROM customer JOIN loan ON customer.cust_ID = loan.cust_ID WHERE loan.amount > 3000",
+        "g_str": [
+            "SELECT T1.cust_name FROM customer AS T1 JOIN loan AS T2 ON T1.cust_id  =  T2.cust_id WHERE amount  >  3000",
+            "loan_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT AVG(credit_score) FROM customer WHERE cust_ID NOT IN (SELECT cust_ID FROM loan)",
+        "g_str": [
+            "SELECT avg(credit_score) FROM customer WHERE cust_id NOT IN (SELECT cust_id FROM loan)",
+            "loan_1"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM Students WHERE student_id NOT IN (SELECT student_id FROM Behavior_Incident)",
+        "g_str": [
+            "SELECT count(*) FROM STUDENTS WHERE student_id NOT IN ( SELECT student_id FROM Behavior_Incident )",
+            "behavior_monitoring"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT first_name, last_name FROM Maintenance_Engineers WHERE engineer_id NOT IN (SELECT engineer_id FROM Engineer_Visits)",
+        "g_str": [
+            "SELECT first_name ,  last_name FROM Maintenance_Engineers WHERE engineer_id NOT IN (SELECT engineer_id FROM Engineer_Visits)",
+            "assets_maintenance"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT COUNT(DISTINCT PROF_NUM) FROM CLASS WHERE CRS_CODE = 'ACCT-211'",
+        "g_str": [
+            "SELECT count(DISTINCT PROF_NUM) FROM CLASS WHERE CRS_CODE  =  \"ACCT-211\"",
+            "college_1"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM CLASS WHERE PROF_NUM = (SELECT EMP_NUM FROM EMPLOYEE WHERE EMP_LNAME = 'Graztevski')",
+        "g_str": [
+            "SELECT count(*) FROM employee AS T1 JOIN CLASS AS T2 ON T1.EMP_NUM  =  T2.PROF_NUM WHERE T1.EMP_LNAME  =  'Graztevski'",
+            "college_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM COURSE WHERE DEPT_CODE = (SELECT DEPT_CODE FROM DEPARTMENT WHERE DEPT_NAME = 'Computer Info. Systems')",
+        "g_str": [
+            "SELECT count(*) FROM department AS T1 JOIN course AS T2 ON T1.dept_code  =  T2.dept_code WHERE dept_name  =  \"Computer Info. Systems\"",
+            "college_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM COURSE WHERE DEPT_CODE = (SELECT DEPT_CODE FROM DEPARTMENT WHERE DEPT_NAME = 'Computer Information Systems')",
+        "g_str": [
+            "SELECT count(*) FROM department AS T1 JOIN course AS T2 ON T1.dept_code  =  T2.dept_code WHERE dept_name  =  \"Computer Info. Systems\"",
+            "college_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM professor WHERE prof_high_degree = 'Ph.D.'",
+        "g_str": [
+            "SELECT count(*) FROM professor WHERE prof_high_degree  =  'Ph.D.'",
+            "college_1"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT STU_FNAME, STU_GPA FROM STUDENT WHERE STU_GPA < (SELECT AVG(STU_GPA) FROM STUDENT)",
+        "g_str": [
+            "SELECT stu_fname ,  stu_gpa FROM student WHERE stu_gpa  <  (SELECT avg(stu_gpa) FROM student)",
+            "college_1"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT DEPT_NAME FROM DEPARTMENT WHERE DEPT_CODE = (SELECT DEPT_CODE FROM COURSE WHERE CRS_DESCRIPTION LIKE '%Statistics%')",
+        "g_str": [
+            "SELECT T2.dept_name FROM course AS T1 JOIN department AS T2 ON T1.dept_code  =  T2.dept_code WHERE T1.crs_description LIKE '%Statistics%'",
+            "college_1"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT * FROM employees WHERE (salary >= 8000 AND salary <= 12000 AND commission_pct IS NOT NULL) OR department_id != 40",
+        "g_str": [
+            "SELECT * FROM employees WHERE salary BETWEEN 8000 AND 12000 AND commission_pct != \"null\" OR  department_id != 40",
+            "hr_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT salary, manager_id FROM employees WHERE manager_id IS NOT NULL",
+        "g_str": [
+            "SELECT salary ,  manager_id FROM employees WHERE manager_id != \"null\"",
+            "hr_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT * FROM job_history JOIN employees ON job_history.EMPLOYEE_ID = employees.EMPLOYEE_ID WHERE employees.SALARY >= 12000",
+        "g_str": [
+            "SELECT * FROM  job_history AS T1 JOIN employees AS T2 ON T1.employee_id  =  T2.employee_id WHERE T2.salary  >=  12000",
+            "hr_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT EMPLOYEE_ID FROM employees WHERE SALARY > (SELECT AVG(SALARY) FROM employees)",
+        "g_str": [
+            "SELECT employee_id FROM employees WHERE salary  >  (SELECT AVG(salary) FROM employees)",
+            "hr_1"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT * FROM employees WHERE employee_id NOT IN (SELECT employee_id FROM job_history)",
+        "g_str": [
+            "SELECT * FROM employees WHERE employee_id NOT IN (SELECT employee_id FROM job_history)",
+            "hr_1"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT * FROM employees WHERE employee_id NOT IN (SELECT employee_id FROM job_history)",
+        "g_str": [
+            "SELECT * FROM employees WHERE employee_id NOT IN (SELECT employee_id FROM job_history)",
+            "hr_1"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT file_size, formats FROM files WHERE f_id IN (SELECT f_id FROM song WHERE resolution < 800)",
+        "g_str": [
+            "SELECT DISTINCT T1.file_size ,  T1.formats FROM files AS T1 JOIN song AS T2 ON T1.f_id  =  T2.f_id WHERE T2.resolution  <  800",
+            "music_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM artist WHERE country = 'Bangladesh'",
+        "g_str": [
+            "SELECT count(*) FROM artist WHERE country  =  \"Bangladesh\"",
+            "music_1"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT g_name, rating FROM genre ORDER BY g_name ASC",
+        "g_str": [
+            "SELECT g_name ,  rating FROM genre ORDER BY g_name",
+            "music_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT SUM(salary) FROM salary WHERE player_id = (SELECT player_id FROM player WHERE name_first = 'Len' AND name_last = 'Barker') AND year BETWEEN 1985 AND 1990",
+        "g_str": [
+            "SELECT sum(T1.salary) FROM salary AS T1 JOIN player AS T2 ON T1.player_id = T2.player_id WHERE T2.name_first  =  'Len' AND T2.name_last = 'Barker' AND T1.year BETWEEN 1985 AND 1990;",
+            "baseball_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM camera_lens WHERE id NOT IN (SELECT camera_lens_id FROM photos)",
+        "g_str": [
+            "SELECT count(*) FROM camera_lens WHERE id NOT IN ( SELECT camera_lens_id FROM photos )",
+            "mountain_photos"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT COUNT(DISTINCT camera_lens_id) FROM photos JOIN camera_lens ON photos.camera_lens_id = camera_lens.id WHERE photos.mountain_id IN (SELECT id FROM mountain WHERE country = 'Ethiopia')",
+        "g_str": [
+            "SELECT count(DISTINCT T2.camera_lens_id) FROM mountain AS T1 JOIN photos AS T2 ON T1.id  =  T2.mountain_id WHERE T1.country  =  'Ethiopia'",
+            "mountain_photos"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT Name FROM program WHERE Origin != 'Beijing'",
+        "g_str": [
+            "SELECT name FROM program WHERE origin != 'Beijing'",
+            "program_share"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT address_line_1 FROM Course_Authors_and_Tutors WHERE personal_name = 'Cathrine'",
+        "g_str": [
+            "SELECT address_line_1 FROM Course_Authors_and_Tutors WHERE personal_name =  \"Cathrine\"",
+            "e_learning"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM Student_Tests_Taken WHERE test_result = 'Fail'",
+        "g_str": [
+            "SELECT count(*) FROM Student_Tests_Taken WHERE test_result  =  \"Fail\"",
+            "e_learning"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT login_name FROM Course_Authors_and_Tutors WHERE author_id = (SELECT author_id FROM Courses WHERE course_name = \"advanced database\")",
+        "g_str": [
+            "SELECT T1.login_name FROM Course_Authors_and_Tutors AS T1 JOIN Courses AS T2 ON T1.author_id  =  T2.author_id WHERE T2.course_name  =  \"advanced database\"",
+            "e_learning"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM Students LEFT JOIN Student_Course_Enrolment ON Students.student_id = Student_Course_Enrolment.student_id WHERE Student_Course_Enrolment.course_id IS NULL",
+        "g_str": [
+            "SELECT count(*) FROM Students WHERE student_id NOT IN (SELECT student_id FROM Student_Course_Enrolment)",
+            "e_learning"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT Physician.Name, Physician.Position FROM Physician JOIN Prescribes ON Physician.EmployeeID = Prescribes.Physician WHERE Prescribes.Medication IN (SELECT Code FROM Medication WHERE Brand = 'X')",
+        "g_str": [
+            "SELECT DISTINCT T1.name ,  T1.position FROM physician AS T1 JOIN prescribes AS T2 ON T1.employeeid = T2.physician JOIN medication AS T3 ON T3.code = T2.medication WHERE T3.Brand  =  \"X\"",
+            "hospital_1"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT DISTINCT Department.Name FROM Affiliated_With JOIN Department ON Affiliated_With.Department = Department.DepartmentID WHERE Affiliated_With.PrimaryAffiliation IS NOT NULL",
+        "g_str": [
+            "SELECT DISTINCT T2.name FROM affiliated_with AS T1 JOIN department AS T2 ON T1.department = T2.departmentid WHERE PrimaryAffiliation  =  1",
+            "hospital_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT Name FROM ship LEFT JOIN mission ON ship.Ship_ID = mission.Ship_ID WHERE mission.Mission_ID IS NULL",
+        "g_str": [
+            "SELECT Name FROM ship WHERE Ship_ID NOT IN (SELECT Ship_ID FROM mission)",
+            "ship_mission"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT FirstName, LastName FROM list WHERE Classroom IN (SELECT Classroom FROM teachers WHERE FirstName = 'OTHA' AND LastName = 'MOYER')",
+        "g_str": [
+            "SELECT T1.firstname ,  T1.lastname FROM list AS T1 JOIN teachers AS T2 ON T1.classroom  =  T2.classroom WHERE T2.firstname  =  \"OTHA\" AND T2.lastname  =  \"MOYER\"",
+            "student_1"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT FirstName, LastName FROM teachers WHERE FirstName = 'EVELINA' AND LastName = 'BROMLEY'",
+        "g_str": [
+            "SELECT T2.firstname ,  T2.lastname FROM list AS T1 JOIN teachers AS T2 ON T1.classroom  =  T2.classroom WHERE T1.firstname  =  \"EVELINA\" AND T1.lastname  =  \"BROMLEY\"",
+            "student_1"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM list JOIN teachers ON list.Classroom = teachers.Classroom WHERE teachers.LastName = 'ONDERSMA' AND teachers.FirstName = 'LORIA'",
+        "g_str": [
+            "SELECT count(*) FROM list AS T1 JOIN teachers AS T2 ON T1.classroom  =  T2.classroom WHERE T2.firstname  =  \"LORIA\" AND T2.lastname  =  \"ONDERSMA\"",
+            "student_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM teachers WHERE LastName = 'KAWA' AND FirstName = 'GORDON'",
+        "g_str": [
+            "SELECT count(*) FROM list AS T1 JOIN teachers AS T2 ON T1.classroom  =  T2.classroom WHERE T2.firstname  =  \"KAWA\" AND T2.lastname  =  \"GORDON\"",
+            "student_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM list WHERE Classroom = (SELECT Classroom FROM teachers WHERE FirstName = 'LEIA' AND LastName = 'TARRING')",
+        "g_str": [
+            "SELECT count(*) FROM list AS T1 JOIN teachers AS T2 ON T1.classroom  =  T2.classroom WHERE T2.firstname  =  \"TARRING\" AND T2.lastname  =  \"LEIA\"",
+            "student_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM teachers WHERE Classroom = (SELECT Classroom FROM list WHERE LastName = 'MADLOCK' AND FirstName = 'RAY')",
+        "g_str": [
+            "SELECT count(*) FROM list AS T1 JOIN teachers AS T2 ON T1.classroom  =  T2.classroom WHERE T1.firstname  =  \"MADLOCK\" AND T1.lastname  =  \"RAY\"",
+            "student_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM teachers WHERE Classroom IN (SELECT Classroom FROM list WHERE LastName = 'MADLOCK' AND FirstName = 'RAY')",
+        "g_str": [
+            "SELECT count(*) FROM list AS T1 JOIN teachers AS T2 ON T1.classroom  =  T2.classroom WHERE T1.firstname  =  \"MADLOCK\" AND T1.lastname  =  \"RAY\"",
+            "student_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT LastName FROM list WHERE Grade = 'third' AND LastName != 'COVIN' AND FirstName != 'JEROME'",
+        "g_str": [
+            "SELECT DISTINCT T1.lastname FROM list AS T1 JOIN teachers AS T2 ON T1.classroom  =  T2.classroom WHERE T1.grade  =  3 AND T2.firstname != \"COVIN\" AND T2.lastname != \"JEROME\"",
+            "student_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM company WHERE Headquarters = 'US'",
+        "g_str": [
+            "SELECT count(*) FROM company WHERE Headquarters  =  'USA'",
+            "company_employee"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT DISTINCT Type FROM film_market_estimation WHERE Year = 1995",
+        "g_str": [
+            "SELECT TYPE FROM film_market_estimation WHERE YEAR  =  1995",
+            "film_rank"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT AVG(Number_cities) FROM market WHERE Market_ID IN (SELECT Market_ID FROM film_market_estimation WHERE Low_Estimate > 10000)",
+        "g_str": [
+            "SELECT avg(T2.Number_cities) FROM film_market_estimation AS T1 JOIN market AS T2 ON T1.Market_ID  =  T2.Market_ID WHERE T1.Low_Estimate  >  10000",
+            "film_rank"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT Title FROM film LEFT JOIN film_market_estimation ON film.Film_ID = film_market_estimation.Film_ID WHERE film_market_estimation.Estimation_ID IS NULL",
+        "g_str": [
+            "SELECT Title FROM film WHERE Film_ID NOT IN (SELECT Film_ID FROM film_market_estimation)",
+            "film_rank"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM All_Documents WHERE Document_Type_Code = 'CV' OR Document_Type_Code = 'BK'",
+        "g_str": [
+            "SELECT count(*) FROM All_documents WHERE document_type_code  =  \"CV\" OR document_type_code  =  \"BK\"",
+            "cre_Doc_Tracking_DB"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM Member_of_club WHERE ClubID = (SELECT ClubID FROM Club WHERE ClubName = \"Pen and Paper Gaming\")",
+        "g_str": [
+            "SELECT count(*) FROM club AS t1 JOIN member_of_club AS t2 ON t1.clubid  =  t2.clubid JOIN student AS t3 ON t2.stuid  =  t3.stuid WHERE t1.clubname  =  \"Pen and Paper Gaming\"",
+            "club_1"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM Member_of_club WHERE ClubID = (SELECT ClubID FROM Club WHERE ClubName = \"Pen and Paper Gaming\")",
+        "g_str": [
+            "SELECT count(*) FROM club AS t1 JOIN member_of_club AS t2 ON t1.clubid  =  t2.clubid JOIN student AS t3 ON t2.stuid  =  t3.stuid WHERE t1.clubname  =  \"Pen and Paper Gaming\"",
+            "club_1"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM Member_of_club WHERE StuID = (SELECT StuID FROM Student WHERE LName = 'Smith' AND Fname = 'Linda')",
+        "g_str": [
+            "SELECT count(*) FROM club AS t1 JOIN member_of_club AS t2 ON t1.clubid  =  t2.clubid JOIN student AS t3 ON t2.stuid  =  t3.stuid WHERE t3.fname  =  \"Linda\" AND t3.lname  =  \"Smith\"",
+            "club_1"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT Fname, LName FROM Student WHERE StuID IN (SELECT StuID FROM Member_of_club WHERE ClubID = (SELECT ClubID FROM Club WHERE ClubName = \"Bootup Baltimore\")) AND Sex = 'F'",
+        "g_str": [
+            "SELECT t3.fname ,  t3.lname FROM club AS t1 JOIN member_of_club AS t2 ON t1.clubid  =  t2.clubid JOIN student AS t3 ON t2.stuid  =  t3.stuid WHERE t1.clubname  =  \"Bootup Baltimore\" AND t3.sex  =  \"F\"",
+            "club_1"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT Student.Fname, Student.LName FROM Member_of_club JOIN Student ON Member_of_club.StuID = Student.StuID WHERE Member_of_club.ClubID = (SELECT ClubID FROM Club WHERE ClubName = \"Hopkins Student Enterprises\") AND Student.Sex = 'M'",
+        "g_str": [
+            "SELECT t3.fname ,  t3.lname FROM club AS t1 JOIN member_of_club AS t2 ON t1.clubid  =  t2.clubid JOIN student AS t3 ON t2.stuid  =  t3.stuid WHERE t1.clubname  =  \"Hopkins Student Enterprises\" AND t3.sex  =  \"M\"",
+            "club_1"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT ClubLocation FROM Club WHERE ClubName = 'Pen and Paper Gaming'",
+        "g_str": [
+            "SELECT clublocation FROM club WHERE clubname  =  \"Pen and Paper Gaming\"",
+            "club_1"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT Student.Fname, Student.LName FROM Club JOIN Member_of_club ON Club.ClubID = Member_of_club.ClubID JOIN Student ON Member_of_club.StuID = Student.StuID WHERE Club.ClubName = \"Hopkins Student Enterprises\" AND Member_of_club.Position = \"CTO\"",
+        "g_str": [
+            "SELECT t3.fname ,  t3.lname FROM club AS t1 JOIN member_of_club AS t2 ON t1.clubid  =  t2.clubid JOIN student AS t3 ON t2.stuid  =  t3.stuid WHERE t1.clubname  =  \"Hopkins Student Enterprises\" AND t2.position  =  \"CTO\"",
+            "club_1"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT Student.Fname, Student.LName FROM Student JOIN Member_of_club ON Student.StuID = Member_of_club.StuID WHERE Member_of_club.ClubID = (SELECT ClubID FROM Club WHERE ClubName = \"Hopkins Student Enterprises\") AND Member_of_club.Position = \"CTO\"",
+        "g_str": [
+            "SELECT t3.fname ,  t3.lname FROM club AS t1 JOIN member_of_club AS t2 ON t1.clubid  =  t2.clubid JOIN student AS t3 ON t2.stuid  =  t3.stuid WHERE t1.clubname  =  \"Hopkins Student Enterprises\" AND t2.position  =  \"CTO\"",
+            "club_1"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM Member_of_club AS T1 JOIN Student AS T2 ON T1.StuID = T2.StuID WHERE T1.ClubID = (SELECT ClubID FROM Club WHERE ClubName = \"Bootup Baltimore\") AND T2.Age > 18",
+        "g_str": [
+            "SELECT count(*) FROM club AS t1 JOIN member_of_club AS t2 ON t1.clubid  =  t2.clubid JOIN student AS t3 ON t2.stuid  =  t3.stuid WHERE t1.clubname  =  \"Bootup Baltimore\" AND t3.age  >  18",
+            "club_1"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM member_of_club AS T1 JOIN student AS T2 ON T1.StuID = T2.StuID WHERE T1.ClubID = (SELECT ClubID FROM club WHERE ClubName = 'Bootup Baltimore') AND T2.Age < 18",
+        "g_str": [
+            "SELECT count(*) FROM club AS t1 JOIN member_of_club AS t2 ON t1.clubid  =  t2.clubid JOIN student AS t3 ON t2.stuid  =  t3.stuid WHERE t1.clubname  =  \"Bootup Baltimore\" AND t3.age  <  18",
+            "club_1"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT ClubName FROM Club WHERE ClubID IN (SELECT ClubID FROM Member_of_club WHERE StuID IN (SELECT StuID FROM Student WHERE city_code = \"BAL\"))",
+        "g_str": [
+            "SELECT DISTINCT t1.clubname FROM club AS t1 JOIN member_of_club AS t2 ON t1.clubid  =  t2.clubid JOIN student AS t3 ON t2.stuid  =  t3.stuid WHERE t3.city_code  =  \"BAL\"",
+            "club_1"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT project_details FROM Projects WHERE NOT EXISTS (SELECT * FROM Project_Staff WHERE Projects.project_id = Project_Staff.project_id AND role_code = 'researcher')",
+        "g_str": [
+            "SELECT project_details FROM Projects WHERE project_id NOT IN ( SELECT project_id FROM Project_Staff WHERE role_code  =  'researcher' )",
+            "tracking_grants_for_research"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM Person WHERE gender = 'female'",
+        "g_str": [
+            "SELECT count(*) FROM Person WHERE gender  =  'female'",
+            "network_2"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT age FROM Person WHERE name = 'Zach' AND job = 'doctor'",
+        "g_str": [
+            "SELECT age FROM Person WHERE job  =  'doctor' AND name  =  'Zach'",
+            "network_2"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT age FROM Person WHERE name = 'Zach' AND job = 'doctor'",
+        "g_str": [
+            "SELECT age FROM Person WHERE job  =  'doctor' AND name  =  'Zach'",
+            "network_2"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM Person WHERE job = 'engineer' AND age > 30",
+        "g_str": [
+            "SELECT count(*) FROM Person WHERE age  >  30 AND job  =  'engineer'",
+            "network_2"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT friend FROM PersonFriend WHERE name = 'Alice' AND friend IN (SELECT name FROM Person WHERE gender = 'female')",
+        "g_str": [
+            "SELECT T2.friend FROM Person AS T1 JOIN PersonFriend AS T2 ON T1.name  =  T2.friend WHERE T2.name  =  'Alice' AND T1.gender  =  'female'",
+            "network_2"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT friend FROM PersonFriend WHERE name = 'Alice' AND friend IN (SELECT name FROM Person WHERE gender = 'female')",
+        "g_str": [
+            "SELECT T2.friend FROM Person AS T1 JOIN PersonFriend AS T2 ON T1.name  =  T2.friend WHERE T2.name  =  'Alice' AND T1.gender  =  'female'",
+            "network_2"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT DISTINCT p.name FROM Person AS p JOIN PersonFriend AS pf ON p.name = pf.name WHERE pf.friend IN (SELECT name FROM Person WHERE age < (SELECT AVG(age) FROM Person))",
+        "g_str": [
+            "SELECT DISTINCT T2.name FROM Person AS T1 JOIN PersonFriend AS T2 ON T1.name  =  T2.friend WHERE T1.age  <  (SELECT avg(age) FROM person)",
+            "network_2"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT friend FROM PersonFriend WHERE name = 'Zach' ORDER BY year DESC LIMIT 1",
+        "g_str": [
+            "SELECT friend FROM PersonFriend WHERE name =  'Zach' AND YEAR  =  (SELECT max(YEAR) FROM PersonFriend WHERE name =  'Zach')",
+            "network_2"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT age FROM Person WHERE name = (SELECT friend FROM PersonFriend WHERE name = 'Zach' ORDER BY year DESC LIMIT 1)",
+        "g_str": [
+            "SELECT T1.age FROM Person AS T1 JOIN PersonFriend AS T2 ON T1.name  =  T2.friend WHERE T2.name =  'Zach' AND T2.year  =  (SELECT max(YEAR) FROM PersonFriend WHERE name =  'Zach')",
+            "network_2"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT p.name, p.age, p.job FROM Person AS p JOIN PersonFriend AS pf ON p.name = pf.name WHERE pf.friend = 'Alice' GROUP BY p.name, p.age, p.job HAVING MAX(pf.year)",
+        "g_str": [
+            "SELECT T1.name ,  T1.age ,  T1.job FROM Person AS T1 JOIN PersonFriend AS T2 ON T1.name  =  T2.name WHERE T2.friend =  'Alice' AND T2.year  =  (SELECT max(YEAR) FROM PersonFriend WHERE friend =  'Alice')",
+            "network_2"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT document_name FROM Documents WHERE NOT EXISTS (SELECT * FROM Document_Sections WHERE Documents.document_code = Document_Sections.document_code)",
+        "g_str": [
+            "SELECT document_name FROM documents WHERE document_code NOT IN (SELECT document_code FROM document_sections)",
+            "document_management"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT document_name FROM Documents WHERE NOT EXISTS (SELECT * FROM Document_Sections WHERE Documents.document_code = Document_Sections.document_code)",
+        "g_str": [
+            "SELECT document_name FROM documents WHERE document_code NOT IN (SELECT document_code FROM document_sections)",
+            "document_management"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT name FROM Companies ORDER BY Market_Value_billion DESC",
+        "g_str": [
+            "SELECT name FROM Companies ORDER BY Market_Value_billion DESC",
+            "company_office"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT name FROM buildings LEFT JOIN Office_locations ON buildings.id = Office_locations.building_id WHERE Office_locations.company_id IS NULL",
+        "g_str": [
+            "SELECT name FROM buildings WHERE id NOT IN (SELECT building_id FROM Office_locations)",
+            "company_office"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM Companies WHERE Industry = 'Banking' OR Industry = 'Conglomerate'",
+        "g_str": [
+            "SELECT count(*) FROM Companies WHERE Industry  =  \"Banking\" OR Industry  =  \"Conglomerate\"",
+            "company_office"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT Product_Name FROM Products ORDER BY Product_Price ASC",
+        "g_str": [
+            "SELECT Product_Name FROM Products ORDER BY Product_Price ASC",
+            "solvency_ii"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT Name FROM artwork WHERE Type != 'Program Talent Show'",
+        "g_str": [
+            "SELECT Name FROM artwork WHERE TYPE != \"Program Talent Show\"",
+            "entertainment_awards"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT Name FROM artwork WHERE NOT EXISTS (SELECT * FROM nomination WHERE nomination.Artwork_ID = artwork.Artwork_ID)",
+        "g_str": [
+            "SELECT Name FROM Artwork WHERE Artwork_ID NOT IN (SELECT Artwork_ID FROM nomination)",
+            "entertainment_awards"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT customer_name, customer_phone FROM Customers WHERE customer_id NOT IN (SELECT customer_id FROM Mailshot_Customers WHERE outcome_code != 'Sent')",
+        "g_str": [
+            "SELECT customer_name ,  customer_phone FROM customers WHERE customer_id NOT IN (SELECT customer_id FROM mailshot_customers)",
+            "customers_campaigns_ecommerce"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT customer_name FROM Customers WHERE customer_id IN (SELECT customer_id FROM Customer_Orders WHERE shipping_method_code = 'FedEx' AND order_status_code = 'Paid')",
+        "g_str": [
+            "SELECT T1.customer_name FROM customers AS T1 JOIN customer_orders AS T2 ON T1.customer_id  =  T2.customer_id WHERE shipping_method_code  =  'FedEx' AND order_status_code  =  'Paid'",
+            "customers_campaigns_ecommerce"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM Course WHERE Credits > 2",
+        "g_str": [
+            "SELECT count(*) FROM COURSE WHERE Credits  >  2",
+            "college_3"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM Department WHERE Division = 'AS'",
+        "g_str": [
+            "SELECT count(*) FROM DEPARTMENT WHERE Division  =  \"AS\"",
+            "college_3"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT COUNT(DISTINCT StuID) FROM Enrolled_in WHERE Grade = \"B\"",
+        "g_str": [
+            "SELECT COUNT(DISTINCT StuID) FROM ENROLLED_IN WHERE Grade  =  \"B\"",
+            "college_3"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT Room FROM Faculty WHERE Rank = 'professor' AND Building = 'NEB'",
+        "g_str": [
+            "SELECT Room FROM FACULTY WHERE Rank  =  \"Professor\" AND Building  =  \"NEB\"",
+            "college_3"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT DName, Room FROM Department WHERE DNO = (SELECT DNO FROM Course WHERE CName = 'INTRODUCTION TO COMPUTER SCIENCE')",
+        "g_str": [
+            "SELECT T2.Dname ,  T2.Room FROM COURSE AS T1 JOIN DEPARTMENT AS T2 ON T1.DNO  =  T2.DNO WHERE T1.CName  =  \"INTRODUCTION TO COMPUTER SCIENCE\"",
+            "college_3"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT MAX(gradepoint), MIN(gradepoint) FROM Gradeconversion WHERE lettergrade IN (SELECT Grade FROM Enrolled_in WHERE StuID IN (SELECT StuID FROM Student WHERE city_code = 'NYC'))",
+        "g_str": [
+            "SELECT max(T2.gradepoint) ,  min(T2.gradepoint) FROM ENROLLED_IN AS T1 JOIN GRADECONVERSION AS T2 JOIN STUDENT AS T3 ON T1.Grade  =  T2.lettergrade AND T1.StuID  =  T3.StuID WHERE T3.city_code  =  \"NYC\"",
+            "college_3"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT Fname FROM Student LEFT JOIN Enrolled_in ON Student.StuID = Enrolled_in.StuID WHERE Enrolled_in.CID IS NULL",
+        "g_str": [
+            "SELECT Fname FROM STUDENT WHERE StuID NOT IN (SELECT StuID FROM ENROLLED_IN)",
+            "college_3"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT Fname FROM Student LEFT JOIN Enrolled_in ON Student.StuID = Enrolled_in.StuID WHERE Enrolled_in.CID IS NULL",
+        "g_str": [
+            "SELECT Fname FROM STUDENT WHERE StuID NOT IN (SELECT StuID FROM ENROLLED_IN)",
+            "college_3"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT product_id FROM Product_Suppliers WHERE supplier_id = 2 AND product_id IN (SELECT product_id FROM Products WHERE product_price > (SELECT AVG(product_price) FROM Products))",
+        "g_str": [
+            "SELECT T1.product_id FROM product_suppliers AS T1 JOIN products AS T2 ON T1.product_id  =  T2.product_id WHERE T1.supplier_id  =  2 AND T2.product_price  >  (SELECT avg(product_price) FROM products)",
+            "department_store"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT product_name, product_id FROM products WHERE product_price BETWEEN 600 AND 700",
+        "g_str": [
+            "SELECT product_name ,  product_id FROM products WHERE product_price BETWEEN 600 AND 700",
+            "department_store"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT product_id, product_name FROM Products WHERE product_price < 600 OR product_price > 900",
+        "g_str": [
+            "SELECT product_id ,  product_name FROM products WHERE product_price  <  600 OR product_price  >  900",
+            "department_store"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT customer_id, customer_name FROM Customers WHERE customer_address LIKE '%WY%' AND payment_method_code != 'credit card'",
+        "g_str": [
+            "SELECT customer_id ,  customer_name FROM customers WHERE customer_address LIKE \"%WY%\" AND payment_method_code != \"Credit Card\"",
+            "department_store"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT Name FROM pilot WHERE Age <= 30 ORDER BY Name DESC",
+        "g_str": [
+            "SELECT Name FROM pilot WHERE Age  <=  30 ORDER BY Name DESC",
+            "aircraft"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT Name FROM pilot WHERE Pilot_Id NOT IN (SELECT Winning_Pilot FROM match WHERE Country = 'Australia')",
+        "g_str": [
+            "SELECT name FROM pilot WHERE pilot_id NOT IN (SELECT Winning_Pilot  FROM MATCH WHERE country  =  'Australia')",
+            "aircraft"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT Name FROM pilot WHERE Pilot_Id NOT IN (SELECT Winning_Pilot FROM match WHERE Country = 'Australia')",
+        "g_str": [
+            "SELECT name FROM pilot WHERE pilot_id NOT IN (SELECT Winning_Pilot  FROM MATCH WHERE country  =  'Australia')",
+            "aircraft"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT School_ID, Location FROM school WHERE School_ID NOT IN (SELECT School_ID FROM player)",
+        "g_str": [
+            "SELECT LOCATION FROM school WHERE School_ID NOT IN (SELECT School_ID FROM Player)",
+            "school_player"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT District_name, City_Population FROM district WHERE City_Population BETWEEN 200000 AND 2000000",
+        "g_str": [
+            "SELECT District_name ,  City_Population FROM district WHERE City_Population BETWEEN 200000 AND 2000000",
+            "store_product"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT COUNT(DISTINCT pID) FROM Tryout WHERE decision = 'accepted'",
+        "g_str": [
+            "SELECT count(*) FROM tryout WHERE decision  =  'yes'",
+            "soccer_2"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT pName FROM Player JOIN Tryout ON Player.pID = Tryout.pID WHERE Tryout.pPos = 'striker' AND Tryout.decision = 'successful'",
+        "g_str": [
+            "SELECT T1.pName FROM player AS T1 JOIN tryout AS T2 ON T1.pID  =  T2.pID WHERE T2.decision  =  'yes' AND T2.pPos  =  'striker'",
+            "soccer_2"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT cName FROM Tryout WHERE pID IN (SELECT pID FROM Player WHERE pPos = 'goalie' AND yCard = 'succeeded')",
+        "g_str": [
+            "SELECT cName FROM  tryout WHERE decision  =  'yes' AND pPos  =  'goalie'",
+            "soccer_2"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT cName FROM college WHERE cName IN (SELECT cName FROM tryout WHERE pPos = 'goalie' AND decision = 'successful')",
+        "g_str": [
+            "SELECT cName FROM  tryout WHERE decision  =  'yes' AND pPos  =  'goalie'",
+            "soccer_2"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT SUM(enr) FROM College WHERE cName NOT IN (SELECT cName FROM Tryout JOIN Player ON Tryout.pID = Player.pID WHERE pPos = 'goalie')",
+        "g_str": [
+            "SELECT sum(enr) FROM college WHERE cName NOT IN (SELECT cName FROM tryout WHERE pPos  =  \"goalie\")",
+            "soccer_2"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT COUNT(DISTINCT state) FROM College WHERE enr < (SELECT AVG(enr) FROM College)",
+        "g_str": [
+            "SELECT count(DISTINCT state) FROM college WHERE enr  <  (SELECT avg(enr) FROM college)",
+            "soccer_2"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT Shop_Name FROM shop ORDER BY Open_Year DESC LIMIT 1",
+        "g_str": [
+            "SELECT Shop_Name FROM shop ORDER BY Open_Year DESC LIMIT 1",
+            "device"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT Shop_Name FROM shop WHERE Shop_ID NOT IN (SELECT DISTINCT Shop_ID FROM stock)",
+        "g_str": [
+            "SELECT Shop_Name FROM shop WHERE Shop_ID NOT IN (SELECT Shop_ID FROM stock)",
+            "device"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT Band.Firstname, Band.Lastname FROM Songs JOIN Performance ON Songs.SongId = Performance.SongId JOIN Band ON Performance.Bandmate = Band.Id WHERE Songs.Title = \"Badlands\" AND Performance.StagePosition = \"back stage\"",
+        "g_str": [
+            "SELECT T2.firstname ,  T2.lastname FROM Performance AS T1 JOIN Band AS T2 ON T1.bandmate  =  T2.id JOIN Songs AS T3 ON T3.SongId  =  T1.SongId WHERE T3.Title  =  \"Badlands\" AND T1.StagePosition  =  \"back\"",
+            "music_2"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT Instrument FROM Instruments WHERE BandmateId = (SELECT Id FROM Band WHERE Lastname = \"Heilo\") AND SongId = (SELECT SongId FROM Songs WHERE Title = \"Le Pop\")",
+        "g_str": [
+            "SELECT T4.instrument FROM Performance AS T1 JOIN Band AS T2 ON T1.bandmate  =  T2.id JOIN Songs AS T3 ON T3.SongId  =  T1.SongId JOIN Instruments AS T4 ON T4.songid  =  T3.songid AND T4.bandmateid  =  T2.id WHERE T2.lastname  =  \"Heilo\" AND T3.title  =  \"Le Pop\"",
+            "music_2"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM Instruments WHERE SongId = (SELECT SongId FROM Songs WHERE Title = 'Le Pop')",
+        "g_str": [
+            "SELECT count(DISTINCT instrument) FROM instruments AS T1 JOIN songs AS T2 ON T1.songid  =  T2.songid WHERE title  =  \"Le Pop\"",
+            "music_2"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT COUNT(DISTINCT Instrument) FROM Instruments WHERE SongId = (SELECT SongId FROM Songs WHERE Title = 'Le Pop')",
+        "g_str": [
+            "SELECT count(DISTINCT instrument) FROM instruments AS T1 JOIN songs AS T2 ON T1.songid  =  T2.songid WHERE title  =  \"Le Pop\"",
+            "music_2"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT COUNT(DISTINCT Instrument) FROM Instruments WHERE BandmateId = (SELECT Id FROM Band WHERE Lastname = \"Heilo\")",
+        "g_str": [
+            "SELECT count(DISTINCT instrument) FROM instruments AS T1 JOIN Band AS T2 ON T1.bandmateid  =  T2.id WHERE T2.lastname  =  \"Heilo\"",
+            "music_2"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT COUNT(DISTINCT SongId) FROM Vocals WHERE Type = 'lead'",
+        "g_str": [
+            "SELECT count(DISTINCT title) FROM vocals AS T1 JOIN songs AS T2 ON T1.songid  =  T2.songid WHERE TYPE  =  \"lead\"",
+            "music_2"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT COUNT(DISTINCT SongId) FROM Vocals WHERE Type = 'lead'",
+        "g_str": [
+            "SELECT count(DISTINCT title) FROM vocals AS T1 JOIN songs AS T2 ON T1.songid  =  T2.songid WHERE TYPE  =  \"lead\"",
+            "music_2"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT Vocals.Type FROM Vocals JOIN Band ON Vocals.Bandmate = Band.Id JOIN Songs ON Vocals.SongId = Songs.SongId WHERE Band.Firstname = \"Solveig\" AND Songs.Title = \"A Bar in Amsterdam\"",
+        "g_str": [
+            "SELECT TYPE FROM vocals AS T1 JOIN songs AS T2 ON T1.songid  =  T2.songid JOIN band AS T3 ON T1.bandmate  =  T3.id WHERE T3.firstname  =  \"Solveig\" AND T2.title  =  \"A Bar In Amsterdam\"",
+            "music_2"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT COUNT(DISTINCT Instrument) FROM Instruments WHERE SongId = (SELECT SongId FROM Songs WHERE Title = 'Badlands')",
+        "g_str": [
+            "SELECT count(DISTINCT instrument) FROM instruments AS T1 JOIN songs AS T2 ON T1.songid  =  T2.songid WHERE title  =  \"Badlands\"",
+            "music_2"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT COUNT(DISTINCT Type) FROM Vocals WHERE SongId = (SELECT SongId FROM Songs WHERE Title = \"Le Pop\")",
+        "g_str": [
+            "SELECT count(*) FROM vocals AS T1 JOIN songs AS T2 ON T1.songid  =  T2.songid WHERE title  =  \"Le Pop\"",
+            "music_2"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT COUNT(DISTINCT SongId) FROM Vocals",
+        "g_str": [
+            "SELECT count(DISTINCT title) FROM vocals AS T1 JOIN songs AS T2 ON T1.songid  =  T2.songid WHERE TYPE  =  \"shared\"",
+            "music_2"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT Firstname, Lastname FROM Band WHERE Id = (SELECT Bandmate FROM Performance WHERE SongId = (SELECT SongId FROM Songs WHERE Title = \"Der Kapitan\") AND StagePosition = \"back stage\")",
+        "g_str": [
+            "SELECT T2.firstname ,  T2.lastname FROM Performance AS T1 JOIN Band AS T2 ON T1.bandmate  =  T2.id JOIN Songs AS T3 ON T3.SongId  =  T1.SongId WHERE T3.Title  =  \"Der Kapitan\" AND T1.StagePosition  =  \"back\"",
+            "music_2"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM songs WHERE songId IN (SELECT songId FROM tracklists WHERE albumId IN (SELECT aId FROM albums WHERE type = 'studio'))",
+        "g_str": [
+            "SELECT count(DISTINCT T3.title) FROM albums AS T1 JOIN tracklists AS T2 ON T1.aid  =  T2.albumid JOIN songs AS T3 ON T2.songid  =  T3.songid WHERE t1.type  =  \"Studio\"",
+            "music_2"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM Manufacturers WHERE Founder = 'Andy'",
+        "g_str": [
+            "SELECT count(*) FROM manufacturers WHERE founder  =  'Andy'",
+            "manufactory_1"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT SUM(Revenue) FROM Manufacturers WHERE Headquarter = 'Austin'",
+        "g_str": [
+            "SELECT sum(revenue) FROM manufacturers WHERE headquarter  =  'Austin'",
+            "manufactory_1"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT Name, Headquarter, Revenue FROM Manufacturers ORDER BY Revenue DESC",
+        "g_str": [
+            "SELECT name ,  headquarter ,  revenue FROM manufacturers ORDER BY revenue DESC",
+            "manufactory_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT Name FROM Manufacturers WHERE Revenue > (SELECT AVG(Revenue) FROM Manufacturers)",
+        "g_str": [
+            "SELECT name FROM manufacturers WHERE revenue  >  (SELECT avg(revenue) FROM manufacturers)",
+            "manufactory_1"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT Name FROM Manufacturers WHERE Revenue > (SELECT AVG(Revenue) FROM Manufacturers)",
+        "g_str": [
+            "SELECT name FROM manufacturers WHERE revenue  >  (SELECT avg(revenue) FROM manufacturers)",
+            "manufactory_1"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT Name FROM Products WHERE Price <= 200",
+        "g_str": [
+            "SELECT name FROM products WHERE price  <=  200",
+            "manufactory_1"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT problem_log_id FROM Problem_Log ORDER BY log_entry_date DESC LIMIT 1",
+        "g_str": [
+            "SELECT problem_log_id FROM problem_log ORDER BY log_entry_date DESC LIMIT 1",
+            "tracking_software_problems"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT problem_id, problem_log_id FROM Problem_Log WHERE assigned_to_staff_id = (SELECT staff_id FROM Staff WHERE staff_first_name = 'Rylan' AND staff_last_name = 'Homenick')",
+        "g_str": [
+            "SELECT DISTINCT T2.problem_id ,  T2.problem_log_id FROM staff AS T1 JOIN problem_log AS T2 ON T1.staff_id = T2.assigned_to_staff_id WHERE T1.staff_first_name = \"Rylan\" AND T1.staff_last_name = \"Homenick\"",
+            "tracking_software_problems"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM Problems WHERE product_id = (SELECT product_id FROM Product WHERE product_name = \"voluptatem\")",
+        "g_str": [
+            "SELECT count(*) FROM product AS T1 JOIN problems AS T2 ON T1.product_id = T2.product_id WHERE T1.product_name = \"voluptatem\"",
+            "tracking_software_problems"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT DISTINCT product_name FROM Product ORDER BY product_name ASC",
+        "g_str": [
+            "SELECT DISTINCT product_name FROM product ORDER BY product_name",
+            "tracking_software_problems"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT problem_id FROM Problems WHERE date_problem_reported > (SELECT date_problem_reported FROM Problems WHERE reported_by_staff_id = (SELECT staff_id FROM Staff WHERE staff_first_name = 'Rylan' AND staff_last_name = 'Homenick'))",
+        "g_str": [
+            "SELECT T1.problem_id FROM problems AS T1 JOIN staff AS T2 ON T1.reported_by_staff_id = T2.staff_id WHERE date_problem_reported  >  ( SELECT max(date_problem_reported) FROM problems AS T3 JOIN staff AS T4 ON T3.reported_by_staff_id = T4.staff_id WHERE T4.staff_first_name = \"Rylan\" AND T4.staff_last_name = \"Homenick\" )",
+            "tracking_software_problems"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT problem_id FROM Problems WHERE date_problem_reported > (SELECT date_problem_reported FROM Problems WHERE reported_by_staff_id = (SELECT staff_id FROM Staff WHERE staff_first_name = 'Rylan' AND staff_last_name = 'Homenick'))",
+        "g_str": [
+            "SELECT T1.problem_id FROM problems AS T1 JOIN staff AS T2 ON T1.reported_by_staff_id = T2.staff_id WHERE date_problem_reported  >  ( SELECT max(date_problem_reported) FROM problems AS T3 JOIN staff AS T4 ON T3.reported_by_staff_id = T4.staff_id WHERE T4.staff_first_name = \"Rylan\" AND T4.staff_last_name = \"Homenick\" )",
+            "tracking_software_problems"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT Name, City FROM branch LEFT JOIN membership_register_branch ON branch.Branch_ID = membership_register_branch.Branch_ID WHERE membership_register_branch.Member_ID IS NULL",
+        "g_str": [
+            "SELECT name ,  city FROM branch WHERE branch_id NOT IN (SELECT branch_id FROM membership_register_branch)",
+            "shop_membership"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT SUM(Total_pounds) FROM purchase WHERE Year = 2018 AND Branch_ID IN (SELECT Branch_ID FROM branch WHERE City = 'London')",
+        "g_str": [
+            "SELECT sum(total_pounds) FROM purchase AS T1 JOIN branch AS T2 ON T1.branch_id  =  T2.branch_id WHERE T2.city  =  'London' AND T1.year  =  2018",
+            "shop_membership"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT Fname FROM Student WHERE Age > 22",
+        "g_str": [
+            "SELECT Fname FROM STUDENT WHERE Age  >  22",
+            "voter_2"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT product_name FROM Products WHERE product_category_code = (SELECT product_category_code FROM Ref_Product_Categories WHERE product_category_description = 'Spices')",
+        "g_str": [
+            "SELECT product_name FROM products WHERE product_category_code  =  \"Spices\"",
+            "products_gen_characteristics"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT COUNT(DISTINCT characteristic_name) FROM Characteristics WHERE characteristic_id IN (SELECT characteristic_id FROM Product_Characteristics WHERE product_id = (SELECT product_id FROM Products WHERE product_name = 'cumin'))",
+        "g_str": [
+            "SELECT count(DISTINCT t3.characteristic_name) FROM products AS t1 JOIN product_characteristics AS t2 ON t1.product_id  =  t2.product_id JOIN CHARACTERISTICS AS t3 ON t2.characteristic_id  =  t3.characteristic_id WHERE t1.product_name  =  \"sesame\"",
+            "products_gen_characteristics"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT COUNT(DISTINCT product_id) FROM Product_Characteristics WHERE characteristic_id = (SELECT characteristic_id FROM Characteristics WHERE characteristic_name = 'hot')",
+        "g_str": [
+            "SELECT count(*) FROM products AS t1 JOIN product_characteristics AS t2 ON t1.product_id  =  t2.product_id JOIN CHARACTERISTICS AS t3 ON t2.characteristic_id  =  t3.characteristic_id WHERE t3.characteristic_name  =  \"hot\"",
+            "products_gen_characteristics"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT COUNT(DISTINCT Products.product_id) FROM Products LEFT JOIN Ref_Colors ON Products.color_code = Ref_Colors.color_code LEFT JOIN Product_Characteristics ON Products.product_id = Product_Characteristics.product_id LEFT JOIN Characteristics ON Product_Characteristics.characteristic_id = Characteristics.characteristic_id WHERE Ref_Colors.color_description = 'white' OR Characteristics.characteristic_name = 'hot'",
+        "g_str": [
+            "SELECT count(*) FROM products AS t1 JOIN product_characteristics AS t2 ON t1.product_id  =  t2.product_id JOIN CHARACTERISTICS AS t3 ON t2.characteristic_id  =  t3.characteristic_id JOIN ref_colors AS t4 ON t1.color_code  =  t4.color_code WHERE t4.color_description  =  \"white\" OR t3.characteristic_name  =  \"hot\"",
+            "products_gen_characteristics"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM Ref_Colors WHERE color_code NOT IN (SELECT DISTINCT color_code FROM Products)",
+        "g_str": [
+            "SELECT count(*) FROM Ref_colors WHERE color_code NOT IN ( SELECT color_code FROM products )",
+            "products_gen_characteristics"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT COUNT(DISTINCT city) FROM stadium WHERE opening_year < 2006",
+        "g_str": [
+            "SELECT count(DISTINCT city) FROM stadium WHERE opening_year  <  2006",
+            "swimming"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT MAX(Level) FROM manager WHERE Country != 'Australia'",
+        "g_str": [
+            "SELECT max(LEVEL) FROM manager WHERE Country != \"Australia\"",
+            "railway"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM Products WHERE product_price > (SELECT AVG(product_price) FROM Products)",
+        "g_str": [
+            "SELECT count(*) FROM products WHERE product_price  >  (SELECT avg(product_price) FROM products)",
+            "customers_and_products_contacts"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM Student WHERE Sex = 'F' AND Age < 25",
+        "g_str": [
+            "SELECT count(*) FROM student WHERE sex  =  'F' AND age  <  25",
+            "dorm_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM Student WHERE Sex = 'F' AND Age < 25",
+        "g_str": [
+            "SELECT count(*) FROM student WHERE sex  =  'F' AND age  <  25",
+            "dorm_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT dorm_name, gender FROM Dorm WHERE student_capacity > 300 OR student_capacity < 100",
+        "g_str": [
+            "SELECT dorm_name ,  gender FROM dorm WHERE student_capacity  >  300 OR student_capacity  <  100",
+            "dorm_1"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT DISTINCT amenity_name FROM Dorm_amenity ORDER BY amenity_name ASC",
+        "g_str": [
+            "SELECT amenity_name FROM dorm_amenity ORDER BY amenity_name",
+            "dorm_1"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT Fname, LName FROM Student WHERE Age < (SELECT AVG(Age) FROM Student)",
+        "g_str": [
+            "SELECT fname ,  lname FROM student WHERE age  <  (SELECT avg(age) FROM student)",
+            "dorm_1"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT Fname FROM Student WHERE StuID IN (SELECT stuid FROM Lives_in WHERE dormid = (SELECT dormid FROM Dorm WHERE dorm_name = 'Smith Hall'))",
+        "g_str": [
+            "SELECT T1.fname FROM student AS T1 JOIN lives_in AS T2 ON T1.stuid  =  T2.stuid JOIN dorm AS T3 ON T3.dormid  =  T2.dormid WHERE T3.dorm_name  =  'Smith Hall'",
+            "dorm_1"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT AVG(Age) FROM Student WHERE StuID IN (SELECT stuid FROM Lives_in WHERE dormid = (SELECT dormid FROM Dorm ORDER BY student_capacity DESC LIMIT 1))",
+        "g_str": [
+            "SELECT avg(T1.age) FROM student AS T1 JOIN lives_in AS T2 ON T1.stuid  =  T2.stuid JOIN dorm AS T3 ON T3.dormid  =  T2.dormid WHERE T3.student_capacity  =  (SELECT max(student_capacity) FROM dorm)",
+            "dorm_1"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT Student.Fname, Student.Age FROM Student JOIN Lives_in ON Student.StuID = Lives_in.stuid WHERE Lives_in.dormid NOT IN (SELECT dormid FROM Dorm_amenity JOIN Has_amenity ON Dorm_amenity.amenid = Has_amenity.amenid WHERE amenity_name = \"TV Lounge\")",
+        "g_str": [
+            "SELECT T1.fname ,  T1.age FROM student AS T1 JOIN lives_in AS T2 ON T1.stuid  =  T2.stuid WHERE T2.dormid NOT IN (SELECT T3.dormid FROM has_amenity AS T3 JOIN dorm_amenity AS T4 ON T3.amenid  =  T4.amenid WHERE T4.amenity_name  =  'TV Lounge')",
+            "dorm_1"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT product_price FROM Products WHERE product_id NOT IN (SELECT product_id FROM Complaints GROUP BY product_id HAVING COUNT(*) > 0)",
+        "g_str": [
+            "SELECT product_price FROM products WHERE product_id NOT IN (SELECT product_id FROM complaints)",
+            "customer_complaints"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT Author FROM submission WHERE Submission_ID NOT IN (SELECT Submission_ID FROM Acceptance)",
+        "g_str": [
+            "SELECT Author FROM submission WHERE Submission_ID NOT IN (SELECT Submission_ID FROM acceptance)",
+            "workshop_paper"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT MIN(amount_of_transaction) FROM Transactions WHERE transaction_type_code = \"PUR\" AND share_count > 50",
+        "g_str": [
+            "SELECT min(amount_of_transaction) FROM TRANSACTIONS WHERE transaction_type_code  =  \"PUR\" AND share_count  >  50",
+            "tracking_share_transactions"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT AVG(price_range) FROM Hotels WHERE star_rating_code = 5 AND pets_allowed_yn = 'Y'",
+        "g_str": [
+            "SELECT avg(price_range) FROM HOTELS WHERE star_rating_code  =  \"5\" AND pets_allowed_yn  =  1",
+            "cre_Theme_park"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT Tourist_Attractions.Name, Visits.Visit_Date FROM Tourist_Attractions JOIN Visits ON Tourist_Attractions.Tourist_Attraction_ID = Visits.Tourist_Attraction_ID JOIN Visitors ON Visits.Tourist_ID = Visitors.Tourist_ID WHERE Visitors.Tourist_Details IN ('Vincent', 'Vivian')",
+        "g_str": [
+            "SELECT T1.Name ,  T3.Visit_Date FROM Tourist_Attractions AS T1 JOIN VISITORS AS T2 JOIN VISITS AS T3 ON T1.Tourist_Attraction_ID  =  T3.Tourist_Attraction_ID AND T2.Tourist_ID  =  T3.Tourist_ID WHERE T2.Tourist_Details  =  \"Vincent\" OR T2.Tourist_Details  =  \"Vivian\"",
+            "cre_Theme_park"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM Visitors LEFT JOIN Visits ON Visitors.Tourist_ID = Visits.Tourist_ID WHERE Visits.Visit_ID IS NULL",
+        "g_str": [
+            "SELECT count(*) FROM Visitors WHERE Tourist_ID NOT IN ( SELECT Tourist_ID FROM Visits )",
+            "cre_Theme_park"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT GType FROM Video_Games WHERE GName = 'Call of Destiny'",
+        "g_str": [
+            "SELECT gtype FROM Video_games WHERE gname  =  \"Call of Destiny\"",
+            "game_1"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM Video_Games WHERE GType = 'Massively multiplayer online game'",
+        "g_str": [
+            "SELECT count(*) FROM Video_games WHERE gtype  =  \"Massively multiplayer online game\"",
+            "game_1"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT date_became_customer FROM Customers WHERE customer_id BETWEEN 10 AND 20",
+        "g_str": [
+            "SELECT date_became_customer FROM customers WHERE customer_id BETWEEN 10 AND 20",
+            "customers_and_addresses"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT COUNT(DISTINCT product_id) FROM Products WHERE product_id IN (SELECT product_id FROM Order_Items WHERE order_id IN (SELECT order_id FROM Customer_Orders WHERE customer_id = (SELECT customer_id FROM Customers WHERE customer_name = 'Rodrick Heaney')))",
+        "g_str": [
+            "SELECT count(DISTINCT t3.product_id) FROM customers AS t1 JOIN customer_orders AS t2 ON t1.customer_id  =  t2.customer_id JOIN order_items AS t3 ON t2.order_id  =  t3.order_id WHERE t1.customer_name  =  \"Rodrick Heaney\"",
+            "customers_and_addresses"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT COUNT(DISTINCT customer_id) FROM Customer_Orders WHERE order_status = \"Cancelled\"",
+        "g_str": [
+            "SELECT count(DISTINCT customer_id) FROM customer_orders WHERE order_status  =  \"Cancelled\"",
+            "customers_and_addresses"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT customer_name FROM Customers WHERE payment_method != 'Cash'",
+        "g_str": [
+            "SELECT customer_name FROM customers WHERE payment_method != 'Cash'",
+            "customers_and_addresses"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT status FROM roller_coaster WHERE length > 3300 OR height > 100",
+        "g_str": [
+            "SELECT Status FROM roller_coaster WHERE LENGTH  >  3300 OR Height  >  100",
+            "roller_coaster"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT Name, Class FROM Ship WHERE Ship_ID NOT IN (SELECT Ship_ID FROM captain)",
+        "g_str": [
+            "SELECT name ,  CLASS FROM ship WHERE ship_id NOT IN (SELECT ship_id FROM captain)",
+            "ship_1"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT Name, Class FROM Ship WHERE Ship_ID NOT IN (SELECT Ship_ID FROM captain)",
+        "g_str": [
+            "SELECT name ,  CLASS FROM ship WHERE ship_id NOT IN (SELECT ship_id FROM captain)",
+            "ship_1"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT COUNT(DISTINCT town_city) FROM Addresses WHERE state_province_county = 'Colorado'",
+        "g_str": [
+            "SELECT count(*) FROM addresses WHERE state_province_county  =  \"Colorado\"",
+            "e_government"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT organization_name FROM Organizations WHERE organization_name LIKE '%Party%'",
+        "g_str": [
+            "SELECT organization_name FROM organizations WHERE organization_name LIKE \"%Party%\"",
+            "e_government"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT Party FROM driver WHERE Home_city = 'Hartford' AND Age > 40",
+        "g_str": [
+            "SELECT party FROM driver WHERE home_city  =  'Hartford' AND age  >  40",
+            "school_bus"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT Name FROM driver WHERE Driver_ID NOT IN (SELECT Driver_ID FROM school_bus)",
+        "g_str": [
+            "SELECT name FROM driver WHERE driver_id NOT IN (SELECT driver_id FROM school_bus)",
+            "school_bus"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT school.School, school.Type FROM school LEFT JOIN school_bus ON school.School_ID = school_bus.School_ID WHERE school_bus.School_ID IS NULL",
+        "g_str": [
+            "SELECT school ,  TYPE FROM school WHERE school_id NOT IN (SELECT school_id FROM school_bus)",
+            "school_bus"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT Scientists.SSN, Scientists.Name FROM AssignedTo JOIN Scientists ON AssignedTo.Scientist = Scientists.SSN WHERE AssignedTo.Project = (SELECT Code FROM Projects ORDER BY Hours DESC LIMIT 1)",
+        "g_str": [
+            "SELECT T3.ssn ,  T3.name FROM assignedto AS T1 JOIN projects AS T2 ON T1.project  =  T2.code JOIN scientists AS T3 ON T1.scientist  =  T3.SSN WHERE T2.hours  =  (SELECT max(hours) FROM projects)",
+            "scientist_1"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT Name FROM Projects WHERE Code NOT IN (SELECT Project FROM AssignedTo)",
+        "g_str": [
+            "SELECT Name FROM Projects WHERE Code NOT IN (SELECT Project FROM AssignedTo)",
+            "scientist_1"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT Name FROM Scientists LEFT JOIN AssignedTo ON Scientists.SSN = AssignedTo.Scientist WHERE AssignedTo.Project IS NULL",
+        "g_str": [
+            "SELECT Name FROM scientists WHERE ssn NOT IN (SELECT scientist FROM AssignedTo)",
+            "scientist_1"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM Scientists LEFT JOIN AssignedTo ON Scientists.SSN = AssignedTo.Scientist WHERE AssignedTo.Project IS NULL",
+        "g_str": [
+            "SELECT count(*) FROM scientists WHERE ssn NOT IN (SELECT scientist FROM AssignedTo)",
+            "scientist_1"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT DISTINCT Name FROM wine WHERE Year < 2000 OR Year > 2010",
+        "g_str": [
+            "SELECT DISTINCT Name FROM WINE WHERE YEAR  <  2000 OR YEAR  >  2010",
+            "wine_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT AVG(Price), AVG(Cases) FROM wine WHERE Year = 2009 AND Grape = 'Zinfandel'",
+        "g_str": [
+            "SELECT AVG(Price) ,  AVG(Cases) FROM WINE WHERE YEAR  =  2009 AND Grape  =  \"Zinfandel\"",
+            "wine_1"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT AVG(Price), SUM(Cases) FROM wine WHERE Grape = 'Zinfandel' AND Year = 2009",
+        "g_str": [
+            "SELECT AVG(Price) ,  AVG(Cases) FROM WINE WHERE YEAR  =  2009 AND Grape  =  \"Zinfandel\"",
+            "wine_1"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT Name FROM wine WHERE Year < (SELECT MIN(Year) FROM wine WHERE Winery = 'Brander')",
+        "g_str": [
+            "SELECT Name FROM WINE WHERE YEAR  <  (SELECT min(YEAR) FROM WINE WHERE Winery  =  \"Brander\")",
+            "wine_1"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT AVG(Price) FROM wine WHERE Appelation NOT IN (SELECT Appelation FROM appellations WHERE County = 'Sonoma')",
+        "g_str": [
+            "SELECT avg(price) FROM wine WHERE Appelation NOT IN (SELECT T1.Appelation FROM APPELLATIONS AS T1 JOIN WINE AS T2 ON T1.Appelation  =  T2.Appelation WHERE T1.County  =  'Sonoma')",
+            "wine_1"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT AVG(Price) FROM wine WHERE Appelation NOT IN (SELECT Appelation FROM appellations WHERE County = 'Sonoma')",
+        "g_str": [
+            "SELECT avg(price) FROM wine WHERE Appelation NOT IN (SELECT T1.Appelation FROM APPELLATIONS AS T1 JOIN WINE AS T2 ON T1.Appelation  =  T2.Appelation WHERE T1.County  =  'Sonoma')",
+            "wine_1"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT Name FROM train WHERE Train_ID NOT IN (SELECT Train_ID FROM train_station WHERE Station_ID IN (SELECT Station_ID FROM station WHERE Location = 'London'))",
+        "g_str": [
+            "SELECT T2.name FROM train_station AS T1 JOIN train AS T2 ON T1.train_id  =  T2.train_id WHERE T1.station_id NOT IN (SELECT T4.station_id FROM train_station AS T3 JOIN station AS T4 ON T3.station_id  =  T4.station_id WHERE t4.location  =  \"London\")",
+            "train_station"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT date_joined_staff FROM Staff WHERE first_name = 'Janessa' AND last_name = 'Sawayn'",
+        "g_str": [
+            "SELECT date_joined_staff FROM Staff WHERE first_name = \"Janessa\" AND last_name = \"Sawayn\";",
+            "driving_school"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM Lessons WHERE customer_id = (SELECT customer_id FROM Customers WHERE first_name = 'Rylan' AND last_name = 'Goodwin') AND lesson_status_code = 'completed'",
+        "g_str": [
+            "SELECT count(*) FROM Lessons AS T1 JOIN Customers AS T2 ON T1.customer_id  = T2.customer_id WHERE T2.first_name = \"Rylan\" AND T2.last_name = \"Goodwin\" AND T1.lesson_status_code = \"Completed\";",
+            "driving_school"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM Lessons WHERE lesson_status_code = 'cancelled'",
+        "g_str": [
+            "SELECT count(*) FROM Lessons WHERE lesson_status_code = \"Cancelled\";",
+            "driving_school"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT SUM(lesson_time) FROM Lessons WHERE staff_id = (SELECT staff_id FROM Staff WHERE first_name = 'Janessa' AND last_name = 'Sawayn')",
+        "g_str": [
+            "SELECT sum(lesson_time) FROM Lessons AS T1 JOIN Staff AS T2 ON T1.staff_id = T2.staff_id WHERE T2.first_name = \"Janessa\" AND T2.last_name = \"Sawayn\";",
+            "driving_school"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM Lessons WHERE customer_id = (SELECT customer_id FROM Customers WHERE first_name = 'Ray')",
+        "g_str": [
+            "SELECT count(*) FROM Lessons AS T1 JOIN Customers AS T2 ON T1.customer_id  = T2.customer_id WHERE T2.first_name = \"Ray\"",
+            "driving_school"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM Faculty WHERE Sex = 'Female' AND Rank = 'Professor'",
+        "g_str": [
+            "SELECT count(*) FROM Faculty WHERE Sex  =  'F' AND Rank  =  \"Professor\"",
+            "activity_1"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT Fname, Lname FROM Faculty WHERE FacID = (SELECT Advisor FROM Student WHERE LName = 'Smith' AND Fname = 'Linda')",
+        "g_str": [
+            "SELECT T1.fname ,  T1.lname FROM Faculty AS T1 JOIN Student AS T2 ON T1.FacID  =  T2.advisor WHERE T2.fname  =  \"Linda\" AND T2.lname  =  \"Smith\"",
+            "activity_1"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM airlines WHERE country = 'Russia'",
+        "g_str": [
+            "SELECT count(*) FROM airlines WHERE country  =  'Russia'",
+            "flight_4"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM airports WHERE name LIKE '%Interanation%'",
+        "g_str": [
+            "SELECT count(*) FROM airports WHERE name LIKE '%International%'",
+            "flight_4"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT COUNT(DISTINCT city) FROM airports WHERE country = 'Greenland'",
+        "g_str": [
+            "SELECT count(DISTINCT city) FROM airports WHERE country  =  'Greenland'",
+            "flight_4"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM routes WHERE dst_apid = (SELECT apid FROM airports WHERE name = 'John F Kennedy International Airport')",
+        "g_str": [
+            "SELECT count(*) FROM airports AS T1 JOIN routes AS T2 ON T1.apid  =  T2.dst_apid WHERE T1.name  =  'John F Kennedy International Airport'",
+            "flight_4"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM routes WHERE src_apid IN (SELECT apid FROM airports WHERE country = 'United States') AND dst_apid IN (SELECT apid FROM airports WHERE country = 'Canada')",
+        "g_str": [
+            "SELECT count(*) FROM routes WHERE dst_apid IN (SELECT apid FROM airports WHERE country  =  'Canada') AND src_apid IN (SELECT apid FROM airports WHERE country  =  'United States')",
+            "flight_4"
+        ],
+        "hardness": "extra"
+    },
+    {
+        "p_str": "SELECT order_id, order_status FROM Orders WHERE customer_id = (SELECT customer_id FROM Customers WHERE customer_name = \"Jeramie\")",
+        "g_str": [
+            "SELECT T2.order_id ,  T2.order_status FROM customers AS T1 JOIN orders AS T2 ON T1.customer_id = T2.customer_id WHERE T1.customer_name = \"Jeramie\"",
+            "tracking_orders"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT date_order_placed FROM Orders WHERE customer_id = (SELECT customer_id FROM Customers WHERE customer_name = \"Jeramie\")",
+        "g_str": [
+            "SELECT T2.date_order_placed FROM customers AS T1 JOIN orders AS T2 ON T1.customer_id = T2.customer_id WHERE T1.customer_name = \"Jeramie\"",
+            "tracking_orders"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT customer_name FROM Customers JOIN Orders ON Customers.customer_id = Orders.customer_id WHERE date_order_placed >= '2009-01-01' AND date_order_placed <= '2010-01-01'",
+        "g_str": [
+            "SELECT T1.customer_name FROM customers AS T1 JOIN orders AS T2 ON T1.customer_id = T2.customer_id WHERE T2.date_order_placed >= \"2009-01-01\" AND T2.date_order_placed <= \"2010-01-01\"",
+            "tracking_orders"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT DISTINCT product_id FROM Order_Items WHERE order_id IN (SELECT order_id FROM Orders WHERE date_order_placed >= '1975-01-01' AND date_order_placed <= '1976-01-01')",
+        "g_str": [
+            "SELECT DISTINCT T2.product_id FROM orders AS T1 JOIN order_items AS T2 ON T1.order_id = T2.order_id WHERE T1.date_order_placed >= \"1975-01-01\" AND T1.date_order_placed <= \"1976-01-01\"",
+            "tracking_orders"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT order_id FROM Orders WHERE order_id IN (SELECT order_id FROM Shipments WHERE shipment_date > '2000-01-01')",
+        "g_str": [
+            "SELECT order_id FROM shipments WHERE shipment_date > \"2000-01-01\"",
+            "tracking_orders"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT COUNT(*) FROM architect WHERE gender = 'female'",
+        "g_str": [
+            "SELECT count(*) FROM architect WHERE gender  =  'female'",
+            "architecture"
+        ],
+        "hardness": "easy"
+    },
+    {
+        "p_str": "SELECT name, built_year FROM mill WHERE type = 'Grondzeiler'",
+        "g_str": [
+            "SELECT name ,  built_year FROM mill WHERE TYPE  =  'Grondzeiler'",
+            "architecture"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT location FROM bridge WHERE name = 'Kolob Arch' OR name = 'Rainbow Bridge'",
+        "g_str": [
+            "SELECT LOCATION FROM bridge WHERE name  =  'Kolob Arch' OR name  =  'Rainbow Bridge'",
+            "architecture"
+        ],
+        "hardness": "medium"
+    },
+    {
+        "p_str": "SELECT DISTINCT name FROM mill WHERE architect_id IN (SELECT architect_id FROM bridge WHERE length_meters > 80)",
+        "g_str": [
+            "SELECT DISTINCT T1.name FROM mill AS T1 JOIN architect AS t2 ON T1.architect_id  =  T2.id JOIN bridge AS T3 ON T3.architect_id  =  T2.id WHERE T3.length_meters  >  80",
+            "architecture"
+        ],
+        "hardness": "hard"
+    },
+    {
+        "p_str": "SELECT AVG(budget_million), MAX(budget_million), MIN(budget_million) FROM movie WHERE year < 2000",
+        "g_str": [
+            "SELECT avg(budget_million) ,  max(budget_million) ,  min(budget_million) FROM movie WHERE YEAR  <  2000",
+            "culture_company"
+        ],
+        "hardness": "medium"
+    }
+]

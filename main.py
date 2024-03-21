@@ -9,6 +9,7 @@ from tqdm import tqdm
 
 from complex import complex_prompt, complex_search_prompt
 from combination import combination_prompt, combination_search_prompt
+from filter import filter_prompt, filter_search_prompt
 
 from matching import auto_prompting
 
@@ -181,24 +182,20 @@ Let's think step by step."""
 
 shot_prompt = """## Tables:
 {}
-
 ## Foreign_keys:
 {}
-
 ## Query:
 {}
 
 Let's think step by step.
 
-{}
-"""
+{}SQL query:
+{}"""
 
 single_prompt = """## Tables:
 {}
-
 ## Foreign_keys:
 {}
-
 ## Query:
 {}
 """
@@ -210,8 +207,8 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 openai.api_base = "https://api.chatanywhere.com.cn/v1"
 OPENAI_MODEL = 'gpt-3.5-turbo'
 
-search_prompt = combination_search_prompt
-type_prompt = combination_prompt
+search_prompt = filter_search_prompt
+type_prompt = filter_prompt
 
 def GPT_generation(prompt):
   response = openai.ChatCompletion.create(
@@ -232,7 +229,7 @@ def generate_single_prompt(x):
     foreign_keys = x['foreign_keys']
     foreign_keys = foreign_keys[foreign_keys.find('Foreign_keys = ') + len('Foreign_keys = ') : ]
     if 'fields' in x:
-      return shot_prompt.format(x['fields'], foreign_keys, x['question'], x['reasoning'])
+      return shot_prompt.format(x['fields'], foreign_keys, x['question'], x['reasoning'], x['predict'])
     return single_prompt.format(x['tables'], foreign_keys, x['question'])
 
 def question_to_item(x, data):
@@ -242,12 +239,13 @@ def question_to_item(x, data):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--test-data", default='./classification/combination/combination.json', type=str)
-    parser.add_argument("--train-data", default='./data/train/combination/true_samples.json', type=str)
+    parser.add_argument("--test-data", default='./classification/filter/filter.json', type=str)
+    parser.add_argument("--train-data", default='./data/train/filter/true_samples.json', type=str)
     args = parser.parse_args()
 
 
-    output_dir = os.path.join(os.path.dirname(args.test_data), 'general_6shot')
+    output_dir = os.path.join(os.path.dirname(args.test_data), 'auto_select')
+    # output_dir = os.path.dirname(args.test_data)
     if not os.path.exists(output_dir):
        os.makedirs(output_dir)
     test_data = json.load(open(args.test_data, 'r'))
@@ -258,47 +256,48 @@ if __name__ == "__main__":
        new_data = json.load(open(output_file, 'r'))
        test_data = test_data[len(new_data)]
 
-    for x in tqdm(test_data):
-        foreign_keys = x['foreign_keys']
-        foreign_keys = foreign_keys[foreign_keys.find('Foreign_keys = ') + len('Foreign_keys = ') : ]
-        query = freeze_prompt.format(x['tables'], foreign_keys, x['question'])
-        response = None
-        while response is None:
-            try:
-                response = GPT_generation(query)
-            except:
-                json.dump(new_data, open(output_file, 'w'))
-                time.sleep(2)
-        sql = response.rfind('SQL query: ')
-        ans = response[sql + len('SQL query: ') :]
-        reason = response[:sql]
-        x.update({'reasoning' : reason, 'predict' : ans})
-        new_data.append(x)
-    json.dump(new_data, open(output_file, 'w'))
+    ## fixed
+    # for x in tqdm(test_data):
+    #     foreign_keys = x['foreign_keys']
+    #     foreign_keys = foreign_keys[foreign_keys.find('Foreign_keys = ') + len('Foreign_keys = ') : ]
+    #     query = filter_prompt.format(x['fields'], foreign_keys, x['question'])
+    #     response = None
+    #     while response is None:
+    #         try:
+    #             response = GPT_generation(query)
+    #         except:
+    #             json.dump(new_data, open(output_file, 'w'))
+    #             time.sleep(2)
+    #     sql = response.rfind('SQL query: ')
+    #     ans = response[sql + len('SQL query: ') :]
+    #     reason = response[:sql]
+    #     x.update({'reasoning' : reason, 'predict' : ans})
+    #     new_data.append(x)
+    # json.dump(new_data, open(output_file, 'w'))
        
     ## automation   
-    # matching_list = auto_prompting(test_data, train_data, shots=6)
-    # for i, (k, v) in tqdm(enumerate(matching_list.items())):
-    #   test_sample = generate_single_prompt(question_to_item(k, test_data))
-    #   train_samples = [generate_single_prompt(question_to_item(v[i], train_data)) for i in range(len(v))]
-    #   # final_prompt = search_prompt.format(train_samples[0], train_samples[1], train_samples[2], train_samples[3], test_sample)
-    #   final_prompt = search_prompt.format(train_samples[0], train_samples[1], train_samples[2], train_samples[3], test_sample)
-    #   response = None
-    #   while response is None:
-    #     try:
-    #         response = GPT_generation(final_prompt)
-    #     except openai.error.InvalidRequestError:
-    #         temp = question_to_item(k, test_data)
-    #         foreign_keys = temp['foreign_keys']
-    #         response = None
-    #         foreign_keys = foreign_keys[foreign_keys.find('Foreign_keys = ') + len('Foreign_keys = ') : ]
-    #         final_prompt = type_prompt.format(temp['tables'], foreign_keys, temp['question'])
-    #     except:
-    #         json.dump(new_data, open(output_file, 'w'))
-    #   sql = response.rfind('SQL query: \n')
-    #   ans = response[sql + len('SQL query: \n') :]
-    #   reason = response[:sql]
-    #   temp = test_data[i]
-    #   temp.update({'reasoning' : reason, 'predict' : ans})
-    #   new_data.append(temp)
-    # json.dump(new_data, open(output_file, 'w'))
+    matching_list = auto_prompting(test_data, train_data, shots=6)
+    for i, (k, v) in tqdm(enumerate(matching_list.items())):
+      test_sample = generate_single_prompt(question_to_item(k, test_data))
+      train_samples = [generate_single_prompt(question_to_item(v[i], train_data)) for i in range(len(v))]
+      # final_prompt = search_prompt.format(train_samples[0], train_samples[1], train_samples[2], train_samples[3], test_sample)
+      final_prompt = search_prompt.format(train_samples[0], train_samples[1], train_samples[2], train_samples[3], test_sample)
+      response = None
+      while response is None:
+        try:
+            response = GPT_generation(final_prompt)
+        except openai.error.InvalidRequestError:
+            temp = question_to_item(k, test_data)
+            foreign_keys = temp['foreign_keys']
+            response = None
+            foreign_keys = foreign_keys[foreign_keys.find('Foreign_keys = ') + len('Foreign_keys = ') : ]
+            final_prompt = type_prompt.format(temp['tables'], foreign_keys, temp['question'])
+        except:
+            json.dump(new_data, open(output_file, 'w'))
+      sql = response.rfind('SQL query:\n')
+      ans = response[sql + len('SQL query:\n') :]
+      reason = response[:sql]
+      temp = test_data[i]
+      temp.update({'reasoning' : reason, 'predict' : ans})
+      new_data.append(temp)
+    json.dump(new_data, open(output_file, 'w'))

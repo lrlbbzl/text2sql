@@ -1,0 +1,491 @@
+SELECT COUNT(*) FROM department WHERE Department_ID NOT IN (SELECT department_ID FROM management)
+SELECT Hosts FROM farm_competition WHERE Theme != 'Aliens'
+SELECT student_id FROM Students LEFT JOIN Student_Course_Registrations ON Students.student_id = Student_Course_Registrations.student_id LEFT JOIN Student_Course_Attendance ON Student_Course_Registrations.student_id = Student_Course_Attendance.student_id WHERE Student_Course_Attendance.student_id IS NULL
+SELECT student_id FROM Students WHERE student_id NOT IN (SELECT student_id FROM Student_Course_Attendance)
+SELECT COUNT(DISTINCT student_id) FROM Student_Course_Attendance WHERE course_id = (SELECT course_id FROM Courses WHERE course_name = 'English')
+SELECT COUNT(*) FROM Student_Course_Attendance WHERE student_id = 171
+SELECT COUNT(*) FROM Student_Course_Attendance WHERE student_id = 171 AND course_id IN (SELECT course_id FROM Student_Course_Registrations WHERE student_id = 171)
+SELECT candidate_id FROM Candidate_Assessments WHERE assessment_outcome_code = 'Pass'
+SELECT * FROM Students WHERE student_id IN (SELECT student_id FROM Student_Course_Registrations) AND student_id NOT IN (SELECT student_id FROM Student_Course_Attendance)
+SELECT name FROM station WHERE lat < 37.5
+SELECT COUNT(*) FROM station WHERE city = 'Mountain View'
+SELECT COUNT(*) FROM weather WHERE mean_humidity > 50 AND mean_visibility_miles > 8
+SELECT station.lat, station.long, station.city FROM trip JOIN station ON trip.start_station_id = station.id WHERE trip.duration = (SELECT MIN(duration) FROM trip)
+SELECT AVG(bikes_available) FROM status WHERE station_id NOT IN (SELECT id FROM station WHERE city = 'Palo Alto')
+SELECT AVG(bikes_available) FROM status WHERE station_id NOT IN (SELECT id FROM station WHERE city = 'Palo Alto')
+SELECT COUNT(*) FROM trip WHERE end_station_id NOT IN (SELECT id FROM station WHERE city = 'San Francisco')
+SELECT DISTINCT start_station_id FROM trip WHERE duration < 100
+SELECT id, name FROM station JOIN status ON station.id = status.station_id WHERE status.bikes_available > 12
+SELECT Title FROM book WHERE Writer != 'Elaine Lee'
+SELECT Title FROM book WHERE Book_ID NOT IN (SELECT Book_ID FROM publication)
+SELECT Name FROM actor WHERE age != 20
+SELECT DISTINCT Nominee FROM musical WHERE Award != 'Tony Award'
+SELECT Name FROM musical WHERE Musical_ID NOT IN (SELECT Musical_ID FROM actor)
+SELECT name, email FROM user_profiles WHERE followers > 1000
+SELECT catalog_name, date_of_publication FROM Catalogs WHERE catalog_level_number > 5
+SELECT attribute_name, attribute_id FROM Attribute_Definitions WHERE attribute_value = 0
+SELECT aid FROM aircraft WHERE distance > 1000
+SELECT COUNT(*) FROM employee WHERE salary BETWEEN 100000 AND 200000
+SELECT name FROM employee WHERE salary > (SELECT AVG(salary) FROM employee)
+SELECT departure_date, arrival_date FROM flight WHERE origin = 'Los Angeles' AND destination = 'Honolulu'
+SELECT departure_date, arrival_date FROM flight WHERE origin = 'LA' AND destination = 'Honolulu'
+SELECT flno FROM flight WHERE distance > 2000
+SELECT COUNT(*) FROM Has_Allergy WHERE Allergy IN (SELECT Allergy FROM Allergy_Type WHERE AllergyType = 'animal')
+SELECT COUNT(*) FROM Student WHERE Age = 18
+SELECT StuID FROM Student WHERE Age > 20
+SELECT COUNT(*) FROM Student WHERE city_code = 'HKG' OR city_code = 'CHI'
+SELECT COUNT(*) FROM Has_Allergy WHERE Allergy = 'cat'
+SELECT count(*) FROM has_allergy AS T1 JOIN Student AS T2 ON T1.StuID  =  T2.StuID WHERE T2.sex = 'F' AND (T1.allergy = 'Milk' OR T1.allergy = 'Eggs')
+SELECT COUNT(*) FROM Student AS T1 JOIN Has_Allergy AS T2 ON T1.StuID = T2.StuID WHERE T1.Sex = 'female' AND (T2.Allergy = 'milk' OR T2.Allergy = 'eggs')
+SELECT COUNT(DISTINCT StuID) FROM Has_Allergy WHERE Allergy IN (SELECT Allergy FROM Allergy_Type WHERE AllergyType = 'Food')
+SELECT COUNT(*) FROM Student WHERE StuID IN (SELECT StuID FROM Has_Allergy WHERE AllergyType = 'Food')
+SELECT Fname, LName FROM Student WHERE StuID NOT IN (SELECT StuID FROM Has_Allergy WHERE AllergyType = 'Food')
+SELECT Fname, LName FROM Student WHERE NOT EXISTS (SELECT * FROM Has_Allergy WHERE Has_Allergy.StuID = Student.StuID)
+SELECT COUNT(*) FROM student AS T1 JOIN has_allergy AS T2 ON T1.StuID = T2.StuID WHERE T1.sex = 'M'
+SELECT COUNT(*) FROM Student WHERE Age > 18 AND StuID NOT IN (SELECT StuID FROM Has_Allergy WHERE AllergyType = 'food' OR AllergyType = 'animal')
+SELECT COUNT(*) FROM Student WHERE Age > 18 AND StuID NOT IN (SELECT StuID FROM Has_Allergy WHERE AllergyType = 'food type' OR AllergyType = 'animal type')
+SELECT Fname, Major FROM Student WHERE StuID IN (SELECT StuID FROM Has_Allergy WHERE Allergy = 'soy')
+SELECT first_name, last_name FROM customers JOIN invoices ON customers.id = invoices.customer_id ORDER BY invoice_date DESC LIMIT 5
+SELECT COUNT(*) FROM albums WHERE artist_id = (SELECT id FROM artists WHERE name = 'Billy Cobam')
+SELECT email, phone FROM customers WHERE first_name = 'Astrid' AND last_name = 'Gruber'
+SELECT email, phone FROM customers WHERE first_name = 'Astrid' AND last_name = 'Gruber'
+SELECT COUNT(*) FROM customers WHERE city = 'Prague'
+SELECT COUNT(*) FROM customers WHERE state = 'CA'
+SELECT COUNT(*) FROM customers WHERE state = 'California'
+SELECT country FROM customers WHERE first_name = 'Roberto' AND last_name = 'Almeida'
+SELECT COUNT(*) FROM customers WHERE support_rep_id = (SELECT id FROM employees WHERE first_name = 'Steve' AND last_name = 'Johnson')
+SELECT first_name || ' ' || last_name AS full_name FROM employees WHERE reports_to = (SELECT id FROM employees WHERE first_name = 'Nancy' AND last_name = 'Edwards')
+SELECT address FROM employees WHERE first_name = 'Nancy' AND last_name = 'Edwards'
+SELECT phone FROM employees WHERE first_name = 'Nancy' AND last_name = 'Edwards'
+SELECT COUNT(*) FROM invoices WHERE customer_id = (SELECT id FROM customers WHERE first_name = 'Luca' AND last_name = 'Mancini')
+SELECT title FROM albums WHERE id = (SELECT album_id FROM tracks WHERE name = 'Balls to the Wall')
+SELECT Name FROM editor WHERE Editor_ID NOT IN (SELECT Editor_ID FROM journal_committee)
+SELECT COUNT(*) FROM Customers LEFT JOIN Accounts ON Customers.customer_id = Accounts.customer_id WHERE Accounts.account_id IS NULL
+SELECT COUNT(*) FROM Customers WHERE customer_id NOT IN (SELECT customer_id FROM Accounts)
+SELECT customer_phone, customer_email FROM Customers WHERE customer_first_name = 'Aniyah' AND customer_last_name = 'Feest'
+SELECT customer_phone, customer_email FROM Customers WHERE customer_first_name = 'Aniyah' AND customer_last_name = 'Feest'
+SELECT COUNT(*) FROM Customers_Cards WHERE customer_id = (SELECT customer_id FROM Customers WHERE customer_first_name = 'Art' AND customer_last_name = 'Turcotte')
+SELECT COUNT(*) FROM Customers_Cards WHERE card_type_code = 'debit'
+SELECT Name, Seating FROM track WHERE Year_Opened > 2000 ORDER BY Seating
+SELECT Name FROM track WHERE Track_ID NOT IN (SELECT Track_ID FROM race)
+SELECT Name FROM track WHERE Track_ID NOT IN (SELECT Track_ID FROM race)
+SELECT Year_Opened FROM track WHERE Seating >= 5000 AND Seating <= 4000
+SELECT Shop_ID, Address FROM shop WHERE Score < (SELECT AVG(Score) FROM shop)
+SELECT Address, Num_of_staff FROM shop WHERE Shop_ID NOT IN (SELECT Shop_ID FROM happy_hour)
+SELECT COUNT(*) FROM Album WHERE ArtistId = (SELECT ArtistId FROM Artist WHERE Name = "Metallica")
+SELECT COUNT(*) FROM track WHERE MediaTypeId = (SELECT MediaTypeId FROM mediatype WHERE Name = 'AAC audio file')
+SELECT COUNT(*) FROM Artist LEFT JOIN Album ON Artist.ArtistId = Album.ArtistId WHERE Album.AlbumId IS NULL
+SELECT COUNT(*) FROM Customers_Policies WHERE Customer_ID = (SELECT Customer_ID FROM Customers WHERE Customer_name = "Dayana Robel")
+SELECT enzyme.name FROM medicine_enzyme_interaction JOIN enzyme ON medicine_enzyme_interaction.enzyme_id = enzyme.id WHERE medicine_enzyme_interaction.medicine_id = (SELECT id FROM medicine WHERE name = 'Amisulpride') AND medicine_enzyme_interaction.interaction_type = 'inhibitor'
+SELECT interaction_type FROM medicine_enzyme_interaction WHERE enzyme_id = (SELECT id FROM enzyme WHERE name = 'ALA synthase') AND medicine_id = (SELECT id FROM medicine WHERE name = 'Aripiprazole')
+SELECT COUNT(*) FROM enzyme WHERE id NOT IN (SELECT enzyme_id FROM medicine_enzyme_interaction)
+SELECT Founded FROM university WHERE Affiliation != 'public' ORDER BY Founded DESC LIMIT 1
+SELECT COUNT(*) FROM university LEFT JOIN basketball_match ON university.School_ID = basketball_match.School_ID WHERE basketball_match.School_ID IS NULL
+SELECT COUNT(*) FROM university WHERE School_ID NOT IN (SELECT School_ID FROM basketball_match)
+SELECT * FROM university WHERE Founded > 1850 OR Affiliation = 'public'
+SELECT COUNT(DISTINCT Location) FROM university WHERE Location LIKE '%NY%'
+SELECT COUNT(DISTINCT Hardware_Model_name) FROM phone WHERE Company_name = 'Nokia Corporation'
+SELECT AVG(RAM_MiB) FROM chip_model WHERE NOT EXISTS (SELECT * FROM phone WHERE phone.chip_model = chip_model.Model_name)
+SELECT Name FROM team LEFT JOIN match_season ON team.Team_id = match_season.Team WHERE Season IS NULL
+SELECT Name FROM team LEFT JOIN match_season ON team.Team_id = match_season.Team WHERE match_season.Team IS NULL
+SELECT Name FROM mountain WHERE NOT EXISTS (SELECT * FROM climber WHERE climber.Mountain_ID = mountain.Mountain_ID)
+SELECT Name FROM mountain WHERE Height > 5000 OR Prominence > 1000
+SELECT people.Name FROM body_builder JOIN people ON body_builder.People_ID = people.People_ID WHERE body_builder.Total > 300
+SELECT COUNT(*) FROM people WHERE People_ID NOT IN (SELECT People_ID FROM body_builder)
+SELECT Name FROM representative WHERE Representative_ID IN (SELECT Representative_ID FROM election WHERE Votes > 10000)
+SELECT COUNT(*) FROM Apartments LEFT JOIN Apartment_Facilities ON Apartments.apt_id = Apartment_Facilities.apt_id WHERE facility_code IS NULL
+SELECT COUNT(*) FROM Apartments LEFT JOIN Apartment_Facilities ON Apartments.apt_id = Apartment_Facilities.apt_id WHERE facility_code IS NULL
+SELECT COUNT(*) FROM game WHERE Season > 2007
+SELECT Player, Number_of_matches, Source FROM injury_accident JOIN game ON injury_accident.game_id = game.id WHERE Injury != 'Knee problem'
+SELECT COUNT(DISTINCT Injury) FROM injury_accident AS T1 JOIN game AS T2 ON T1.game_id = T2.id WHERE T2.Season > 2010
+SELECT player_name FROM Player WHERE player_api_id IN (SELECT player_api_id FROM Player_Attributes WHERE crossing > 90 AND preferred_foot = 'right')
+SELECT Name FROM member WHERE Member_ID NOT IN (SELECT Member_ID FROM member_attendance)
+SELECT COUNT(*) FROM classroom WHERE building != 'Lamberton'
+SELECT COUNT(*) FROM classroom WHERE building != 'Lamberton'
+SELECT COUNT(*) FROM course WHERE course_id NOT IN (SELECT prereq_id FROM prereq)
+SELECT COUNT(*) FROM course WHERE course_id NOT IN (SELECT prereq_id FROM prereq)
+SELECT title FROM course WHERE course_id NOT IN (SELECT prereq_id FROM prereq)
+SELECT ID FROM instructor WHERE ID IN (SELECT i_ID FROM advisor WHERE s_ID IN (SELECT ID FROM student WHERE dept_name = 'History') GROUP BY i_ID HAVING COUNT(DISTINCT s_ID) = (SELECT COUNT(*) FROM student WHERE dept_name = 'History'))
+SELECT i_ID FROM advisor WHERE s_ID IN (SELECT ID FROM student WHERE dept_name = 'History')
+SELECT title FROM course WHERE course_id NOT IN (SELECT prereq_id FROM prereq)
+SELECT title FROM course WHERE course_id NOT IN (SELECT prereq_id FROM prereq)
+SELECT name FROM instructor WHERE ID NOT IN (SELECT DISTINCT ID FROM teaches WHERE semester = 'Spring')
+SELECT name FROM student WHERE ID IN (SELECT ID FROM takes WHERE course_id = (SELECT prereq_id FROM prereq WHERE course_id = (SELECT course_id FROM course WHERE title = 'International Finance')))
+SELECT name FROM instructor WHERE dept_name = 'Comp. Sci.' AND salary > 80000
+SELECT name FROM instructor WHERE dept_name = 'Comp. Sci.' AND salary > 80000
+SELECT Name FROM people WHERE Age = 35 OR Age = 36
+SELECT people.Name FROM debate_people JOIN people ON debate_people.Affirmative = people.People_ID WHERE debate_people.Debate_ID IN (SELECT Debate_ID FROM debate WHERE Num_of_Audience > 200)
+SELECT Customer_ID FROM Policies WHERE Start_Date = (SELECT MAX(Start_Date) FROM Policies)
+SELECT COUNT(*) FROM Customers WHERE customer_id NOT IN (SELECT customer_id FROM Accounts)
+SELECT transaction_id FROM Financial_Transactions WHERE transaction_amount > (SELECT AVG(transaction_amount) FROM Financial_Transactions)
+SELECT COUNT(*) FROM Products WHERE product_id NOT IN (SELECT DISTINCT product_id FROM Order_Items)
+SELECT COUNT(*) FROM Products LEFT JOIN Order_Items ON Products.product_id = Order_Items.product_id WHERE Order_Items.order_item_id IS NULL
+SELECT COUNT(*) FROM church WHERE Open_Date < 1850
+SELECT COUNT(*) FROM people WHERE Is_Male = 0 AND Age > 30
+SELECT p1.Name AS Male_Name, p2.Name AS Female_Name FROM wedding AS w JOIN people AS p1 ON w.Male_ID = p1.People_ID JOIN people AS p2 ON w.Female_ID = p2.People_ID WHERE w.Year > 2014
+SELECT Name, Age FROM people WHERE Is_Male = true AND People_ID NOT IN (SELECT Male_ID FROM wedding)
+SELECT church.Name FROM church JOIN wedding ON church.Church_ID = wedding.Church_ID WHERE wedding.Male_ID IN (SELECT People_ID FROM people WHERE Age > 30) OR wedding.Female_ID IN (SELECT People_ID FROM people WHERE Age > 30)
+SELECT COUNT(DISTINCT Church_ID) FROM wedding WHERE Year = 2016
+SELECT Name, Year_Join FROM artist WHERE Country != 'United States'
+SELECT COUNT(*) FROM artist WHERE Age > 46 AND Year_Join > 1990
+SELECT COUNT(*) FROM artist WHERE Age > 46 AND Year_Join > 1990
+SELECT COUNT(*) FROM item LEFT JOIN review ON item.i_id = review.i_id WHERE review.rating IS NULL
+SELECT COUNT(DISTINCT useracct.u_id) FROM useracct LEFT JOIN review ON useracct.u_id = review.u_id WHERE review.i_id IS NULL
+SELECT COUNT(*) FROM item LEFT JOIN review ON item.i_id = review.i_id WHERE review.i_id IS NULL
+SELECT Player_name FROM player ORDER BY Votes ASC
+SELECT Name FROM people JOIN gymnast ON people.People_ID = gymnast.Gymnast_ID WHERE Hometown != 'Santo Domingo'
+SELECT name FROM ACCOUNTS WHERE custid IN (SELECT custid FROM CHECKING WHERE balance < (SELECT AVG(balance) FROM CHECKING))
+SELECT COUNT(*) FROM Web_client_accelerator WHERE id NOT IN (SELECT accelerator_id FROM accelerator_compatible_browser WHERE browser_id IN (SELECT id FROM browser WHERE name IN ('browser1', 'browser2', 'browser3')))
+SELECT Name FROM wrestler WHERE Days_held = (SELECT MIN(Days_held) FROM wrestler)
+SELECT Name FROM wrestler WHERE Days_held < 100
+SELECT COUNT(DISTINCT donator_name) FROM endowment WHERE School_id = (SELECT School_id FROM School WHERE School_name = "Glenn")
+SELECT COUNT(*) FROM budget WHERE Budgeted < Invested
+SELECT Name FROM building WHERE Height_feet >= 200 AND Floors >= 20
+SELECT Type FROM Institution WHERE Founded > 1990 AND Enrollment >= 1000
+SELECT COUNT(*) FROM protein WHERE Institution_id IN (SELECT Institution_id FROM Institution WHERE Founded > 1880 OR Type = "Private")
+SELECT COUNT(*) FROM Institution WHERE Institution_id NOT IN (SELECT Institution_id FROM protein)
+SELECT Title, Directed_by FROM film WHERE Film_ID NOT IN (SELECT Film_ID FROM schedule)
+SELECT product_name FROM Products_for_Hire WHERE availability = 1
+SELECT COUNT(DISTINCT product_id) FROM Products_for_Hire WHERE product_id NOT IN (SELECT DISTINCT product_id FROM Products_Booked WHERE booked_amount > 200)
+SELECT payment_date FROM Payments WHERE amount_paid > 300 OR payment_type_code = 'Check'
+SELECT Company, Main_Industry FROM company WHERE Headquarters != 'USA'
+SELECT Company, Main_Industry FROM company WHERE Headquarters != 'United States'
+SELECT COUNT(*) FROM gas_station WHERE Open_Year >= 2000 AND Open_Year <= 2005
+SELECT company.Company, company.Main_Industry FROM company LEFT JOIN station_company ON company.Company_ID = station_company.Company_ID WHERE station_company.Station_ID IS NULL
+SELECT Main_Industry, Company FROM company WHERE Company_ID NOT IN (SELECT Company_ID FROM station_company)
+SELECT Location FROM gas_station WHERE Station_ID IN (SELECT Station_ID FROM station_company WHERE Company_ID IN (SELECT Company_ID FROM company WHERE Market_Value > 100))
+SELECT party_name FROM party WHERE NOT EXISTS (SELECT * FROM member WHERE member.Party_ID = party.Party_ID)
+SELECT document_status_description FROM Ref_Document_Status WHERE document_status_code = (SELECT document_status_code FROM Documents WHERE document_id = 1)
+SELECT COUNT(*) FROM dependent WHERE sex = 'female'
+SELECT COUNT(DISTINCT driverId) FROM results WHERE raceId = (SELECT raceId FROM races WHERE name = 'Australian Grand Prix' AND year = 2009)
+SELECT COUNT(*) FROM drivers WHERE driverId NOT IN (SELECT driverId FROM results WHERE raceId IN (SELECT raceId FROM races WHERE year = 2009))
+SELECT COUNT(*) FROM drivers WHERE driverId NOT IN (SELECT driverId FROM results WHERE raceId IN (SELECT raceId FROM races WHERE year = 2009))
+SELECT DISTINCT forename FROM drivers WHERE driverId IN (SELECT driverId FROM driverStandings WHERE positionText = '1' AND points > 20)
+SELECT name FROM races WHERE year BETWEEN 2009 AND 2011
+SELECT name FROM races WHERE time > '12:00:00' OR time < '09:00:00'
+SELECT MAX(fastestLapSpeed) FROM results WHERE raceId = (SELECT raceId FROM races WHERE name = 'Monaco Grand Prix' AND year = 2008)
+SELECT MAX(fastestLapSpeed) FROM results WHERE raceId = (SELECT raceId FROM races WHERE name = 'Monaco Grand Prix' AND year = 2008)
+SELECT name FROM technician WHERE team != 'NYY'
+SELECT Name FROM technician WHERE Team != 'NYY'
+SELECT MIN(Starting_Year) FROM technician
+SELECT Name FROM technician LEFT JOIN repair_assignment ON technician.technician_id = repair_assignment.technician_id WHERE repair_assignment.Machine_ID IS NULL
+SELECT Name FROM entrepreneur WHERE Investor != 'Rachel Elnaugh'
+SELECT Name FROM entrepreneur WHERE Investor != 'Rachel Elnaugh'
+SELECT Name FROM people WHERE People_ID NOT IN (SELECT People_ID FROM entrepreneur)
+SELECT Name FROM people WHERE People_ID NOT IN (SELECT People_ID FROM perpetrator)
+SELECT Campus FROM Campuses WHERE County = 'Los Angeles'
+SELECT Campus FROM Campuses WHERE Year >= 1935 AND Year <= 1939
+SELECT COUNT(*) FROM csu_fees WHERE CampusFee > (SELECT AVG(CampusFee) FROM csu_fees)
+SELECT COUNT(*) FROM csu_fees WHERE CampusFee > (SELECT AVG(CampusFee) FROM csu_fees)
+SELECT COUNT(*) FROM csu_fees WHERE CampusFee > (SELECT AVG(CampusFee) FROM csu_fees)
+SELECT Campus FROM Campuses WHERE Location = 'Los Angeles county' AND Year > 1950
+SELECT Campus FROM faculty WHERE Year = 2002 GROUP BY Campus HAVING COUNT(*) > (SELECT MAX(Faculty) FROM faculty WHERE County = 'Orange' AND Year = 2002)
+SELECT COUNT(*) FROM Campuses WHERE County = 'Los Angeles'
+SELECT Campus FROM Campuses WHERE County = 'Los Angeles'
+SELECT Degrees FROM degrees WHERE Campus = (SELECT Id FROM Campuses WHERE Campus = 'San Francisco State University') AND Year = 2001
+SELECT Campus FROM faculty WHERE Year = 2004 AND Faculty BETWEEN 600 AND 1000
+SELECT Undergraduate FROM discipline_enrollments WHERE Campus = (SELECT Id FROM Campuses WHERE Campus = 'San Jose State')
+SELECT CampusFee FROM csu_fees WHERE Campus = (SELECT Id FROM Campuses WHERE Campus = 'San Francisco State University') AND Year = 2000
+SELECT Name FROM people WHERE Height > 200 OR Height < 190
+SELECT Name FROM people WHERE People_ID NOT IN (SELECT People_ID FROM candidate)
+SELECT Name FROM people WHERE People_ID NOT IN (SELECT People_ID FROM candidate)
+SELECT COUNT(*) FROM Movie WHERE year < 2000
+SELECT COUNT(*) FROM Movie WHERE year < 2000
+SELECT COUNT(*) FROM Rating WHERE stars > 3
+SELECT DISTINCT year FROM Movie WHERE mID IN (SELECT mID FROM Rating WHERE stars >= 4) ORDER BY year ASC
+SELECT AVG(stars), title FROM Movie JOIN Rating ON Movie.mID = Rating.mID WHERE year = (SELECT MIN(year) FROM Movie)
+SELECT title, director FROM Movie WHERE stars > (SELECT AVG(stars) FROM Rating JOIN Movie ON Rating.mID = Movie.mID WHERE director = 'James Cameron')
+SELECT director FROM Movie WHERE mID IN (SELECT mID FROM Rating WHERE rID = (SELECT rID FROM Reviewer WHERE name = 'Sarah Martinez'))
+SELECT Reviewer.name, Movie.title, Rating.stars FROM Rating JOIN Reviewer ON Rating.rID = Reviewer.rID JOIN Movie ON Rating.mID = Movie.mID WHERE Reviewer.name = Movie.director
+SELECT Movie.title, Movie.director FROM Movie JOIN Rating ON Movie.mID = Rating.mID GROUP BY Movie.director HAVING COUNT(*) > 1 ORDER BY Movie.director, Movie.title
+SELECT title FROM Movie WHERE mID IN (SELECT mID FROM Rating WHERE stars BETWEEN 3 AND 5)
+SELECT title FROM Movie JOIN Rating ON Movie.mID = Rating.mID WHERE stars BETWEEN 3 AND 5
+SELECT title FROM Movie WHERE year < 1980 OR director = 'James Cameron'
+SELECT (Hispanic / (White + Black + Amerindian + Asian + Multiracial + Hispanic)) * 100 AS percentage_hispanics FROM city WHERE Black > 10
+SELECT COUNT(*) FROM city WHERE County_ID IN (SELECT County_ID FROM county_public_safety WHERE Population > 20000)
+SELECT Name FROM county_public_safety LEFT JOIN city ON county_public_safety.County_ID = city.County_ID WHERE city.City_ID IS NULL
+SELECT roomName FROM Rooms WHERE decor = 'modern' AND basePrice < 160 AND beds = 2
+SELECT roomName, RoomId FROM Rooms WHERE basePrice > 160 AND maxOccupancy > 2
+SELECT Adults FROM Reservations WHERE LastName = 'SELBIG' AND FirstName = 'CONRAD' AND CheckIn = '2010-10-23'
+SELECT COUNT(*) FROM Reservations AS T1 JOIN Rooms AS T2 ON T1.Room = T2.RoomId WHERE (T1.Adults + T1.Kids) = T2.maxOccupancy
+SELECT FirstName, LastName FROM Reservations WHERE Rate > (SELECT basePrice FROM Rooms)
+SELECT roomName FROM Rooms WHERE maxOccupancy = (SELECT MAX(maxOccupancy) FROM Rooms)
+SELECT COUNT(*) FROM Rooms LEFT JOIN Reservations ON Rooms.RoomId = Reservations.Room WHERE Reservations.Code IS NULL
+SELECT Name FROM host WHERE Host_ID NOT IN (SELECT Host_ID FROM party_host)
+SELECT COUNT(DISTINCT Storm_ID) FROM affected_region WHERE Number_Deaths > 0
+SELECT AVG(Damage_millions_USD), MAX(Damage_millions_USD) FROM storm WHERE Max_speed > 1000
+SELECT SUM(storm.Number_Deaths), SUM(storm.Damage_millions_USD) FROM storm JOIN affected_region ON storm.Storm_ID = affected_region.Storm_ID WHERE storm.Max_speed > (SELECT AVG(Max_speed) FROM storm)
+SELECT COUNT(DISTINCT Delegate) FROM election WHERE District IN (SELECT County_Id FROM county WHERE Population > 50000)
+SELECT journalist.Name, event.Name FROM journalist JOIN news_report ON journalist.journalist_ID = news_report.journalist_ID JOIN event ON news_report.Event_ID = event.Event_ID ORDER BY journalist.Name ASC
+SELECT Fname, LName FROM Student WHERE Age > 18 AND Major = 600
+SELECT Fname, Lname FROM Student WHERE Sex = 'F' AND Age > 18 AND Major != 600
+SELECT SUM(Time) FROM Visits_Restaurant WHERE StuID = (SELECT StuID FROM Student WHERE LName = 'Smith' AND Fname = 'Linda')
+SELECT COUNT(*) FROM Visits_Restaurant WHERE StuID = (SELECT StuID FROM Student WHERE LName = 'Smith' AND Fname = 'Linda') AND ResID = (SELECT ResID FROM Restaurant WHERE ResName = 'Subway')
+SELECT Time FROM Visits_Restaurant WHERE StuID = (SELECT StuID FROM Student WHERE LName = 'Smith' AND Fname = 'Linda') AND ResID = (SELECT ResID FROM Restaurant WHERE ResName = 'Subway')
+SELECT name FROM Inst WHERE instID = (SELECT instID FROM Authorship WHERE authID = (SELECT authID FROM Authors WHERE lname = 'Blume' AND fname = 'Matthias'))
+SELECT COUNT(DISTINCT paperID) FROM Authorship WHERE instID = (SELECT instID FROM Inst WHERE name = "University of Pennsylvania")
+SELECT Papers.title FROM Papers JOIN Authorship ON Papers.paperID = Authorship.paperID JOIN Authors ON Authorship.authID = Authors.authID JOIN Inst ON Authorship.instID = Inst.instID WHERE Inst.country = "USA" AND Authors.lname = "Turon" AND Authorship.authOrder = 2
+SELECT COUNT(*) FROM customer WHERE active = 1
+SELECT cust_name, acc_bal FROM customer WHERE cust_name LIKE '%a%'
+SELECT cust_name FROM customer WHERE credit_score = (SELECT MIN(credit_score) FROM customer)
+SELECT cust_name FROM customer JOIN loan ON customer.cust_ID = loan.cust_ID WHERE loan.amount > 3000
+SELECT AVG(credit_score) FROM customer WHERE cust_ID NOT IN (SELECT cust_ID FROM loan)
+SELECT AVG(credit_score) FROM customer WHERE no_of_loans = 0
+SELECT COUNT(*) FROM Students WHERE student_id NOT IN (SELECT student_id FROM Behavior_Incident)
+SELECT first_name, last_name FROM Maintenance_Engineers WHERE engineer_id NOT IN (SELECT engineer_id FROM Engineer_Visits)
+SELECT COUNT(DISTINCT PROF_NUM) FROM CLASS WHERE CRS_CODE = 'ACCT-211'
+SELECT COUNT(*) FROM CLASS WHERE PROF_NUM = (SELECT EMP_NUM FROM EMPLOYEE WHERE EMP_LNAME = 'Graztevski')
+SELECT COUNT(DISTINCT DEPT_ADDRESS) FROM DEPARTMENT WHERE DEPT_CODE = 'BUS'
+SELECT COUNT(*) FROM COURSE WHERE DEPT_CODE = (SELECT DEPT_CODE FROM DEPARTMENT WHERE DEPT_NAME = 'Computer Info. Systems')
+SELECT COUNT(*) FROM COURSE WHERE DEPT_CODE = (SELECT DEPT_CODE FROM DEPARTMENT WHERE DEPT_NAME = 'Computer Information Systems')
+SELECT COUNT(*) FROM ENROLL WHERE CLASS_CODE = (SELECT CRS_CODE FROM COURSE WHERE CRS_DESCRIPTION = 'ACCT-211')
+SELECT STU_FNAME FROM STUDENT WHERE STU_NUM IN (SELECT STU_NUM FROM ENROLL WHERE CLASS_CODE = 'ACCT-211' AND ENROLL_GRADE = 'C')
+SELECT COUNT(*) FROM professor WHERE prof_high_degree = 'Ph.D.'
+SELECT COUNT(*) FROM ENROLL WHERE CLASS_CODE IN (SELECT CLASS_CODE FROM CLASS WHERE PROF_NUM = (SELECT EMP_NUM FROM EMPLOYEE WHERE DEPT_CODE = 'accounting'))
+SELECT COUNT(*) FROM professor WHERE dept_code = 'Accounting' OR dept_code = 'Biology'
+SELECT STU_FNAME, STU_GPA FROM STUDENT WHERE STU_GPA < (SELECT AVG(STU_GPA) FROM STUDENT)
+SELECT DEPT_NAME FROM DEPARTMENT WHERE DEPT_CODE = (SELECT DEPT_CODE FROM COURSE WHERE CRS_DESCRIPTION LIKE '%Statistics%')
+SELECT name FROM club LEFT JOIN player ON club.Club_ID = player.Club_ID WHERE player.Player_ID IS NULL
+SELECT * FROM employees WHERE (salary >= 8000 AND salary <= 12000 AND commission_pct IS NOT NULL) OR department_id != 40
+SELECT salary, manager_id FROM employees WHERE manager_id IS NOT NULL
+SELECT job_title FROM jobs WHERE job_id IN (SELECT job_id FROM jobs WHERE salary > 9000)
+SELECT * FROM jobs WHERE job_id IN (SELECT job_id FROM employees WHERE salary >= 12000)
+SELECT * FROM job_history JOIN employees ON job_history.EMPLOYEE_ID = employees.EMPLOYEE_ID WHERE employees.SALARY >= 12000
+SELECT EMPLOYEE_ID FROM employees WHERE SALARY > (SELECT AVG(SALARY) FROM employees)
+SELECT employee_id FROM employees WHERE department_id NOT IN (SELECT department_id FROM departments WHERE manager_id BETWEEN 100 AND 200)
+SELECT FIRST_NAME, LAST_NAME, HIRE_DATE FROM employees WHERE DEPARTMENT_ID = (SELECT DEPARTMENT_ID FROM employees WHERE FIRST_NAME = 'Clara' AND LAST_NAME = 'Clara') AND (FIRST_NAME != 'Clara' OR LAST_NAME != 'Clara')
+SELECT * FROM employees WHERE employee_id NOT IN (SELECT employee_id FROM job_history)
+SELECT * FROM employees WHERE employee_id NOT IN (SELECT employee_id FROM job_history)
+SELECT file_size, formats FROM files WHERE f_id IN (SELECT f_id FROM song WHERE resolution < 800)
+SELECT COUNT(*) FROM artist WHERE country = 'Bangladesh'
+SELECT country FROM artist WHERE artist_name IN (SELECT artist_name FROM song WHERE language = 'Bangla' AND artist_name IN (SELECT artist_name FROM artist WHERE gender = 'female'))
+SELECT DISTINCT country FROM artist WHERE gender = 'female' AND artist_name IN (SELECT artist_name FROM song WHERE language = 'Bangla')
+SELECT DISTINCT song_name FROM song WHERE resolution > (SELECT resolution FROM song WHERE languages = 'English')
+SELECT g_name, rating FROM genre ORDER BY g_name ASC
+SELECT COUNT(*) FROM team WHERE team_id = 'Boston Red Stockings' AND year = 2000
+SELECT COUNT(*) FROM player WHERE player_id IN (SELECT player_id FROM team WHERE team_name = 'Boston Red Stockings' AND year = 2000)
+SELECT COUNT(*) FROM home_game WHERE park_id = (SELECT park_id FROM park WHERE park_name = "Columbia Park") AND year = 1907
+SELECT COUNT(*) FROM home_game JOIN team ON home_game.team_id = team.team_id WHERE team.city = 'Atlanta' AND home_game.year = 2000
+SELECT SUM(attendance) FROM home_game WHERE team_id = (SELECT team_id FROM team WHERE name = 'Boston Red Stockings') AND year BETWEEN 2000 AND 2010
+SELECT SUM(salary) FROM salary WHERE player_id = (SELECT player_id FROM player WHERE name_first = 'Len' AND name_last = 'Barker') AND year BETWEEN 1985 AND 1990
+SELECT COUNT(*) FROM camera_lens WHERE id NOT IN (SELECT camera_lens_id FROM photos)
+SELECT COUNT(DISTINCT camera_lens_id) FROM photos JOIN camera_lens ON photos.camera_lens_id = camera_lens.id WHERE photos.mountain_id IN (SELECT id FROM mountain WHERE country = 'Ethiopia')
+SELECT Name FROM program WHERE Origin != 'Beijing'
+SELECT address_line_1 FROM Course_Authors_and_Tutors WHERE personal_name = 'Cathrine'
+SELECT COUNT(*) FROM Student_Tests_Taken WHERE test_result = 'Fail'
+SELECT login_name FROM Course_Authors_and_Tutors WHERE author_id = (SELECT author_id FROM Courses WHERE course_name = "advanced database")
+SELECT COUNT(*) FROM Students LEFT JOIN Student_Course_Enrolment ON Students.student_id = Student_Course_Enrolment.student_id WHERE Student_Course_Enrolment.course_id IS NULL
+SELECT Date_Claim_Made FROM Claims WHERE Amount_Claimed <= (SELECT AVG(Amount_Claimed) FROM Claims)
+SELECT Physician.Name, Physician.Position FROM Physician JOIN Prescribes ON Physician.EmployeeID = Prescribes.Physician WHERE Prescribes.Medication IN (SELECT Code FROM Medication WHERE Brand = 'X')
+SELECT DISTINCT Department.Name FROM Affiliated_With JOIN Department ON Affiliated_With.Department = Department.DepartmentID WHERE Affiliated_With.PrimaryAffiliation IS NOT NULL
+SELECT COUNT(*) FROM Patient WHERE SSN NOT IN (SELECT Patient FROM Prescribes WHERE Medication = 'Procrastin-X')
+SELECT COUNT(*) FROM Patient WHERE SSN NOT IN (SELECT Patient FROM Prescribes WHERE Medication = 'Procrastin-X')
+SELECT Name FROM ship LEFT JOIN mission ON ship.Ship_ID = mission.Ship_ID WHERE mission.Mission_ID IS NULL
+SELECT FirstName FROM teachers WHERE Classroom = 'Grade 1'
+SELECT FirstName, LastName FROM list WHERE Classroom IN (SELECT Classroom FROM teachers WHERE FirstName = 'OTHA' AND LastName = 'MOYER')
+SELECT FirstName, LastName FROM teachers WHERE FirstName = 'EVELINA' AND LastName = 'BROMLEY'
+SELECT COUNT(*) FROM list JOIN teachers ON list.Classroom = teachers.Classroom WHERE teachers.LastName = 'ONDERSMA' AND teachers.FirstName = 'LORIA'
+SELECT COUNT(*) FROM teachers WHERE LastName = 'KAWA' AND FirstName = 'GORDON'
+SELECT COUNT(*) FROM list WHERE Classroom = (SELECT Classroom FROM teachers WHERE FirstName = 'LEIA' AND LastName = 'TARRING')
+SELECT COUNT(*) FROM teachers WHERE Classroom = (SELECT Classroom FROM list WHERE LastName = 'MADLOCK' AND FirstName = 'RAY')
+SELECT COUNT(*) FROM teachers WHERE Classroom IN (SELECT Classroom FROM list WHERE LastName = 'MADLOCK' AND FirstName = 'RAY')
+SELECT LastName FROM list WHERE Grade = 'third' AND LastName != 'COVIN' AND FirstName != 'JEROME'
+SELECT COUNT(*) FROM company WHERE Headquarters = 'US'
+SELECT DISTINCT Type FROM film_market_estimation WHERE Year = 1995
+SELECT AVG(Number_cities) FROM market WHERE Market_ID IN (SELECT Market_ID FROM film_market_estimation WHERE Low_Estimate > 10000)
+SELECT Title FROM film LEFT JOIN film_market_estimation ON film.Film_ID = film_market_estimation.Film_ID WHERE film_market_estimation.Estimation_ID IS NULL
+SELECT Title, Director FROM film WHERE Film_ID NOT IN (SELECT Film_ID FROM film_market_estimation WHERE Country = 'China')
+SELECT COUNT(*) FROM All_Documents WHERE Document_Type_Code = 'CV' OR Document_Type_Code = 'BK'
+SELECT COUNT(*) FROM Member_of_club WHERE ClubID = (SELECT ClubID FROM Club WHERE ClubName = "Pen and Paper Gaming")
+SELECT COUNT(*) FROM Member_of_club WHERE ClubID = (SELECT ClubID FROM Club WHERE ClubName = "Pen and Paper Gaming")
+SELECT COUNT(*) FROM Member_of_club WHERE StuID = (SELECT StuID FROM Student WHERE LName = 'Smith' AND Fname = 'Linda')
+SELECT Fname, LName FROM Student WHERE StuID IN (SELECT StuID FROM Member_of_club WHERE ClubID = (SELECT ClubID FROM Club WHERE ClubName = "Bootup Baltimore")) AND Sex = 'F'
+SELECT Student.Fname, Student.LName FROM Member_of_club JOIN Student ON Member_of_club.StuID = Student.StuID WHERE Member_of_club.ClubID = (SELECT ClubID FROM Club WHERE ClubName = "Hopkins Student Enterprises") AND Student.Sex = 'M'
+SELECT ClubLocation FROM Club WHERE ClubName = 'Pen and Paper Gaming'
+SELECT Student.Fname, Student.LName FROM Club JOIN Member_of_club ON Club.ClubID = Member_of_club.ClubID JOIN Student ON Member_of_club.StuID = Student.StuID WHERE Club.ClubName = "Hopkins Student Enterprises" AND Member_of_club.Position = "CTO"
+SELECT Student.Fname, Student.LName FROM Student JOIN Member_of_club ON Student.StuID = Member_of_club.StuID WHERE Member_of_club.ClubID = (SELECT ClubID FROM Club WHERE ClubName = "Hopkins Student Enterprises") AND Member_of_club.Position = "CTO"
+SELECT COUNT(*) FROM Member_of_club AS T1 JOIN Student AS T2 ON T1.StuID = T2.StuID WHERE T1.ClubID = (SELECT ClubID FROM Club WHERE ClubName = "Bootup Baltimore") AND T2.Age > 18
+SELECT COUNT(*) FROM member_of_club AS T1 JOIN student AS T2 ON T1.StuID = T2.StuID WHERE T1.ClubID = (SELECT ClubID FROM club WHERE ClubName = 'Bootup Baltimore') AND T2.Age < 18
+SELECT ClubName FROM Club WHERE ClubID IN (SELECT ClubID FROM Member_of_club WHERE StuID IN (SELECT StuID FROM Student WHERE city_code = "BAL"))
+SELECT sent_date FROM Documents JOIN Grants ON Documents.grant_id = Grants.grant_id JOIN Organisations ON Grants.organisation_id = Organisations.organisation_id WHERE Grants.grant_amount > 5000 AND Organisation_Types.organisation_type_description = 'description'
+SELECT project_details FROM Projects WHERE NOT EXISTS (SELECT * FROM Project_Staff WHERE Projects.project_id = Project_Staff.project_id AND role_code = 'researcher')
+SELECT * FROM Projects WHERE project_id NOT IN (SELECT project_id FROM Project_Outcomes)
+SELECT COUNT(*) FROM Project_Staff WHERE (role_code = 'leader' OR role_code = 'started') AND date_from < '1989-04-24 23:51:54'
+SELECT COUNT(*) FROM Person WHERE gender = 'female'
+SELECT age FROM Person WHERE name = 'Zach' AND job = 'doctor'
+SELECT age FROM Person WHERE name = 'Zach' AND job = 'doctor'
+SELECT COUNT(*) FROM Person WHERE job = 'engineer' AND age > 30
+SELECT friend FROM PersonFriend WHERE name = 'Alice' AND friend IN (SELECT name FROM Person WHERE gender = 'female')
+SELECT friend FROM PersonFriend WHERE name = 'Alice' AND friend IN (SELECT name FROM Person WHERE gender = 'female')
+SELECT DISTINCT p.name FROM Person AS p JOIN PersonFriend AS pf ON p.name = pf.name WHERE pf.friend IN (SELECT name FROM Person WHERE age < (SELECT AVG(age) FROM Person))
+SELECT friend FROM PersonFriend WHERE name = 'Zach' ORDER BY year DESC LIMIT 1
+SELECT age FROM Person WHERE name = (SELECT friend FROM PersonFriend WHERE name = 'Zach' ORDER BY year DESC LIMIT 1)
+SELECT name FROM Person WHERE name IN (SELECT friend FROM PersonFriend WHERE name = 'Alice') AND year = (SELECT MIN(year) FROM PersonFriend)
+SELECT p.name, p.age, p.job FROM Person AS p JOIN PersonFriend AS pf ON p.name = pf.name WHERE pf.friend = 'Alice' GROUP BY p.name, p.age, p.job HAVING MAX(pf.year)
+SELECT COUNT(DISTINCT name) FROM Person WHERE name NOT IN (SELECT DISTINCT name FROM PersonFriend WHERE friend = 'Austin')
+SELECT friend FROM PersonFriend WHERE name = 'Alice' UNION SELECT friend FROM PersonFriend WHERE name IN (SELECT friend FROM PersonFriend WHERE name = 'Alice')
+SELECT document_name FROM Documents WHERE NOT EXISTS (SELECT * FROM Document_Sections WHERE Documents.document_code = Document_Sections.document_code)
+SELECT document_name FROM Documents WHERE NOT EXISTS (SELECT * FROM Document_Sections WHERE Documents.document_code = Document_Sections.document_code)
+SELECT name FROM Companies ORDER BY Market_Value_billion DESC
+SELECT name FROM buildings LEFT JOIN Office_locations ON buildings.id = Office_locations.building_id WHERE Office_locations.company_id IS NULL
+SELECT COUNT(*) FROM Companies WHERE Industry = 'Banking' OR Industry = 'Conglomerate'
+SELECT Product_Name FROM Products ORDER BY Product_Price ASC
+SELECT Name FROM artwork WHERE Type != 'Program Talent Show'
+SELECT Name FROM artwork WHERE NOT EXISTS (SELECT * FROM nomination WHERE nomination.Artwork_ID = artwork.Artwork_ID)
+SELECT customer_name, customer_phone FROM Customers WHERE customer_id NOT IN (SELECT customer_id FROM Mailshot_Customers WHERE outcome_code != 'Sent')
+SELECT customer_name FROM Customers WHERE customer_id IN (SELECT customer_id FROM Customer_Orders WHERE shipping_method_code = 'FedEx' AND order_status_code = 'Paid')
+SELECT COUNT(*) FROM Course WHERE Credits > 2
+SELECT COUNT(*) FROM Department WHERE Division = 'AS'
+SELECT COUNT(DISTINCT StuID) FROM Enrolled_in WHERE Grade = "B"
+SELECT CONCAT(Fname, ' ', Lname) AS Full_Name FROM Faculty WHERE Sex = 'M' AND Building = 'NEB'
+SELECT Room FROM Faculty WHERE Rank = 'professor' AND Building = 'NEB'
+SELECT DName, Room FROM Department WHERE DNO = (SELECT DNO FROM Course WHERE CName = 'INTRODUCTION TO COMPUTER SCIENCE')
+SELECT DISTINCT Fname FROM Student WHERE StuID IN (SELECT StuID FROM Enrolled_in WHERE gradepoint >= 3.8)
+SELECT CONCAT(Fname, ' ', Lname) AS Full_Name FROM Faculty WHERE FacID IN (SELECT FacID FROM Member_of WHERE DNO = 520)
+SELECT MAX(gradepoint), MIN(gradepoint) FROM Gradeconversion WHERE lettergrade IN (SELECT Grade FROM Enrolled_in WHERE StuID IN (SELECT StuID FROM Student WHERE city_code = 'NYC'))
+SELECT Fname FROM Student LEFT JOIN Enrolled_in ON Student.StuID = Enrolled_in.StuID WHERE Enrolled_in.CID IS NULL
+SELECT Fname FROM Student LEFT JOIN Enrolled_in ON Student.StuID = Enrolled_in.StuID WHERE Enrolled_in.CID IS NULL
+SELECT staff_id, staff_gender FROM Staff_Department_Assignments WHERE job_title_code = 'Department Manager'
+SELECT product_id FROM Product_Suppliers WHERE supplier_id = 2 AND product_id IN (SELECT product_id FROM Products WHERE product_price > (SELECT AVG(product_price) FROM Products))
+SELECT product_id FROM Products WHERE supplier_id = 2 AND product_price > (SELECT AVG(product_price) FROM Products)
+SELECT product_name, product_id FROM products WHERE product_price BETWEEN 600 AND 700
+SELECT DISTINCT customer_id FROM Customer_Orders WHERE order_date > (SELECT MAX(order_date) FROM Customer_Orders WHERE order_status_code = 'Cancelled')
+SELECT product_id, product_name FROM Products WHERE product_price < 600 OR product_price > 900
+SELECT customer_id, customer_name FROM Customers WHERE customer_address LIKE '%WY%' AND payment_method_code != 'credit card'
+SELECT Name FROM pilot WHERE Age <= 30 ORDER BY Name DESC
+SELECT Name FROM pilot WHERE Pilot_Id NOT IN (SELECT Winning_Pilot FROM match WHERE Country = 'Australia')
+SELECT Name FROM pilot WHERE Pilot_Id NOT IN (SELECT Winning_Pilot FROM match WHERE Country = 'Australia')
+SELECT School_ID, Location FROM school WHERE School_ID NOT IN (SELECT School_ID FROM player)
+SELECT District_name, City_Population FROM district WHERE City_Population BETWEEN 200000 AND 2000000
+SELECT * FROM product WHERE max_page_size = 'A4' OR pages_per_minute_color < 5
+SELECT COUNT(DISTINCT pID) FROM Player WHERE yCard > 1000
+SELECT COUNT(DISTINCT pID) FROM Tryout WHERE decision = 'accepted'
+SELECT COUNT(*) FROM Player WHERE pPos = 'goalie'
+SELECT pName FROM Player JOIN Tryout ON Player.pID = Tryout.pID WHERE Tryout.pPos = 'striker' AND Tryout.decision = 'successful'
+SELECT AVG(pPos), MAX(pPos) FROM Tryout JOIN Player ON Tryout.pID = Player.pID WHERE yCard = 'Y'
+SELECT cName FROM Tryout WHERE pID IN (SELECT pID FROM Player WHERE pPos = 'goalie' AND yCard = 'succeeded')
+SELECT cName FROM college WHERE cName IN (SELECT cName FROM tryout WHERE pPos = 'goalie' AND decision = 'successful')
+SELECT SUM(enr) FROM College WHERE cName NOT IN (SELECT cName FROM Tryout JOIN Player ON Tryout.pID = Player.pID WHERE pPos = 'goalie')
+SELECT COUNT(DISTINCT state) FROM College GROUP BY state HAVING enr > (SELECT AVG(enr) FROM College)
+SELECT COUNT(DISTINCT state) FROM College WHERE enr < (SELECT AVG(enr) FROM College)
+SELECT Shop_Name FROM shop ORDER BY Open_Year DESC LIMIT 1
+SELECT Shop_Name FROM shop WHERE Shop_ID NOT IN (SELECT DISTINCT Shop_ID FROM stock)
+SELECT Carrier FROM device WHERE Device_ID IN (SELECT Device_ID FROM stock WHERE Quantity = 0)
+SELECT Service_Type_Description FROM Ref_Service_Types WHERE Service_Type_Code IN (SELECT Service_Type_Code FROM Services WHERE Product_Price > 100)
+SELECT SUM(Order_Items.Order_Quantity) FROM Order_Items JOIN Products ON Order_Items.Product_ID = Products.Product_ID WHERE Products.Product_Description LIKE '%photo%'
+SELECT Band.Firstname, Band.Lastname FROM Songs JOIN Performance ON Songs.SongId = Performance.SongId JOIN Band ON Performance.Bandmate = Band.Id WHERE Songs.Title = "Badlands" AND Performance.StagePosition = "back stage"
+SELECT Instrument FROM Instruments WHERE BandmateId = (SELECT Id FROM Band WHERE Lastname = "Heilo") AND SongId = (SELECT SongId FROM Songs WHERE Title = "Le Pop")
+SELECT COUNT(*) FROM Instruments WHERE SongId = (SELECT SongId FROM Songs WHERE Title = 'Le Pop')
+SELECT COUNT(DISTINCT Instrument) FROM Instruments WHERE SongId = (SELECT SongId FROM Songs WHERE Title = 'Le Pop')
+SELECT COUNT(DISTINCT Instrument) FROM Instruments WHERE BandmateId = (SELECT Id FROM Band WHERE Lastname = "Heilo")
+SELECT COUNT(DISTINCT SongId) FROM Vocals WHERE Type = 'lead'
+SELECT COUNT(DISTINCT SongId) FROM Vocals WHERE Type = 'lead'
+SELECT Vocals.Type FROM Vocals JOIN Band ON Vocals.Bandmate = Band.Id JOIN Songs ON Vocals.SongId = Songs.SongId WHERE Band.Firstname = "Solveig" AND Songs.Title = "A Bar in Amsterdam"
+SELECT COUNT(DISTINCT Instrument) FROM Instruments WHERE SongId = (SELECT SongId FROM Songs WHERE Title = 'Badlands')
+SELECT COUNT(DISTINCT Type) FROM Vocals WHERE SongId = (SELECT SongId FROM Songs WHERE Title = "Le Pop")
+SELECT COUNT(DISTINCT SongId) FROM Vocals
+SELECT Firstname, Lastname FROM Band WHERE Id = (SELECT Bandmate FROM Performance WHERE SongId = (SELECT SongId FROM Songs WHERE Title = "Der Kapitan") AND StagePosition = "back stage")
+SELECT COUNT(*) FROM songs WHERE songId IN (SELECT songId FROM tracklists WHERE albumId IN (SELECT aId FROM albums WHERE type = 'studio'))
+SELECT COUNT(*) FROM Manufacturers WHERE Founder = 'Andy'
+SELECT SUM(Revenue) FROM Manufacturers WHERE Headquarter = 'Austin'
+SELECT Name, Headquarter, Revenue FROM Manufacturers ORDER BY Revenue DESC
+SELECT Name FROM Manufacturers WHERE Revenue > (SELECT AVG(Revenue) FROM Manufacturers)
+SELECT Name FROM Manufacturers WHERE Revenue > (SELECT AVG(Revenue) FROM Manufacturers)
+SELECT COUNT(*) FROM Products WHERE Manufacturer != (SELECT Code FROM Manufacturers WHERE Name = 'Sony')
+SELECT Name FROM Products WHERE Price <= 200
+SELECT problem_log_id FROM Problem_Log ORDER BY log_entry_date DESC LIMIT 1
+SELECT problem_id, problem_log_id FROM Problem_Log WHERE assigned_to_staff_id = (SELECT staff_id FROM Staff WHERE staff_first_name = 'Rylan' AND staff_last_name = 'Homenick')
+SELECT COUNT(*) FROM Problems WHERE product_id = (SELECT product_id FROM Product WHERE product_name = "voluptatem")
+SELECT DISTINCT product_name FROM Product ORDER BY product_name ASC
+SELECT problem_id FROM Problems WHERE date_problem_reported < (SELECT date_problem_reported FROM Problems WHERE reported_by_staff_id = (SELECT staff_id FROM Staff WHERE staff_first_name = 'Lysanne' AND staff_last_name = 'Turcotte'))
+SELECT problem_id FROM Problems WHERE date_problem_reported > (SELECT date_problem_reported FROM Problems WHERE reported_by_staff_id = (SELECT staff_id FROM Staff WHERE staff_first_name = 'Rylan' AND staff_last_name = 'Homenick'))
+SELECT problem_id FROM Problems WHERE date_problem_reported > (SELECT date_problem_reported FROM Problems WHERE reported_by_staff_id = (SELECT staff_id FROM Staff WHERE staff_first_name = 'Rylan' AND staff_last_name = 'Homenick'))
+select count(*) from (select branch_id, count(*) from membership_register_branch group by branch_id having membership_count > (select avg(membership_count) from (select branch_id, count(*) from membership_register_branch group by branch_id) as t)) as t2
+SELECT DISTINCT City FROM branch WHERE Branch_ID IN (SELECT Branch_ID FROM membership_register_branch GROUP BY Branch_ID HAVING COUNT(Member_ID) >= 100)
+SELECT Name, City FROM branch LEFT JOIN membership_register_branch ON branch.Branch_ID = membership_register_branch.Branch_ID WHERE membership_register_branch.Member_ID IS NULL
+SELECT SUM(Total_pounds) FROM purchase WHERE Year = 2018 AND Branch_ID IN (SELECT Branch_ID FROM branch WHERE City = 'London')
+SELECT Fname FROM Student WHERE Age > 22
+SELECT product_name FROM Products WHERE product_category_code = (SELECT product_category_code FROM Ref_Product_Categories WHERE product_category_description = 'Spices')
+SELECT COUNT(*) FROM Products WHERE product_category_code = 'Spices' AND typical_selling_price > 1000
+SELECT DISTINCT product_category_description FROM Ref_Product_Categories JOIN Products ON Ref_Product_Categories.product_category_code = Products.product_category_code WHERE product_description LIKE '%t%'
+SELECT COUNT(DISTINCT characteristic_name) FROM Characteristics WHERE characteristic_id IN (SELECT characteristic_id FROM Product_Characteristics WHERE product_id = (SELECT product_id FROM Products WHERE product_name = 'cumin'))
+SELECT product_name FROM Products WHERE color_code = (SELECT color_code FROM Ref_Colors WHERE color_description = 'red') AND product_id IN (SELECT product_id FROM Product_Characteristics WHERE characteristic_id = (SELECT characteristic_id FROM Characteristics WHERE characteristic_name = 'fast'))
+SELECT COUNT(DISTINCT product_id) FROM Product_Characteristics WHERE characteristic_id = (SELECT characteristic_id FROM Characteristics WHERE characteristic_name = 'hot')
+SELECT COUNT(DISTINCT Products.product_id) FROM Products LEFT JOIN Ref_Colors ON Products.color_code = Ref_Colors.color_code LEFT JOIN Product_Characteristics ON Products.product_id = Product_Characteristics.product_id LEFT JOIN Characteristics ON Product_Characteristics.characteristic_id = Characteristics.characteristic_id WHERE Ref_Colors.color_description = 'white' OR Characteristics.characteristic_name = 'hot'
+SELECT COUNT(*) FROM Ref_Colors WHERE color_code NOT IN (SELECT DISTINCT color_code FROM Products)
+SELECT COUNT(DISTINCT city) FROM stadium WHERE opening_year < 2006
+SELECT MAX(Level) FROM manager WHERE Country != 'Australia'
+SELECT customer_name, customer_phone FROM Customers WHERE customer_address IS NULL OR customer_address = ''
+SELECT COUNT(*) FROM Products WHERE product_price > (SELECT AVG(product_price) FROM Products)
+SELECT COUNT(*) FROM Student WHERE Sex = 'F' AND Age < 25
+SELECT COUNT(*) FROM Student WHERE Sex = 'F' AND Age < 25
+SELECT dorm_name, gender FROM Dorm WHERE student_capacity > 300 OR student_capacity < 100
+SELECT DISTINCT amenity_name FROM Dorm_amenity ORDER BY amenity_name ASC
+SELECT Fname, LName FROM Student WHERE Age < (SELECT AVG(Age) FROM Student)
+SELECT Fname FROM Student WHERE StuID IN (SELECT stuid FROM Lives_in WHERE dormid = (SELECT dormid FROM Dorm WHERE dorm_name = 'Smith Hall'))
+SELECT AVG(Age) FROM Student WHERE StuID IN (SELECT stuid FROM Lives_in WHERE dormid = (SELECT dormid FROM Dorm ORDER BY student_capacity DESC LIMIT 1))
+SELECT COUNT(*) FROM Student AS T1 JOIN Lives_in AS T2 ON T1.StuID = T2.stuid WHERE T1.Sex = 'F' AND T2.dormid = 'Smith Hall'
+SELECT Student.Fname, Student.Age FROM Student JOIN Lives_in ON Student.StuID = Lives_in.stuid WHERE Lives_in.dormid NOT IN (SELECT dormid FROM Dorm_amenity JOIN Has_amenity ON Dorm_amenity.amenid = Has_amenity.amenid WHERE amenity_name = "TV Lounge")
+SELECT product_price FROM Products WHERE product_id NOT IN (SELECT product_id FROM Complaints GROUP BY product_id HAVING COUNT(*) > 0)
+SELECT Author FROM submission WHERE Submission_ID NOT IN (SELECT Submission_ID FROM Acceptance)
+SELECT MIN(amount_of_transaction) FROM Transactions WHERE transaction_type_code = "PUR" AND share_count > 50
+SELECT sales_details, date_of_transaction FROM Sales WHERE transaction_id IN (SELECT transaction_id FROM Transactions WHERE amount_of_transaction < 3000)
+SELECT AVG(price_range) FROM Hotels WHERE star_rating_code = 5 AND pets_allowed_yn = 'Y'
+SELECT Tourist_Attractions.Name, Visits.Visit_Date FROM Tourist_Attractions JOIN Visits ON Tourist_Attractions.Tourist_Attraction_ID = Visits.Tourist_Attraction_ID JOIN Visitors ON Visits.Tourist_ID = Visitors.Tourist_ID WHERE Visitors.Tourist_Details IN ('Vincent', 'Vivian')
+SELECT Name FROM Tourist_Attractions WHERE Tourist_Attraction_ID IN (SELECT Tourist_Attraction_ID FROM Tourist_Attraction_Features WHERE Feature_ID = (SELECT Feature_ID FROM Features WHERE Feature_Details = 'walk')) OR Location_ID IN (SELECT Location_ID FROM Locations WHERE Address = '660 Shea Crescent')
+SELECT COUNT(*) FROM Visitors LEFT JOIN Visits ON Visitors.Tourist_ID = Visits.Tourist_ID WHERE Visits.Visit_ID IS NULL
+SELECT GType FROM Video_Games WHERE GName = 'Call of Destiny'
+SELECT COUNT(*) FROM Video_Games WHERE GType = 'Massively multiplayer online game'
+SELECT SUM(SportsInfo.HoursPerWeek), COUNT(SportsInfo.GamesPlayed) FROM Student JOIN Plays_Games ON Student.StuID = Plays_Games.StuID JOIN SportsInfo ON Student.StuID = SportsInfo.StuID WHERE Student.LName = 'Shieber' AND Student.FName = 'David'
+SELECT SUM(Plays_Games.Hours_Played), COUNT(Plays_Games.GameID) FROM Student JOIN Plays_Games ON Student.StuID = Plays_Games.StuID JOIN SportsInfo ON Student.StuID = SportsInfo.StuID WHERE Student.Age < 20
+SELECT date_became_customer FROM Customers WHERE customer_id BETWEEN 10 AND 20
+SELECT DISTINCT city FROM Addresses WHERE city NOT IN (SELECT DISTINCT city FROM Customer_Addresses)
+SELECT COUNT(DISTINCT product_id) FROM Products WHERE product_id IN (SELECT product_id FROM Order_Items WHERE order_id IN (SELECT order_id FROM Customer_Orders WHERE customer_id = (SELECT customer_id FROM Customers WHERE customer_name = 'Rodrick Heaney')))
+SELECT COUNT(DISTINCT customer_id) FROM Customer_Orders WHERE order_status = "Cancelled"
+SELECT customer_name FROM Customers WHERE payment_method != 'Cash'
+SELECT status FROM roller_coaster WHERE length > 3300 OR height > 100
+SELECT Name, Class FROM Ship WHERE Ship_ID NOT IN (SELECT Ship_ID FROM captain)
+SELECT Name, Class FROM Ship WHERE Ship_ID NOT IN (SELECT Ship_ID FROM captain)
+SELECT COUNT(DISTINCT town_city) FROM Addresses WHERE state_province_county = 'Colorado'
+SELECT organization_name FROM Organizations WHERE organization_name LIKE '%Party%'
+SELECT Party FROM driver WHERE Home_city = 'Hartford' AND Age > 40
+SELECT Name FROM driver WHERE Driver_ID NOT IN (SELECT Driver_ID FROM school_bus)
+SELECT school.School, school.Type FROM school LEFT JOIN school_bus ON school.School_ID = school_bus.School_ID WHERE school_bus.School_ID IS NULL
+SELECT Scientists.SSN, Scientists.Name FROM AssignedTo JOIN Scientists ON AssignedTo.Scientist = Scientists.SSN WHERE AssignedTo.Project = (SELECT Code FROM Projects ORDER BY Hours DESC LIMIT 1)
+SELECT Name FROM Projects WHERE Code NOT IN (SELECT Project FROM AssignedTo)
+SELECT Name FROM Scientists LEFT JOIN AssignedTo ON Scientists.SSN = AssignedTo.Scientist WHERE AssignedTo.Project IS NULL
+SELECT COUNT(*) FROM Scientists LEFT JOIN AssignedTo ON Scientists.SSN = AssignedTo.Scientist WHERE AssignedTo.Project IS NULL
+SELECT * FROM wine WHERE price < 50 AND appelation IN (SELECT Appelation FROM appellations WHERE County = 'Monterey')
+SELECT DISTINCT Name FROM wine WHERE Year < 2000 OR Year > 2010
+SELECT AVG(Price), AVG(Cases) FROM wine WHERE Year = 2009 AND Grape = 'Zinfandel'
+SELECT AVG(Price), SUM(Cases) FROM wine WHERE Grape = 'Zinfandel' AND Year = 2009
+SELECT Name FROM wine WHERE Year < (SELECT MIN(Year) FROM wine WHERE Winery = 'Brander')
+SELECT AVG(Price) FROM wine WHERE Appelation NOT IN (SELECT Appelation FROM appellations WHERE County = 'Sonoma')
+SELECT AVG(Price) FROM wine WHERE Appelation NOT IN (SELECT Appelation FROM appellations WHERE County = 'Sonoma')
+SELECT Name FROM train WHERE Train_ID NOT IN (SELECT Train_ID FROM train_station WHERE Station_ID IN (SELECT Station_ID FROM station WHERE Location = 'London'))
+SELECT date_joined_staff FROM Staff WHERE first_name = 'Janessa' AND last_name = 'Sawayn'
+SELECT COUNT(*) FROM Lessons WHERE customer_id = (SELECT customer_id FROM Customers WHERE first_name = 'Rylan' AND last_name = 'Goodwin') AND lesson_status_code = 'completed'
+SELECT COUNT(*) FROM Lessons WHERE lesson_status_code = 'cancelled'
+SELECT SUM(lesson_time) FROM Lessons WHERE staff_id = (SELECT staff_id FROM Staff WHERE first_name = 'Janessa' AND last_name = 'Sawayn')
+SELECT COUNT(*) FROM Lessons WHERE customer_id = (SELECT customer_id FROM Customers WHERE first_name = 'Ray')
+SELECT COUNT(*) FROM Faculty WHERE Sex = 'Female' AND Rank = 'Professor'
+SELECT COUNT(*) FROM Faculty WHERE Building = 'NEB'
+SELECT Fname, Lname FROM Faculty WHERE FacID = (SELECT Advisor FROM Student WHERE LName = 'Smith' AND Fname = 'Linda')
+SELECT Fname, Lname FROM Student WHERE Advisor = 'Michael Goodrich'
+SELECT COUNT(*) FROM airlines WHERE country = 'Russia'
+SELECT COUNT(*) FROM airports WHERE name LIKE '%Interanation%'
+SELECT COUNT(DISTINCT city) FROM airports WHERE country = 'Greenland'
+SELECT COUNT(*) FROM routes WHERE dst_apid = (SELECT apid FROM airports WHERE name = 'John F Kennedy International Airport')
+SELECT COUNT(*) FROM routes WHERE src_apid IN (SELECT apid FROM airports WHERE country = 'United States') AND dst_apid IN (SELECT apid FROM airports WHERE country = 'Canada')
+SELECT order_id, order_status FROM Orders WHERE customer_id = (SELECT customer_id FROM Customers WHERE customer_name = "Jeramie")
+SELECT date_order_placed FROM Orders WHERE customer_id = (SELECT customer_id FROM Customers WHERE customer_name = "Jeramie")
+SELECT customer_name FROM Customers JOIN Orders ON Customers.customer_id = Orders.customer_id WHERE date_order_placed >= '2009-01-01' AND date_order_placed <= '2010-01-01'
+SELECT DISTINCT product_id FROM Order_Items WHERE order_id IN (SELECT order_id FROM Orders WHERE date_order_placed >= '1975-01-01' AND date_order_placed <= '1976-01-01')
+SELECT order_id FROM Orders WHERE order_id IN (SELECT order_id FROM Shipments WHERE shipment_date > '2000-01-01')
+SELECT COUNT(*) FROM architect WHERE gender = 'female'
+SELECT name, built_year FROM mill WHERE type = 'Grondzeiler'
+SELECT location FROM bridge WHERE name = 'Kolob Arch' OR name = 'Rainbow Bridge'
+SELECT DISTINCT name FROM mill WHERE architect_id IN (SELECT architect_id FROM bridge WHERE length_meters > 80)
+SELECT COUNT(*) FROM architect WHERE id NOT IN (SELECT architect_id FROM mill) AND id NOT IN (SELECT architect_id FROM mill WHERE built_year < 1850)
+SELECT DISTINCT Director FROM movie WHERE Year = 1999 OR Year = 2000
+SELECT AVG(budget_million), MAX(budget_million), MIN(budget_million) FROM movie WHERE year < 2000
